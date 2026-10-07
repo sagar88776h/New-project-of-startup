@@ -16,48 +16,62 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
 
   return (
     <div
-      className="no-scrollbar"
       style={{
         width: '100%',
-        overflowX: 'auto',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '8px 16px',
-        background: 'rgba(0, 0, 0, 0.2)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+        background: 'rgba(0, 0, 0, 0.02)',
+        borderBottom: '1px solid var(--color-card-border)',
       }}
     >
-      {filters.map(f => {
-        const isActive = activeFilter === f.id;
-        return (
-          <button
-            key={f.id}
-            onClick={() => onSelectFilter(f.id)}
-            style={{
-              flexShrink: 0,
-              padding: '6px 14px',
-              borderRadius: '999px',
-              fontSize: '0.78rem',
-              fontWeight: isActive ? 700 : 500,
-              border: isActive ? `1.5px solid ${theme.primaryColor || '#c99738'}` : '1px solid rgba(255, 255, 255, 0.1)',
-              background: isActive
-                ? `linear-gradient(135deg, rgba(201, 151, 56, 0.22) 0%, rgba(201, 151, 56, 0.08) 100%)`
-                : 'rgba(255, 255, 255, 0.04)',
-              color: isActive ? (theme.primaryColor || '#c99738') : 'var(--color-text-secondary)',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.2s ease',
-              backdropFilter: 'blur(6px)',
-            }}
-          >
-            {f.icon}
-            <span>{f.label}</span>
-          </button>
-        );
-      })}
+      <div
+        className="no-scrollbar"
+        style={{
+          width: '100%',
+          maxWidth: '100%',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          whiteSpace: 'nowrap',
+          WebkitOverflowScrolling: 'touch',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '8px 14px',
+          boxSizing: 'border-box',
+        }}
+      >
+        {filters.map(f => {
+          const isActive = activeFilter === f.id;
+          return (
+            <button
+              key={f.id}
+              onClick={() => onSelectFilter(f.id)}
+              style={{
+                flexShrink: 0,
+                padding: '5px 12px',
+                borderRadius: '999px',
+                fontSize: '0.76rem',
+                fontWeight: isActive ? 700 : 500,
+                border: isActive ? `1.5px solid var(--color-primary)` : '1px solid var(--color-card-border)',
+                background: isActive
+                  ? 'var(--color-primary)'
+                  : '#ffffff',
+                color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                transition: 'all 0.18s ease',
+                boxShadow: isActive ? '0 2px 8px rgba(139, 29, 44, 0.25)' : 'none',
+              }}
+            >
+              {f.icon}
+              <span>{f.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

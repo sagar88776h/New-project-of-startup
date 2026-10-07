@@ -8,14 +8,19 @@ export default function DeviceFrameToggle({ isDesktopExpanded, onToggleExpanded,
 
   return (
     <div
+      className="desktop-test-bar"
       style={{
         width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
         background: '#090a0d',
         borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         padding: '8px 16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '8px',
         fontSize: '0.78rem',
         color: '#9ca3af',
         zIndex: 100,

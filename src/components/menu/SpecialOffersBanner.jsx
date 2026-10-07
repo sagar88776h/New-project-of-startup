@@ -31,7 +31,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
   };
 
   return (
-    <section style={{ padding: '10px 16px 16px' }}>
+    <section style={{ padding: '10px 14px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
         <Sparkles size={16} color={theme.primaryColor || '#c98a2c'} />
         <h3
@@ -45,7 +45,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
         </h3>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '100%' }}>
         {availableOffers.map(offer => (
           <div
             key={offer.id}
@@ -57,10 +57,13 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
               flexDirection: 'row',
               alignItems: 'stretch',
               border: `1px solid rgba(201, 138, 44, 0.3)`,
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
             }}
           >
             {/* Offer Real Photography */}
-            <div style={{ width: '120px', minHeight: '120px', position: 'relative', flexShrink: 0, backgroundColor: '#f3f4f6' }}>
+            <div style={{ width: 'clamp(96px, 28vw, 115px)', minHeight: '110px', position: 'relative', flexShrink: 0, backgroundColor: '#f3f4f6' }}>
               <img
                 src={offer.image}
                 alt={offer.title}
@@ -84,7 +87,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
             </div>
 
             {/* Offer Details */}
-            <div style={{ padding: '12px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ padding: '10px 12px', flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <div style={{ fontSize: '0.68rem', color: theme.primaryColor || '#c98a2c', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
                   {offer.badge || 'Chef Selection'}
@@ -92,10 +95,13 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                 <h4
                   style={{
                     fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                    fontSize: '0.98rem',
+                    fontSize: '0.96rem',
                     fontWeight: 700,
                     color: 'var(--color-text-primary)',
-                    marginBottom: '4px',
+                    marginBottom: '3px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {offer.title}
@@ -109,18 +115,19 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
+                    overflowWrap: 'anywhere',
                   }}
                 >
                   {offer.description}
                 </p>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px', gap: '6px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
                   <span
                     style={{
                       fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                      fontSize: '1.15rem',
+                      fontSize: '1.05rem',
                       fontWeight: 800,
                       color: theme.primaryColor || '#c98a2c',
                     }}
@@ -128,7 +135,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                     {currency}{offer.discountedPrice}
                   </span>
                   {offer.originalPrice && (
-                    <span style={{ fontSize: '0.75rem', color: '#9ca3af', textDecoration: 'line-through' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#9ca3af', textDecoration: 'line-through' }}>
                       {currency}{offer.originalPrice}
                     </span>
                   )}
@@ -137,9 +144,9 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                 <button
                   onClick={() => handleAddOffer(offer)}
                   className="btn-add-stepper"
-                  style={{ padding: '5px 12px', fontSize: '0.75rem' }}
+                  style={{ padding: '5px 10px', fontSize: '0.72rem' }}
                 >
-                  <Plus size={13} />
+                  <Plus size={12} />
                   <span>CLAIM</span>
                 </button>
               </div>

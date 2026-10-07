@@ -12,22 +12,28 @@ export default function MenuSection({ category, items, onOpenDetail }) {
     <section
       id={`section-${category.id}`}
       style={{
-        padding: '16px 16px 20px',
-        scrollMarginTop: '130px',
+        padding: '14px 14px 18px',
+        scrollMarginTop: '110px',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
       }}
     >
       {/* Category Header with Divider */}
       <div style={{ marginBottom: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '1.2rem' }}>{category.icon || '🍽️'}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+            <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>{category.icon || '🍽️'}</span>
             <h2
               style={{
                 fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                fontSize: '1.25rem',
+                fontSize: '1.2rem',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
                 letterSpacing: '-0.01em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
               }}
             >
               {category.name}
@@ -36,12 +42,14 @@ export default function MenuSection({ category, items, onOpenDetail }) {
 
           <span
             style={{
-              fontSize: '0.72rem',
+              fontSize: '0.7rem',
               color: 'var(--color-text-muted)',
               background: 'rgba(0, 0, 0, 0.04)',
               padding: '2px 8px',
               borderRadius: '999px',
               border: '1px solid var(--color-card-border)',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}
           >
             {items.length} {items.length === 1 ? 'dish' : 'dishes'}
@@ -64,6 +72,9 @@ export default function MenuSection({ category, items, onOpenDetail }) {
           display: 'grid',
           gridTemplateColumns: '1fr',
           gap: '12px',
+          width: '100%',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
         }}
       >
         {items.map(dish => (

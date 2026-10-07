@@ -32,12 +32,14 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
   return (
     <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
       <div
-        className="bottom-sheet"
+        className="bottom-sheet dark-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          maxHeight: '88vh',
-          padding: '20px 20px 30px',
+          background: '#141720',
+          maxHeight: '90svh',
+          padding: '16px 16px calc(24px + var(--sab))',
           color: '#ffffff',
+          boxSizing: 'border-box',
         }}
       >
         <div className="sheet-handle" />

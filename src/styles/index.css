@@ -1,6 +1,7 @@
 /* ==========================================================================
    PREMIUM DIGITAL RESTAURANT QR MENU
    Reference Design System: Warm Cream • Deep Burgundy • Real Photography
+   Mobile-First Architecture & Viewport Optimization
    ========================================================================== */
 
 :root {
@@ -39,9 +40,15 @@
   
   --transition-fast: 0.18s ease;
   --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Safe Area Variables */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
 }
 
-/* Reset & Box Sizing */
+/* Reset & Responsive Box Sizing */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -52,6 +59,10 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -59,50 +70,107 @@ body {
   background-color: var(--color-bg);
   background-image: var(--bg-gradient);
   color: var(--color-text-primary);
-  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-height: 100svh;
   line-height: 1.5;
   overflow-x: hidden;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Responsive Image Rule */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Typography Classes & Word Wrapping */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+p, span, div, a, button {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 /* Viewport Layout */
 .app-viewport-wrapper {
-  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .mobile-device-frame {
   width: 100%;
-  max-width: 480px;
-  min-height: 100vh;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 100svh;
   margin: 0 auto;
   position: relative;
   background: var(--color-bg);
-  box-shadow: 0 0 45px rgba(0, 0, 0, 0.09);
-  transition: max-width var(--transition-smooth);
+  box-sizing: border-box;
+  overflow-x: hidden;
+  /* Extra bottom padding so floating cart never obscures content */
+  padding-bottom: calc(88px + var(--sab));
 }
 
-.mobile-device-frame.desktop-expanded {
-  max-width: 960px;
-}
+/* Desktop Presentation Frame (for laptop/desktop screen simulation) */
+@media (min-width: 769px) {
+  .app-viewport-wrapper {
+    background: #0f1117;
+    padding: 24px 16px 40px;
+  }
 
-/* Typography Classes */
-h1, h2, h3, .font-heading {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  .mobile-device-frame {
+    max-width: 480px;
+    border-radius: 28px;
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    min-height: calc(100vh - 80px);
+  }
+
+  .mobile-device-frame.desktop-expanded {
+    max-width: 960px;
+  }
 }
 
 /* Card Style */
 .restaurant-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   background: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
   box-shadow: var(--shadow-card);
   border-radius: var(--radius-lg);
+  box-sizing: border-box;
   transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
 }
 
@@ -114,6 +182,9 @@ h1, h2, h3, .font-heading {
 
 /* Glass Header */
 .glass-nav {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -122,14 +193,15 @@ h1, h2, h3, .font-heading {
 
 /* Dietary Indicators (Veg Green / Non-Veg Red) */
 .veg-indicator {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   border: 1.5px solid #15803d;
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
+  flex-shrink: 0;
 }
 .veg-indicator-dot {
   width: 6px;
@@ -139,14 +211,15 @@ h1, h2, h3, .font-heading {
 }
 
 .non-veg-indicator {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   border: 1.5px solid #b91c1c;
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
+  flex-shrink: 0;
 }
 .non-veg-indicator-triangle {
   width: 0;
@@ -161,7 +234,7 @@ h1, h2, h3, .font-heading {
   background: linear-gradient(135deg, #c98a2c 0%, #db9c3e 100%);
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 2px 7px;
@@ -169,13 +242,15 @@ h1, h2, h3, .font-heading {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-burgundy {
   background: var(--color-primary);
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 2px 7px;
@@ -183,19 +258,23 @@ h1, h2, h3, .font-heading {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-prep-time {
   background: rgba(139, 29, 44, 0.08);
   border: 1px solid rgba(139, 29, 44, 0.18);
   color: var(--color-primary);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-tag {
@@ -205,6 +284,8 @@ h1, h2, h3, .font-heading {
   font-size: 0.72rem;
   padding: 2px 8px;
   border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Clean Scrollbar */
@@ -221,9 +302,9 @@ h1, h2, h3, .font-heading {
   background: var(--color-primary);
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   letter-spacing: 0.02em;
-  padding: 12px 22px;
+  padding: 12px 20px;
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
@@ -233,6 +314,7 @@ h1, h2, h3, .font-heading {
   gap: 8px;
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-burgundy);
+  box-sizing: border-box;
 }
 .btn-primary:hover {
   background: var(--color-primary-hover);
@@ -248,8 +330,8 @@ h1, h2, h3, .font-heading {
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: var(--color-text-primary);
   font-weight: 600;
-  font-size: 0.85rem;
-  padding: 10px 18px;
+  font-size: 0.82rem;
+  padding: 10px 16px;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: inline-flex;
@@ -257,6 +339,7 @@ h1, h2, h3, .font-heading {
   justify-content: center;
   gap: 6px;
   transition: all var(--transition-fast);
+  box-sizing: border-box;
 }
 .btn-secondary:hover {
   background: rgba(0, 0, 0, 0.08);
@@ -268,9 +351,9 @@ h1, h2, h3, .font-heading {
   color: #ffffff;
   border: none;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   border-radius: var(--radius-md);
-  padding: 6px 14px;
+  padding: 6px 12px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -278,6 +361,8 @@ h1, h2, h3, .font-heading {
   gap: 4px;
   transition: all var(--transition-fast);
   box-shadow: 0 2px 6px rgba(139, 29, 44, 0.25);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .btn-add-stepper:hover {
   background: var(--color-primary-hover);
@@ -294,12 +379,13 @@ h1, h2, h3, .font-heading {
   border: 1.5px solid var(--color-primary);
   border-radius: var(--radius-md);
   overflow: hidden;
+  flex-shrink: 0;
 }
 .qty-stepper-btn {
   background: none;
   border: none;
   color: var(--color-primary);
-  padding: 5px 9px;
+  padding: 4px 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -307,11 +393,11 @@ h1, h2, h3, .font-heading {
   font-weight: bold;
 }
 .qty-stepper-val {
-  padding: 0 5px;
+  padding: 0 4px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--color-text-primary);
-  min-width: 18px;
+  min-width: 16px;
   text-align: center;
 }
 
@@ -329,6 +415,9 @@ h1, h2, h3, .font-heading {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -342,12 +431,21 @@ h1, h2, h3, .font-heading {
   border-radius: 24px 24px 0 0;
   width: 100%;
   max-width: 480px;
+  max-height: 90svh;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
   transform: translateY(100%);
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-  padding-bottom: 24px;
+  padding-bottom: calc(20px + var(--sab));
+  margin: 0 auto;
+}
+
+.bottom-sheet.dark-sheet {
+  background: #141720;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .modal-overlay.active .bottom-sheet {
@@ -360,25 +458,32 @@ h1, h2, h3, .font-heading {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 999px;
   margin: 12px auto 8px;
+  flex-shrink: 0;
+}
+
+.dark-sheet .sheet-handle {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Floating Sticky Cart Bar */
 .floating-cart-bar {
   position: fixed;
-  bottom: 18px;
+  bottom: calc(14px + var(--sab));
   left: 50%;
   transform: translateX(-50%) translateY(120%);
-  width: calc(100% - 32px);
+  width: calc(100% - 24px);
   max-width: 440px;
+  box-sizing: border-box;
   z-index: 100;
   background: #1e2128;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-xl);
-  padding: 12px 18px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -396,16 +501,17 @@ h1, h2, h3, .font-heading {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px 6px;
+  padding: 4px 4px;
   transition: transform var(--transition-fast);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 .category-circle-chip:hover {
   transform: translateY(-2px);
 }
 .category-circle-thumb {
-  width: 62px;
-  height: 62px;
+  width: clamp(52px, 14vw, 62px);
+  height: clamp(52px, 14vw, 62px);
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
@@ -413,6 +519,8 @@ h1, h2, h3, .font-heading {
   background: #ffffff;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-smooth);
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 .category-circle-chip.active .category-circle-thumb {
   border-color: var(--color-primary);
@@ -425,7 +533,7 @@ h1, h2, h3, .font-heading {
   border-radius: 50%;
 }
 .category-circle-name {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
@@ -435,3 +543,56 @@ h1, h2, h3, .font-heading {
   color: var(--color-primary);
   font-weight: 700;
 }
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (Mobile-First: 320px, 360px, 375px, 390px, 480px)
+   ========================================================================== */
+
+/* Small Phones: 320px - 360px */
+@media (max-width: 360px) {
+  html {
+    font-size: 15px;
+  }
+
+  .floating-cart-bar {
+    width: calc(100% - 16px);
+    padding: 8px 12px;
+  }
+
+  .btn-add-stepper {
+    padding: 5px 9px;
+    font-size: 0.72rem;
+  }
+
+  .badge-prep-time {
+    font-size: 0.65rem;
+    padding: 2px 5px;
+  }
+
+  .restaurant-card {
+    border-radius: var(--radius-md);
+  }
+}
+
+/* Mobile Screen Container Rules (<= 480px) */
+@media (max-width: 480px) {
+  .mobile-device-frame {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .bottom-sheet {
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+/* Desktop Simulator Toolbar on Small Screens */
+@media (max-width: 640px) {
+  .desktop-test-bar {
+    display: none !important;
+  }
+}
+

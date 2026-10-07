@@ -18,14 +18,17 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
     <footer
       style={{
         marginTop: '30px',
-        padding: '30px 20px 100px',
+        padding: '24px 16px calc(90px + var(--sab))',
         background: 'rgba(10, 11, 15, 0.95)',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         color: '#9ca3af',
         textAlign: 'center',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
       }}
     >
-      <div style={{ maxWidth: '480px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '480px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
         
         {/* Monogram Logo */}
         <div

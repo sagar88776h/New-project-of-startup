@@ -26,21 +26,24 @@ export default function CallWaiterModal({ isOpen, onClose }) {
   return (
     <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
       <div
-        className="bottom-sheet"
+        className="bottom-sheet dark-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          padding: '20px 20px 30px',
+          background: '#141720',
+          maxHeight: '90svh',
+          padding: '16px 16px calc(24px + var(--sab))',
           color: '#ffffff',
+          boxSizing: 'border-box',
         }}
       >
         <div className="sheet-handle" />
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
-            <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700 }}>
+            <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700 }}>
               Table Assistant
             </h3>
-            <span style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.74rem', color: '#10b981', fontWeight: 600 }}>
               Assisting Table {tableNumber}
             </span>
           </div>

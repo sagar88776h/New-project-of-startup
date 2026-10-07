@@ -27,23 +27,32 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
     <div
       style={{
         position: 'sticky',
-        top: '52px',
+        top: '48px',
         zIndex: 80,
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
         background: 'rgba(251, 248, 242, 0.96)',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--color-card-border)',
-        padding: '10px 12px 10px',
+        padding: '8px 10px 8px',
       }}
     >
       <nav
         className="no-scrollbar"
         ref={navRef}
         style={{
+          width: '100%',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '14px',
+          gap: '10px',
           overflowX: 'auto',
+          overflowY: 'hidden',
           whiteSpace: 'nowrap',
+          WebkitOverflowScrolling: 'touch',
           paddingBottom: '2px',
         }}
       >

@@ -22,19 +22,22 @@ export default function StickyHeader({
         top: 0,
         zIndex: 90,
         width: '100%',
-        padding: '8px 16px',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        padding: '8px 12px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: '6px',
         transition: 'all 0.2s ease',
       }}
     >
       {/* Left: Brand Monogram & Name */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
         <div
           style={{
-            width: '32px',
-            height: '32px',
+            width: '30px',
+            height: '30px',
             borderRadius: '50%',
             background: 'rgba(139, 29, 44, 0.08)',
             border: `1.5px solid var(--color-primary)`,
@@ -44,14 +47,14 @@ export default function StickyHeader({
             flexShrink: 0,
           }}
         >
-          <UtensilsCrossed size={16} color="var(--color-primary)" />
+          <UtensilsCrossed size={15} color="var(--color-primary)" />
         </div>
 
-        <div style={{ minWidth: 0 }}>
+        <div style={{ minWidth: 0, flex: 1 }}>
           <h2
             style={{
               fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '0.98rem',
+              fontSize: '0.94rem',
               fontWeight: 700,
               color: 'var(--color-text-primary)',
               whiteSpace: 'nowrap',
@@ -82,14 +85,14 @@ export default function StickyHeader({
       </div>
 
       {/* Right Action Icons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
         {/* Search Button */}
         <button
           onClick={onOpenSearch}
           aria-label="Search Dishes"
           style={{
-            width: '34px',
-            height: '34px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
             background: 'rgba(0, 0, 0, 0.04)',
             border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -98,9 +101,10 @@ export default function StickyHeader({
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
+            flexShrink: 0,
           }}
         >
-          <Search size={16} />
+          <Search size={15} />
         </button>
 
         {/* Call Waiter / Service Button */}
@@ -109,8 +113,8 @@ export default function StickyHeader({
           aria-label="Call Waiter"
           title="Call Waiter / Table Service"
           style={{
-            width: '34px',
-            height: '34px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
             background: 'rgba(139, 29, 44, 0.08)',
             border: '1px solid rgba(139, 29, 44, 0.2)',
@@ -119,9 +123,10 @@ export default function StickyHeader({
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
+            flexShrink: 0,
           }}
         >
-          <BellRing size={16} />
+          <BellRing size={15} />
         </button>
 
         {/* Restaurant Info Button */}
@@ -130,8 +135,8 @@ export default function StickyHeader({
           aria-label="Restaurant Info"
           title="About Restaurant & WiFi"
           style={{
-            width: '34px',
-            height: '34px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
             background: 'rgba(0, 0, 0, 0.04)',
             border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -140,9 +145,10 @@ export default function StickyHeader({
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
+            flexShrink: 0,
           }}
         >
-          <Info size={16} />
+          <Info size={15} />
         </button>
 
         {/* Cart Trigger (If Ordering Enabled) */}
@@ -152,8 +158,8 @@ export default function StickyHeader({
             aria-label="Shopping Cart"
             style={{
               position: 'relative',
-              width: '34px',
-              height: '34px',
+              width: '32px',
+              height: '32px',
               borderRadius: '50%',
               background: totalItemsCount > 0 ? 'var(--color-primary)' : 'rgba(0, 0, 0, 0.04)',
               border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -163,9 +169,10 @@ export default function StickyHeader({
               justifyContent: 'center',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              flexShrink: 0,
             }}
           >
-            <ShoppingBag size={16} />
+            <ShoppingBag size={15} />
             {totalItemsCount > 0 && (
               <span
                 style={{
@@ -174,10 +181,10 @@ export default function StickyHeader({
                   right: '-3px',
                   background: '#15803d',
                   color: '#ffffff',
-                  fontSize: '0.62rem',
+                  fontSize: '0.6rem',
                   fontWeight: 800,
-                  width: '16px',
-                  height: '16px',
+                  width: '15px',
+                  height: '15px',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
@@ -196,8 +203,8 @@ export default function StickyHeader({
           aria-label="Admin Dashboard"
           title="Restaurant Admin Portal"
           style={{
-            width: '30px',
-            height: '30px',
+            width: '28px',
+            height: '28px',
             borderRadius: '6px',
             background: 'rgba(0, 0, 0, 0.03)',
             border: '1px dashed rgba(0, 0, 0, 0.15)',
@@ -206,10 +213,10 @@ export default function StickyHeader({
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            marginLeft: '2px',
+            flexShrink: 0,
           }}
         >
-          <Settings size={14} />
+          <Settings size={13} />
         </button>
       </div>
     </header>

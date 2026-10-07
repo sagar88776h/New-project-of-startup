@@ -51,23 +51,26 @@ export default function FoodCard({ item, onOpenDetail }) {
     <CardWrapper
       onClick={() => onOpenDetail(item)}
       style={{
-        padding: '12px',
+        padding: '10px 12px',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: '12px',
+        gap: '10px',
         cursor: 'pointer',
         position: 'relative',
         opacity: item.isAvailable ? 1 : 0.6,
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
       }}
     >
       {/* Left: Food Image Thumbnail */}
       <div
         style={{
           position: 'relative',
-          width: '108px',
-          height: '108px',
-          borderRadius: '14px',
+          width: 'clamp(88px, 24vw, 106px)',
+          height: 'clamp(88px, 24vw, 106px)',
+          borderRadius: '12px',
           overflow: 'hidden',
           flexShrink: 0,
           backgroundColor: '#f3f4f6',
@@ -89,12 +92,12 @@ export default function FoodCard({ item, onOpenDetail }) {
         <div
           style={{
             position: 'absolute',
-            top: '6px',
-            left: '6px',
+            top: '5px',
+            left: '5px',
             zIndex: 5,
             background: 'rgba(255, 255, 255, 0.95)',
             boxShadow: '0 2px 4px rgba(0,0,0,0.12)',
-            padding: '3px',
+            padding: '2px',
             borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
@@ -124,7 +127,7 @@ export default function FoodCard({ item, onOpenDetail }) {
               justifyContent: 'center',
               color: '#dc2626',
               fontWeight: 800,
-              fontSize: '0.68rem',
+              fontSize: '0.65rem',
               textAlign: 'center',
               padding: '4px',
               textTransform: 'uppercase',
@@ -139,7 +142,7 @@ export default function FoodCard({ item, onOpenDetail }) {
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         
         {/* Top Badges Row */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px', flexWrap: 'wrap' }}>
           {item.isBestseller && (
             <span className="badge-burgundy">
               <Flame size={10} />
@@ -153,7 +156,7 @@ export default function FoodCard({ item, onOpenDetail }) {
             </span>
           )}
           {item.isSpicy > 0 && (
-            <span style={{ fontSize: '0.68rem', color: '#b91c1c', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.65rem', color: '#b91c1c', fontWeight: 600 }}>
               {'🌶'.repeat(item.isSpicy)}
             </span>
           )}
@@ -163,11 +166,11 @@ export default function FoodCard({ item, onOpenDetail }) {
         <h3
           style={{
             fontFamily: theme.fontHeading || "'Playfair Display', serif",
-            fontSize: '1rem',
+            fontSize: 'clamp(0.92rem, 3.2vw, 1rem)',
             fontWeight: 700,
             color: 'var(--color-text-primary)',
             lineHeight: 1.25,
-            marginBottom: '3px',
+            marginBottom: '2px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -180,10 +183,10 @@ export default function FoodCard({ item, onOpenDetail }) {
         <div
           style={{
             fontFamily: theme.fontHeading || "'Playfair Display', serif",
-            fontSize: '1.05rem',
+            fontSize: '1rem',
             fontWeight: 800,
             color: 'var(--color-primary)',
-            marginBottom: '4px',
+            marginBottom: '2px',
           }}
         >
           {currency}{item.price}
@@ -192,23 +195,24 @@ export default function FoodCard({ item, onOpenDetail }) {
         {/* Short Descriptive Explanation */}
         <p
           style={{
-            fontSize: '0.76rem',
+            fontSize: '0.74rem',
             color: 'var(--color-text-secondary)',
             lineHeight: 1.35,
-            marginBottom: '6px',
+            marginBottom: '4px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
+            overflowWrap: 'anywhere',
           }}
         >
           {item.description}
         </p>
 
         {/* Bottom Row: Estimated Preparation Time & Optional Add CTA */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px', flexWrap: 'wrap' }}>
           <span className="badge-prep-time">
-            <Clock size={11} />
+            <Clock size={10} />
             <span>⏱ {prepTimeText}</span>
           </span>
 
@@ -217,11 +221,11 @@ export default function FoodCard({ item, onOpenDetail }) {
             totalQtyInCart > 0 ? (
               <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
                 <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
-                  <Minus size={11} />
+                  <Minus size={10} />
                 </button>
                 <span className="qty-stepper-val">{totalQtyInCart}</span>
                 <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
-                  <Plus size={11} />
+                  <Plus size={10} />
                 </button>
               </div>
             ) : (
@@ -230,7 +234,7 @@ export default function FoodCard({ item, onOpenDetail }) {
                 className="btn-add-stepper"
                 aria-label={`Add ${item.name}`}
               >
-                <Plus size={13} />
+                <Plus size={12} />
                 <span>ADD</span>
               </button>
             )

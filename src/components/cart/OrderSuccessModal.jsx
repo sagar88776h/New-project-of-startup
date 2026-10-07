@@ -25,13 +25,15 @@ export default function OrderSuccessModal() {
   return (
     <div className="modal-overlay active" onClick={() => setIsOrderPlacedModalOpen(false)}>
       <div
-        className="bottom-sheet"
+        className="bottom-sheet dark-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          maxHeight: '90vh',
-          padding: '24px 20px 30px',
+          background: '#141720',
+          maxHeight: '90svh',
+          padding: '20px 16px calc(24px + var(--sab))',
           color: '#ffffff',
           textAlign: 'center',
+          boxSizing: 'border-box',
         }}
       >
         <div className="sheet-handle" />

@@ -37,9 +37,11 @@ export default function CartDrawer({ onChangeTable }) {
         className="bottom-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          maxHeight: '92vh',
+          maxHeight: '90svh',
           display: 'flex',
           flexDirection: 'column',
+          position: 'relative',
+          paddingBottom: 0,
         }}
       >
         <div className="sheet-handle" />
@@ -47,11 +49,12 @@ export default function CartDrawer({ onChangeTable }) {
         {/* Drawer Header */}
         <div
           style={{
-            padding: '12px 20px 14px',
+            padding: '10px 16px 12px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderBottom: '1px solid var(--color-card-border)',
+            gap: '8px',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -113,7 +116,7 @@ export default function CartDrawer({ onChangeTable }) {
         </div>
 
         {/* Scrollable Order Items */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px 90px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px calc(90px + var(--sab))' }}>
           {cartItems.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--color-text-muted)' }}>
               <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🍽️</div>
@@ -165,7 +168,7 @@ export default function CartDrawer({ onChangeTable }) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '12px',
+                      gap: '10px',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
                     }}
                   >
@@ -174,58 +177,58 @@ export default function CartDrawer({ onChangeTable }) {
                       <img
                         src={item.image}
                         alt={item.name}
-                        style={{ width: '56px', height: '56px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
+                        style={{ width: '52px', height: '52px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                       />
-                      <div style={{ minWidth: 0 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                           {item.isVeg ? (
                             <span className="veg-indicator" style={{ width: '12px', height: '12px' }}><span className="veg-indicator-dot" style={{ width: '5px', height: '5px' }} /></span>
                           ) : (
                             <span className="non-veg-indicator" style={{ width: '12px', height: '12px' }}><span className="non-veg-indicator-triangle" style={{ borderLeftWidth: '3px', borderRightWidth: '3px', borderBottomWidth: '5px' }} /></span>
                           )}
-                          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          <h4 style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {item.name}
                           </h4>
                         </div>
 
                         {/* Customizations */}
                         {item.selectedCustomizations && item.selectedCustomizations.length > 0 && (
-                          <div style={{ fontSize: '0.72rem', color: theme.primaryColor || '#c98a2c', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.7rem', color: theme.primaryColor || '#c98a2c', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             + {item.selectedCustomizations.map(c => c.name).join(', ')}
                           </div>
                         )}
 
                         {item.specialNotes && (
-                          <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', fontStyle: 'italic', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', fontStyle: 'italic', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             Note: "{item.specialNotes}"
                           </div>
                         )}
 
-                        <div style={{ fontSize: '0.82rem', fontWeight: 800, color: theme.primaryColor || '#c98a2c', marginTop: '3px' }}>
+                        <div style={{ fontSize: '0.8rem', fontWeight: 800, color: theme.primaryColor || '#c98a2c', marginTop: '2px' }}>
                           {currency}{item.unitPrice} each
                         </div>
                       </div>
                     </div>
 
                     {/* Stepper Controls & Price */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', flexShrink: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
                       <div className="qty-stepper-container">
                         <button
                           className="qty-stepper-btn"
                           onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}
                         >
-                          <Minus size={12} />
+                          <Minus size={11} />
                         </button>
                         <span className="qty-stepper-val">{item.quantity}</span>
                         <button
                           className="qty-stepper-btn"
                           onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}
                         >
-                          <Plus size={12} />
+                          <Plus size={11} />
                         </button>
                       </div>
 
-                      <span style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+                      <span style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                         {currency}{item.totalPrice.toFixed(2)}
                       </span>
                     </div>
@@ -235,7 +238,7 @@ export default function CartDrawer({ onChangeTable }) {
 
               {/* Kitchen Note */}
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '5px' }}>
+                <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
                   Cooking Instructions for Kitchen
                 </label>
                 <textarea
@@ -245,7 +248,8 @@ export default function CartDrawer({ onChangeTable }) {
                   onChange={e => setOrderNotes(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '10px 12px',
+                    boxSizing: 'border-box',
+                    padding: '9px 12px',
                     borderRadius: '12px',
                     background: 'rgba(0, 0, 0, 0.03)',
                     border: '1px solid var(--color-card-border)',
@@ -262,31 +266,31 @@ export default function CartDrawer({ onChangeTable }) {
                 style={{
                   background: 'rgba(0, 0, 0, 0.02)',
                   border: '1px solid var(--color-card-border)',
-                  borderRadius: '16px',
-                  padding: '14px',
+                  borderRadius: '14px',
+                  padding: '12px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '8px',
+                  gap: '6px',
                 }}
               >
-                <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                <h4 style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
                   Bill Summary
                 </h4>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: 'var(--color-text-secondary)' }}>
                   <span>Item Subtotal</span>
                   <span>{currency}{subtotal.toFixed(2)}</span>
                 </div>
 
                 {settings?.taxRate > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
                     <span>GST / Taxes ({settings.taxRate}%)</span>
                     <span>{currency}{taxAmount.toFixed(2)}</span>
                   </div>
                 )}
 
                 {settings?.serviceChargeRate > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
                     <span>Service Charge ({settings.serviceChargeRate}%)</span>
                     <span>{currency}{serviceChargeAmount.toFixed(2)}</span>
                   </div>
@@ -296,11 +300,11 @@ export default function CartDrawer({ onChangeTable }) {
                   style={{
                     height: '1px',
                     background: 'var(--color-card-border)',
-                    margin: '4px 0',
+                    margin: '3px 0',
                   }}
                 />
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                   <span>Grand Total</span>
                   <span style={{ color: theme.primaryColor || '#c98a2c' }}>{currency}{grandTotal.toFixed(2)}</span>
                 </div>
@@ -317,10 +321,12 @@ export default function CartDrawer({ onChangeTable }) {
               bottom: 0,
               left: 0,
               right: 0,
-              padding: '14px 20px',
+              padding: '12px 16px calc(14px + var(--sab))',
               background: 'var(--color-card-bg)',
               borderTop: '1px solid var(--color-card-border)',
               boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.08)',
+              boxSizing: 'border-box',
+              zIndex: 20,
             }}
           >
             <button
@@ -328,9 +334,9 @@ export default function CartDrawer({ onChangeTable }) {
               className="btn-primary"
               style={{
                 width: '100%',
-                padding: '15px',
-                borderRadius: '16px',
-                fontSize: '1rem',
+                padding: '14px',
+                borderRadius: '14px',
+                fontSize: '0.94rem',
                 fontWeight: 800,
                 letterSpacing: '0.02em',
                 display: 'flex',
@@ -339,7 +345,7 @@ export default function CartDrawer({ onChangeTable }) {
                 gap: '8px',
               }}
             >
-              <Send size={18} />
+              <Send size={16} />
               <span>PROCEED TO ORDER • {currency}{grandTotal.toFixed(2)}</span>
             </button>
           </div>

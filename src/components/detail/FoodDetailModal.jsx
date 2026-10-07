@@ -56,25 +56,27 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
         className="bottom-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          maxHeight: '92vh',
+          maxHeight: '90svh',
           display: 'flex',
           flexDirection: 'column',
+          position: 'relative',
+          paddingBottom: 0,
         }}
       >
         <div className="sheet-handle" />
 
         {/* Scrollable Content */}
-        <div style={{ padding: '0 20px 85px', overflowY: 'auto' }}>
+        <div style={{ padding: '0 16px calc(90px + var(--sab))', overflowY: 'auto', flex: 1 }}>
           
           {/* Header Row */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {item.isVeg ? (
-                <span className="veg-indicator" style={{ width: '18px', height: '18px' }}>
-                  <span className="veg-indicator-dot" style={{ width: '8px', height: '8px' }} />
+                <span className="veg-indicator" style={{ width: '16px', height: '16px' }}>
+                  <span className="veg-indicator-dot" style={{ width: '7px', height: '7px' }} />
                 </span>
               ) : (
-                <span className="non-veg-indicator" style={{ width: '18px', height: '18px' }}>
+                <span className="non-veg-indicator" style={{ width: '16px', height: '16px' }}>
                   <span className="non-veg-indicator-triangle" />
                 </span>
               )}
@@ -108,10 +110,10 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             style={{
               position: 'relative',
               width: '100%',
-              height: '240px',
-              borderRadius: '18px',
+              height: 'clamp(170px, 42vw, 230px)',
+              borderRadius: '16px',
               overflow: 'hidden',
-              marginBottom: '16px',
+              marginBottom: '14px',
               backgroundColor: '#f3f4f6',
             }}
           >
@@ -127,16 +129,16 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             />
 
             {/* Badges on Image */}
-            <div style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '6px' }}>
+            <div style={{ position: 'absolute', top: '8px', left: '8px', display: 'flex', gap: '5px' }}>
               {item.isBestseller && (
                 <span className="badge-burgundy">
-                  <Flame size={11} />
+                  <Flame size={10} />
                   <span>Bestseller</span>
                 </span>
               )}
               {item.isChefSpecial && (
                 <span className="badge-gold">
-                  <Sparkles size={11} />
+                  <Sparkles size={10} />
                   <span>Chef's Special</span>
                 </span>
               )}
@@ -144,16 +146,17 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
           </div>
 
           {/* Title & Price */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '8px' }}>
             <h2
               style={{
                 fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                fontSize: '1.45rem',
+                fontSize: 'clamp(1.15rem, 4vw, 1.4rem)',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
                 lineHeight: 1.2,
                 textTransform: 'uppercase',
                 letterSpacing: '0.01em',
+                overflowWrap: 'anywhere',
               }}
             >
               {item.name}
@@ -161,10 +164,11 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             <div
               style={{
                 fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                fontSize: '1.45rem',
+                fontSize: '1.25rem',
                 fontWeight: 800,
                 color: 'var(--color-primary)',
                 whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               {currency}{unitPrice}
@@ -172,7 +176,7 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
           </div>
 
           {/* Description */}
-          <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.55, marginBottom: '16px' }}>
+          <p style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', lineHeight: 1.5, marginBottom: '14px', overflowWrap: 'anywhere' }}>
             {item.description}
           </p>
 
@@ -182,28 +186,28 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
               display: 'flex',
               alignItems: 'center',
               flexWrap: 'wrap',
-              gap: '12px',
-              padding: '10px 14px',
+              gap: '8px',
+              padding: '8px 12px',
               background: '#fbf8f2',
               borderRadius: '12px',
               border: '1px solid var(--color-card-border)',
-              marginBottom: '18px',
+              marginBottom: '16px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>
-              <Clock size={14} color="var(--color-primary)" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.78rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>
+              <Clock size={13} color="var(--color-primary)" />
               <span>⏱ {prepTimeText}</span>
             </div>
 
             {typeof item.isSpicy === 'number' && item.isSpicy > 0 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', color: '#b91c1c', fontWeight: 600 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.78rem', color: '#b91c1c', fontWeight: 600 }}>
                 <span>🌶 {item.isSpicy === 1 ? 'Mild' : item.isSpicy === 2 ? 'Medium' : 'Spicy'}</span>
               </div>
             )}
 
             {item.serving && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-                <Users size={14} color="var(--color-primary)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
+                <Users size={13} color="var(--color-primary)" />
                 <span>{item.serving}</span>
               </div>
             )}
@@ -211,11 +215,11 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
 
           {/* INGREDIENTS SECTION */}
           {item.ingredients && item.ingredients.length > 0 && (
-            <div style={{ marginBottom: '18px' }}>
-              <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
                 INGREDIENTS
               </h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere' }}>
                 {item.ingredients.join(', ')}.
               </p>
             </div>
@@ -223,11 +227,11 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
 
           {/* PREPARATION SECTION */}
           {item.preparationStyle && (
-            <div style={{ marginBottom: '18px' }}>
-              <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
                 PREPARATION
               </h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere' }}>
                 {item.preparationStyle}
               </p>
             </div>
@@ -237,30 +241,30 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
           {item.allergens && item.allergens.length > 0 && (
             <div
               style={{
-                marginBottom: '18px',
-                padding: '10px 12px',
+                marginBottom: '16px',
+                padding: '8px 12px',
                 background: 'rgba(185, 28, 28, 0.06)',
                 border: '1px solid rgba(185, 28, 28, 0.15)',
                 borderRadius: '10px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                fontSize: '0.76rem',
+                fontSize: '0.74rem',
                 color: '#991b1b',
               }}
             >
-              <AlertCircle size={15} color="#b91c1c" flexShrink={0} />
+              <AlertCircle size={14} color="#b91c1c" style={{ flexShrink: 0 }} />
               <span>Contains: {item.allergens.join(', ')}</span>
             </div>
           )}
 
           {/* Customization Options */}
           {item.customizations && item.customizations.length > 0 && (
-            <div style={{ marginBottom: '18px' }}>
-              <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '10px' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
                 CUSTOMIZE YOUR DISH
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {item.customizations.map(cust => {
                   const isChecked = selectedCustomizations.some(c => c.id === cust.id);
                   return (
@@ -271,36 +275,37 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '10px 14px',
-                        borderRadius: '12px',
+                        padding: '9px 12px',
+                        borderRadius: '10px',
                         background: isChecked ? 'rgba(139, 29, 44, 0.06)' : '#ffffff',
                         border: isChecked ? `1.5px solid var(--color-primary)` : '1px solid var(--color-card-border)',
                         cursor: 'pointer',
                         transition: 'all 0.18s ease',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div
                           style={{
-                            width: '18px',
-                            height: '18px',
+                            width: '16px',
+                            height: '16px',
                             borderRadius: '4px',
                             border: isChecked ? 'none' : '1.5px solid #9ca3af',
                             background: isChecked ? 'var(--color-primary)' : 'transparent',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            flexShrink: 0,
                           }}
                         >
-                          {isChecked && <Check size={13} color="#ffffff" strokeWidth={3} />}
+                          {isChecked && <Check size={12} color="#ffffff" strokeWidth={3} />}
                         </div>
-                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text-primary)', fontWeight: isChecked ? 700 : 500 }}>
+                        <span style={{ fontSize: '0.82rem', color: 'var(--color-text-primary)', fontWeight: isChecked ? 700 : 500 }}>
                           {cust.name}
                         </span>
                       </div>
 
                       {cust.price > 0 && (
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-primary)' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-primary)', flexShrink: 0 }}>
                           +{currency}{cust.price}
                         </span>
                       )}
@@ -313,17 +318,18 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
 
           {/* Kitchen Notes Input */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '5px' }}>
+            <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
               Special Kitchen Instructions
             </label>
             <input
               type="text"
-              placeholder="e.g. Mild spicy, extra napkins, serve without garnish..."
+              placeholder="e.g. Mild spicy, extra napkins, no garnish..."
               value={specialInstructions}
               onChange={e => setSpecialInstructions(e.target.value)}
               style={{
                 width: '100%',
-                padding: '10px 12px',
+                boxSizing: 'border-box',
+                padding: '9px 12px',
                 borderRadius: '10px',
                 background: 'rgba(0, 0, 0, 0.02)',
                 border: '1px solid var(--color-card-border)',
@@ -342,14 +348,15 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             bottom: 0,
             left: 0,
             right: 0,
-            padding: '14px 20px',
+            padding: '12px 16px calc(14px + var(--sab))',
             background: '#ffffff',
             borderTop: '1px solid var(--color-card-border)',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.06)',
             zIndex: 20,
+            boxSizing: 'border-box',
           }}
         >
           {/* Quantity Stepper */}
@@ -359,19 +366,20 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
               alignItems: 'center',
               background: 'rgba(0, 0, 0, 0.04)',
               border: '1px solid var(--color-card-border)',
-              borderRadius: '12px',
-              padding: '4px',
+              borderRadius: '10px',
+              padding: '2px',
+              flexShrink: 0,
             }}
           >
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               style={{
-                width: '32px',
-                height: '32px',
+                width: '28px',
+                height: '28px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--color-text-primary)',
-                fontSize: '1.2rem',
+                fontSize: '1.1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -380,18 +388,18 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             >
               -
             </button>
-            <span style={{ minWidth: '28px', textAlign: 'center', fontWeight: 800, fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>
+            <span style={{ minWidth: '22px', textAlign: 'center', fontWeight: 800, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
               {quantity}
             </span>
             <button
               onClick={() => setQuantity(quantity + 1)}
               style={{
-                width: '32px',
-                height: '32px',
+                width: '28px',
+                height: '28px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--color-text-primary)',
-                fontSize: '1.2rem',
+                fontSize: '1.1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -409,15 +417,18 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             disabled={!item.isAvailable}
             style={{
               flex: 1,
-              padding: '14px',
-              borderRadius: '14px',
-              fontSize: '0.95rem',
+              padding: '12px 10px',
+              borderRadius: '12px',
+              fontSize: '0.88rem',
               fontWeight: 800,
               opacity: item.isAvailable ? 1 : 0.5,
               cursor: item.isAvailable ? 'pointer' : 'not-allowed',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
-            {item.isAvailable ? `ADD TO CART — ${currency}${totalPrice}` : 'CURRENTLY UNAVAILABLE'}
+            {item.isAvailable ? `ADD • ${currency}${totalPrice}` : 'SOLD OUT'}
           </button>
         </div>
       </div>
