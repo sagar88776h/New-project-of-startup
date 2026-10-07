@@ -26,6 +26,7 @@ import AdminQrGenerator from './components/admin/AdminQrGenerator';
 import Footer from './components/common/Footer';
 import Toast from './components/common/Toast';
 import DeviceFrameToggle from './components/common/DeviceFrameToggle';
+import WelcomeIntroModal from './components/landing/WelcomeIntroModal';
 
 function MainApp() {
   const { activeRestaurant } = useRestaurant();
@@ -36,6 +37,15 @@ function MainApp() {
   const [inlineSearchQuery, setInlineSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeCategoryId, setActiveCategoryId] = useState(() => categories[0]?.id || 'favorites');
+
+  // Welcome Intro Modal State
+  const [isIntroOpen, setIsIntroOpen] = useState(() => {
+    try {
+      return !sessionStorage.getItem('seen_devi_intro');
+    } catch (e) {
+      return true;
+    }
+  });
 
   // Modals UI State
   const [selectedDetailItem, setSelectedDetailItem] = useState(null);
@@ -134,11 +144,13 @@ function MainApp() {
           onOpenService={() => setIsServiceOpen(true)}
           onOpenAdmin={() => setIsAdminOpen(true)}
           onChangeTable={() => setIsTableModalOpen(true)}
+          onOpenIntro={() => setIsIntroOpen(true)}
         />
 
         {/* Compact Restaurant Hero Introduction */}
         <RestaurantHero
           onExploreClick={() => handleSelectCategory('favorites')}
+          onOpenIntro={() => setIsIntroOpen(true)}
         />
 
         {/* Clean Rounded Search Field */}
@@ -301,6 +313,17 @@ function MainApp() {
           </div>
         </div>
       )}
+
+      {/* Welcome to Devi Intro Modal */}
+      <WelcomeIntroModal
+        isOpen={isIntroOpen}
+        onClose={() => {
+          try {
+            sessionStorage.setItem('seen_devi_intro', 'true');
+          } catch (e) {}
+          setIsIntroOpen(false);
+        }}
+      />
 
       {/* Toast Feedback */}
       <Toast />

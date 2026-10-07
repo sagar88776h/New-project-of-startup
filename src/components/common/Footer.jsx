@@ -33,18 +33,28 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
         {/* Monogram Logo */}
         <div
           style={{
-            width: '48px',
-            height: '48px',
+            width: '54px',
+            height: '54px',
             borderRadius: '50%',
-            background: 'rgba(201, 151, 56, 0.15)',
-            border: `1.5px solid ${theme.primaryColor || '#c99738'}`,
+            overflow: 'hidden',
+            border: `2px solid ${theme.primaryColor || '#c99738'}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 12px',
+            background: '#ffffff',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
           }}
         >
-          <Utensils size={22} color={theme.primaryColor || '#c99738'} />
+          {activeRestaurant.logo ? (
+            <img
+              src={activeRestaurant.logo}
+              alt={activeRestaurant.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            <Utensils size={24} color={theme.primaryColor || '#c99738'} />
+          )}
         </div>
 
         <h3

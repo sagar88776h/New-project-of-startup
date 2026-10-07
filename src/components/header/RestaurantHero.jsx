@@ -3,7 +3,7 @@ import { Utensils, ArrowDown, MapPin, Clock, Sparkles } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 
-export default function RestaurantHero({ onExploreClick }) {
+export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
   const { activeRestaurant } = useRestaurant();
   const { tableNumber } = useCart();
   const { theme, contact } = activeRestaurant;
@@ -42,47 +42,81 @@ export default function RestaurantHero({ onExploreClick }) {
           }}
         />
 
-        {/* Table Number Pill */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '10px',
-            right: '12px',
-            background: 'rgba(255, 255, 255, 0.92)',
-            backdropFilter: 'blur(6px)',
-            color: 'var(--color-primary)',
-            padding: '3px 9px',
-            borderRadius: '999px',
-            fontSize: '0.7rem',
-            fontWeight: 800,
-            letterSpacing: '0.04em',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-          }}
-        >
-          TABLE {tableNumber}
+        {/* Top Badges (Intro Replay + Table Number) */}
+        <div style={{ position: 'absolute', top: '10px', right: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {onOpenIntro && (
+            <button
+              onClick={onOpenIntro}
+              style={{
+                background: 'rgba(0, 0, 0, 0.65)',
+                backdropFilter: 'blur(6px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
+                color: '#ffffff',
+                padding: '3px 8px',
+                borderRadius: '999px',
+                fontSize: '0.68rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <Sparkles size={11} color="#facc15" />
+              <span>Intro</span>
+            </button>
+          )}
+
+          <div
+            style={{
+              background: 'rgba(255, 255, 255, 0.92)',
+              backdropFilter: 'blur(6px)',
+              color: 'var(--color-primary)',
+              padding: '3px 9px',
+              borderRadius: '999px',
+              fontSize: '0.7rem',
+              fontWeight: 800,
+              letterSpacing: '0.04em',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+            }}
+          >
+            TABLE {tableNumber}
+          </div>
         </div>
       </div>
 
       {/* Restaurant Identity Content */}
-      <div style={{ padding: '0 14px 14px', marginTop: '-26px', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}>
+      <div style={{ padding: '0 14px 14px', marginTop: '-28px', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
           
           {/* Logo Monogram */}
           <div
+            onClick={onOpenIntro}
+            title="Click to view Welcome to Devi intro"
             style={{
-              width: 'clamp(48px, 12vw, 56px)',
-              height: 'clamp(48px, 12vw, 56px)',
+              width: 'clamp(54px, 14vw, 64px)',
+              height: 'clamp(54px, 14vw, 64px)',
               borderRadius: '50%',
               background: '#ffffff',
-              border: `2.5px solid var(--color-primary)`,
+              border: `2.5px solid ${theme.primaryColor || 'var(--color-primary)'}`,
+              overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.12)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
               flexShrink: 0,
+              cursor: 'pointer',
             }}
           >
-            <Utensils size={22} color="var(--color-primary)" />
+            {activeRestaurant.logo ? (
+              <img
+                src={activeRestaurant.logo}
+                alt={activeRestaurant.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <Utensils size={24} color="var(--color-primary)" />
+            )}
           </div>
 
           {/* Quick CTA */}

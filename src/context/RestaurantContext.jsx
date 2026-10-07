@@ -3,8 +3,8 @@ import { DEFAULT_RESTAURANTS } from '../data/defaultRestaurants';
 
 const RestaurantContext = createContext();
 
-const STORAGE_KEY = 'real_photography_qr_menu_v3';
-const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_v3';
+const STORAGE_KEY = 'real_photography_qr_menu_devi_v1';
+const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_devi_v1';
 
 export function RestaurantProvider({ children }) {
   const [restaurants, setRestaurants] = useState(() => {

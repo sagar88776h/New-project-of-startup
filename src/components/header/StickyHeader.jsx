@@ -9,6 +9,7 @@ export default function StickyHeader({
   onOpenService,
   onOpenAdmin,
   onChangeTable,
+  onOpenIntro,
 }) {
   const { activeRestaurant } = useRestaurant();
   const { totalItemsCount, setIsCartOpen, tableNumber } = useCart();
@@ -35,23 +36,37 @@ export default function StickyHeader({
       {/* Left: Brand Monogram & Name */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
         <div
+          onClick={onOpenIntro}
+          title="Click to replay Welcome Intro"
           style={{
-            width: '30px',
-            height: '30px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
-            background: 'rgba(139, 29, 44, 0.08)',
-            border: `1.5px solid var(--color-primary)`,
+            overflow: 'hidden',
+            border: `2px solid ${theme.primaryColor || 'var(--color-primary)'}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
+            cursor: 'pointer',
+            background: '#ffffff',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
           }}
         >
-          <UtensilsCrossed size={15} color="var(--color-primary)" />
+          {activeRestaurant.logo ? (
+            <img
+              src={activeRestaurant.logo}
+              alt={activeRestaurant.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            <UtensilsCrossed size={16} color="var(--color-primary)" />
+          )}
         </div>
 
         <div style={{ minWidth: 0, flex: 1 }}>
           <h2
+            onClick={onOpenIntro}
             style={{
               fontFamily: theme.fontHeading || "'Playfair Display', serif",
               fontSize: '0.94rem',
@@ -61,7 +76,9 @@ export default function StickyHeader({
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               lineHeight: 1.15,
+              cursor: 'pointer',
             }}
+            title="Click to replay Welcome to Devi intro"
           >
             {activeRestaurant.name}
           </h2>
