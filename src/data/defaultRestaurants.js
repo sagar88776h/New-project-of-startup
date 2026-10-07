@@ -1,23 +1,32 @@
 // Curated High-Resolution Real Food Photography (100% Real Plating, Zero Beef)
 export const REAL_FOOD_IMAGES = {
+  // Category Circular Thumbnails
+  catPopular: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200&auto=format&fit=crop&q=80",
+  catChicken: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=200&auto=format&fit=crop&q=80",
+  catMutton: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=200&auto=format&fit=crop&q=80",
+  catFish: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&auto=format&fit=crop&q=80",
+  catVeg: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=200&auto=format&fit=crop&q=80",
+  catBiryani: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200&auto=format&fit=crop&q=80",
+  catStarters: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=200&auto=format&fit=crop&q=80",
+  catBreads: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=200&auto=format&fit=crop&q=80",
+  catDrinks: "https://images.unsplash.com/photo-1546173159-315724a31696?w=200&auto=format&fit=crop&q=80",
+  catDesserts: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=200&auto=format&fit=crop&q=80",
+
   // Chicken Specialties
   chickenBiryani: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&auto=format&fit=crop&q=80",
   butterChicken: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&auto=format&fit=crop&q=80",
   chickenTandooriTikka: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=800&auto=format&fit=crop&q=80",
   chickenKebab: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop&q=80",
-  crispyChickenBurger: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=800&auto=format&fit=crop&q=80",
   
-  // Mutton & Lamb Delicacies
+  // Mutton Specialties
   muttonDumBiryani: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800&auto=format&fit=crop&q=80",
   muttonRoganJosh: "https://images.unsplash.com/photo-1545247181-516773cae754?w=800&auto=format&fit=crop&q=80",
   
   // Fresh Fish & Seafood
   grilledSalmon: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&auto=format&fit=crop&q=80",
-  coastalFishCurry: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800&auto=format&fit=crop&q=80",
   crispyPrawnsTandoori: "https://images.unsplash.com/photo-1559742811-822873691df8?w=800&auto=format&fit=crop&q=80",
-  salmonSashimiPlatter: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&auto=format&fit=crop&q=80",
 
-  // Vegetarian, Paneer & Dal
+  // Vegetarian & Paneer
   paneerButterMasala: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&auto=format&fit=crop&q=80",
   paneerTikkaAngara: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&auto=format&fit=crop&q=80",
   dalMakhani: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&auto=format&fit=crop&q=80",
@@ -26,21 +35,19 @@ export const REAL_FOOD_IMAGES = {
   burrataHeirloomSalad: "https://images.unsplash.com/photo-1592417817098-8f3d6ef23946?w=800&auto=format&fit=crop&q=80",
   wildMushroomPasta: "https://images.unsplash.com/photo-1621996346565-e3d5d6281691?w=800&auto=format&fit=crop&q=80",
 
-  // Artisanal Tandoori Breads
+  // Tandoori Breads
   garlicButterNaan: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80",
   lacchaParatha: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&auto=format&fit=crop&q=80",
 
-  // Handcrafted Desserts & Sweets
+  // Desserts
   shahiGulabJamun: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=800&auto=format&fit=crop&q=80",
   classicTiramisu: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop&q=80",
-  warmChocolateLava: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop&q=80",
 
-  // Refreshing Beverages & Mocktails
+  // Beverages
   kesarMangoLassi: "https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop&q=80",
   freshLimeMintSoda: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop&q=80",
-  icedMatchaLatte: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=800&auto=format&fit=crop&q=80",
 
-  // Atmosphere / Restaurant Landing Cover
+  // Restaurant Cover
   restaurantCover: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=85",
   restaurantTableCover: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&auto=format&fit=crop&q=85",
 };
@@ -49,22 +56,22 @@ export const DEFAULT_RESTAURANTS = [
   {
     id: "royal-dining",
     slug: "royal-dining",
-    name: "Aura Grand Dum & Grill",
+    name: "Aura Grand Dining & Dum",
     tagline: "Authentic Flavours. Made Fresh Every Day.",
-    description: "Centuries of culinary heritage slow-cooked in sealed clay pots with pure saffron, farm-fresh poultry, fresh coastal catches and fragrant spices.",
+    description: "Centuries of royal Mughlai & coastal culinary heritage slow-cooked with pure saffron, farm-fresh poultry, fresh fish and fragrant spices.",
     logoText: "AURA",
     logoSubtitle: "GRAND DINING",
     coverImage: REAL_FOOD_IMAGES.restaurantCover,
     currency: "₹",
     theme: {
       mode: "light",
-      primaryColor: "#c98a2c", // Warm Amber Gold
-      accentColor: "#8b2635", // Rich Burgundy
-      bgGradient: "linear-gradient(180deg, #fdfbf7 0%, #f7f3eb 100%)",
-      bgColor: "#fdfbf7",
+      primaryColor: "#8b1d2c", // Deep Burgundy / Wine
+      accentColor: "#c98a2c", // Warm Gold
+      bgColor: "#fbf8f2", // Warm Cream / Off-White
+      bgGradient: "linear-gradient(180deg, #fbf8f2 0%, #f4eee3 100%)",
       cardBg: "#ffffff",
-      textPrimary: "#1a1d24",
-      textSecondary: "#525968",
+      textPrimary: "#1a1a1c",
+      textSecondary: "#525760",
       fontHeading: "'Playfair Display', Georgia, serif",
       fontBody: "'Plus Jakarta Sans', -apple-system, sans-serif",
     },
@@ -90,7 +97,7 @@ export const DEFAULT_RESTAURANTS = [
     specialOffers: [
       {
         id: "sp-1",
-        title: "Chef's Handi Tasting Feast",
+        title: "Chef's Royal Handi Feast",
         subtitle: "Serves 3-4 Guests",
         description: "1 Shahi Chicken Dum Biryani + 1 Murgh Malai Tikka + 1 Dal Makhani + 2 Garlic Butter Naans + 2 Kesar Mango Lassis.",
         originalPrice: 1249,
@@ -100,37 +107,26 @@ export const DEFAULT_RESTAURANTS = [
         available: true,
         minPrepTime: 20,
         maxPrepTime: 25,
-      },
-      {
-        id: "sp-2",
-        title: "Sunset Mocktail Cooler Duo",
-        subtitle: "12:00 PM to 6:00 PM",
-        description: "Buy 1 Get 1 Free on all freshly blended Kesar Mango Lassis and Mint Mojitos.",
-        originalPrice: 320,
-        discountedPrice: 160,
-        badge: "Happy Hour Special",
-        image: REAL_FOOD_IMAGES.freshLimeMintSoda,
-        available: true,
-        minPrepTime: 5,
-        maxPrepTime: 8,
       }
     ],
     categories: [
-      { id: "favorites", name: "Today's Favorites", icon: "⭐", order: 1, active: true },
-      { id: "starters", name: "Kebabs & Starters", icon: "🍢", order: 2, active: true },
-      { id: "biryani", name: "Biryani & Rice", icon: "🍚", order: 3, active: true },
-      { id: "curries", name: "Rich Curries & Gravies", icon: "🍛", order: 4, active: true },
-      { id: "seafood", name: "Fresh Catch & Fish", icon: "🐟", order: 5, active: true },
-      { id: "breads", name: "Tandoori Breads", icon: "🫓", order: 6, active: true },
-      { id: "drinks", name: "Beverages & Lassi", icon: "🥤", order: 7, active: true },
-      { id: "desserts", name: "Handcrafted Desserts", icon: "🍨", order: 8, active: true }
+      { id: "favorites", name: "Popular", icon: "⭐", image: REAL_FOOD_IMAGES.catPopular, order: 1, active: true },
+      { id: "chicken", name: "Chicken", icon: "🍗", image: REAL_FOOD_IMAGES.catChicken, order: 2, active: true },
+      { id: "mutton", name: "Mutton", icon: "🍖", image: REAL_FOOD_IMAGES.catMutton, order: 3, active: true },
+      { id: "fish", name: "Fish & Catch", icon: "🐟", image: REAL_FOOD_IMAGES.catFish, order: 4, active: true },
+      { id: "veg", name: "Vegetarian", icon: "🥗", image: REAL_FOOD_IMAGES.catVeg, order: 5, active: true },
+      { id: "biryani", name: "Rice & Biryani", icon: "🍚", image: REAL_FOOD_IMAGES.catBiryani, order: 6, active: true },
+      { id: "starters", name: "Starters & Tikka", icon: "🍢", image: REAL_FOOD_IMAGES.catStarters, order: 7, active: true },
+      { id: "breads", name: "Tandoori Breads", icon: "🫓", image: REAL_FOOD_IMAGES.catBreads, order: 8, active: true },
+      { id: "drinks", name: "Beverages", icon: "🥤", image: REAL_FOOD_IMAGES.catDrinks, order: 9, active: true },
+      { id: "desserts", name: "Desserts", icon: "🍨", image: REAL_FOOD_IMAGES.catDesserts, order: 10, active: true }
     ],
     items: [
       {
         id: "aura-1",
-        name: "Shahi Chicken Dum Biryani",
+        name: "Chicken Biryani",
         categoryId: "biryani",
-        price: 349,
+        price: 249,
         rating: 4.9,
         reviewCount: 428,
         isVeg: false,
@@ -140,25 +136,24 @@ export const DEFAULT_RESTAURANTS = [
         isAvailable: true,
         minPrepTime: 20,
         maxPrepTime: 25,
-        serving: "1–2 Persons (650g)",
+        serving: "Serves 1–2 (650g)",
         calories: "680 kcal",
-        description: "Aromatic long-grain basmati rice cooked with tender farm chicken, caramelized onions, pure saffron infusion, and traditional spices slow-steamed in a clay pot.",
-        preparationStyle: "Layered with saffron-scented rice and slow-cooked in dum style in a sealed handi.",
-        ingredients: ["Aged Basmati Rice", "Tender Chicken", "Kashmiri Saffron", "Golden Fried Onions", "Desi Ghee", "Whole Cardamom & Cloves", "Thick Curd"],
+        description: "Aromatic basmati rice cooked with tender chicken, fried onions, saffron and traditional spices.",
+        preparationStyle: "Chicken is marinated with yogurt and spices, then cooked with basmati rice using the traditional dum method.",
+        ingredients: ["Basmati rice", "chicken", "onion", "yogurt", "saffron", "ginger", "garlic", "aromatic spices"],
         allergens: ["Dairy (Desi Ghee)"],
         image: REAL_FOOD_IMAGES.chickenBiryani,
         customizations: [
-          { id: "cust-1", name: "Extra Succulent Chicken Piece (120g)", price: 89 },
-          { id: "cust-2", name: "Boiled Eggs (2 pcs)", price: 35 },
-          { id: "cust-3", name: "Hyderabadi Mirchi Ka Salan Bowl", price: 40 },
-          { id: "cust-4", name: "Burani Garlic Raita", price: 35 }
+          { id: "cust-1", name: "Extra Succulent Chicken Piece (120g)", price: 80 },
+          { id: "cust-2", name: "Boiled Egg (2 pcs)", price: 20 },
+          { id: "cust-3", name: "Special Mirchi Ka Salan & Raita Bowl", price: 30 },
         ]
       },
       {
         id: "aura-2",
         name: "Nizami Mutton Dum Biryani",
         categoryId: "biryani",
-        price: 449,
+        price: 349,
         rating: 5.0,
         reviewCount: 560,
         isVeg: false,
@@ -168,23 +163,23 @@ export const DEFAULT_RESTAURANTS = [
         isAvailable: true,
         minPrepTime: 22,
         maxPrepTime: 28,
-        serving: "1–2 Persons (700g)",
+        serving: "Serves 1–2 (700g)",
         calories: "740 kcal",
-        description: "Prime tender mutton pieces marinated for 6 hours in roasted spice blends, layered with fragrant saffron basmati rice and garnished with crispy shallots and toasted cashews.",
-        preparationStyle: "Slow-steamed in clay pot to allow the bone marrow essence to infuse into the rice.",
-        ingredients: ["Prime Mutton Cuts", "Long-Grain Rice", "Pure Saffron Milk", "Nizami Potli Spices", "Golden Cashews", "Desi Butter"],
+        description: "Prime tender mutton pieces slow-cooked in rich potli spices, layered with fragrant saffron rice and garnished with fried shallots.",
+        preparationStyle: "Slow-steamed in a clay handi to allow bone marrow and potli spices to infuse deeply into the grains.",
+        ingredients: ["Prime Mutton Cuts", "Long-Grain Basmati Rice", "Pure Saffron Milk", "Nizami Potli Spices", "Golden Cashews", "Desi Butter"],
         allergens: ["Tree Nuts (Cashews)", "Dairy"],
         image: REAL_FOOD_IMAGES.muttonDumBiryani,
         customizations: [
-          { id: "cust-201", name: "Extra Slow-Cooked Mutton Chunk", price: 139 },
-          { id: "cust-202", name: "Roasted Cashew & Fried Onion Topping", price: 40 }
+          { id: "cust-201", name: "Extra Tender Mutton Chunk", price: 120 },
+          { id: "cust-202", name: "Burani Garlic Raita", price: 30 }
         ]
       },
       {
         id: "aura-3",
-        name: "Old Delhi Murgh Makhani (Butter Chicken)",
-        categoryId: "curries",
-        price: 369,
+        name: "Butter Chicken (Murgh Makhani)",
+        categoryId: "chicken",
+        price: 299,
         rating: 4.9,
         reviewCount: 390,
         isVeg: false,
@@ -196,21 +191,21 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 20,
         serving: "Serves 2 (500ml)",
         calories: "620 kcal",
-        description: "Char-grilled boneless chicken tikka simmered in a velvety satin gravy of vine-ripened tomatoes, cashew cream, kasuri methi and churned fresh butter.",
-        preparationStyle: "Chicken is first smoked in tandoor then finished in slow-simmered rich tomato cashew reduction.",
-        ingredients: ["Smoked Chicken Tikka", "Ripe Plum Tomatoes", "Cashew Puree", "Dried Fenugreek Leaves", "Fresh Butter", "Organic Honey"],
+        description: "Boneless chicken slow-cooked in a rich onion, tomato, cashew cream and aromatic spice gravy.",
+        preparationStyle: "Tender boneless chicken is charred in tandoor then simmered in a velvety satin tomato reduction.",
+        ingredients: ["Boneless Chicken Tikka", "Ripe Plum Tomatoes", "Cashew Puree", "Dried Fenugreek Leaves", "Fresh Butter", "Organic Honey"],
         allergens: ["Dairy", "Tree Nuts (Cashews)"],
         image: REAL_FOOD_IMAGES.butterChicken,
         customizations: [
-          { id: "cust-301", name: "Extra Cashew Cream Drizzle", price: 30 },
-          { id: "cust-302", name: "Add Bone-in Leg Piece", price: 75 }
+          { id: "cust-301", name: "Extra Cashew Cream Drizzle", price: 25 },
+          { id: "cust-302", name: "Add Bone-in Leg Piece", price: 60 }
         ]
       },
       {
         id: "aura-4",
         name: "Paneer Butter Masala",
-        categoryId: "curries",
-        price: 299,
+        categoryId: "veg",
+        price: 229,
         rating: 4.8,
         reviewCount: 275,
         isVeg: true,
@@ -218,25 +213,25 @@ export const DEFAULT_RESTAURANTS = [
         isChefSpecial: false,
         isSpicy: 1,
         isAvailable: true,
-        minPrepTime: 14,
-        maxPrepTime: 18,
+        minPrepTime: 15,
+        maxPrepTime: 20,
         serving: "Serves 2 (450g)",
         calories: "510 kcal",
-        description: "Soft fresh cottage cheese cubes cooked in a mildly spiced, rich gravy of fresh tomatoes, ground cashews, butter, and fragrant fenugreek leaves.",
-        preparationStyle: "Fresh paneer folded gently into a velvety simmering tomato-cashew reduction.",
-        ingredients: ["Fresh Cottage Cheese (Paneer)", "Tomato Puree", "Cashew Paste", "Desi Butter", "Kasuri Methi", "Cardamom Powder"],
+        description: "Paneer cubes cooked in a creamy tomato and cashew gravy with churned butter and fragrant spices.",
+        preparationStyle: "Fresh cottage cheese cubes gently folded into a simmering tomato-cashew satin sauce.",
+        ingredients: ["Fresh Cottage Cheese (Paneer)", "Tomato Puree", "Cashew Paste", "Desi Butter", "Kasuri Methi", "Cardamom"],
         allergens: ["Dairy", "Tree Nuts (Cashews)"],
         image: REAL_FOOD_IMAGES.paneerButterMasala,
         customizations: [
-          { id: "cust-401", name: "Extra Fresh Paneer Cubes (100g)", price: 60 },
+          { id: "cust-401", name: "Extra Paneer Cubes (100g)", price: 50 },
           { id: "cust-402", name: "Mild / Zero Chili Version", price: 0 }
         ]
       },
       {
         id: "aura-5",
-        name: "Murgh Malai Reshmi Tikka",
+        name: "Chicken Tikka (Murgh Malai)",
         categoryId: "starters",
-        price: 329,
+        price: 279,
         rating: 4.9,
         reviewCount: 310,
         isVeg: false,
@@ -244,25 +239,25 @@ export const DEFAULT_RESTAURANTS = [
         isChefSpecial: false,
         isSpicy: 1,
         isAvailable: true,
-        minPrepTime: 16,
-        maxPrepTime: 20,
+        minPrepTime: 18,
+        maxPrepTime: 22,
         serving: "6 Jumbo Boneless Pieces",
         calories: "460 kcal",
-        description: "Mouth-melting boneless chicken chunks steeped in heavy cream, hung yogurt, green cardamom, roasted cumin and mild cheese, lightly charred in the tandoor.",
-        preparationStyle: "Marinated overnight in cream and spices, then skewered and cooked over live charcoal.",
-        ingredients: ["Chicken Breast Chunks", "Heavy Dairy Cream", "Greek Hung Curd", "Green Cardamom", "Mild Mozzarella", "White Pepper"],
+        description: "Tender chicken pieces marinated in yogurt, ginger, garlic and aromatic spices, then grilled until lightly charred.",
+        preparationStyle: "Marinated overnight in cream and spices, then skewered and cooked over live charcoal embers.",
+        ingredients: ["Chicken breast chunks", "heavy cream", "hung curd", "green cardamom", "garlic", "lemon juice", "mild spices"],
         allergens: ["Dairy"],
         image: REAL_FOOD_IMAGES.chickenTandooriTikka,
         customizations: [
-          { id: "cust-501", name: "Extra Mint Coriander Chutney", price: 20 },
-          { id: "cust-502", name: "Warm Melted Cheese Dip", price: 45 }
+          { id: "cust-501", name: "Extra Mint Chutney & Onions", price: 15 },
+          { id: "cust-502", name: "Melted Cheese Glaze", price: 40 }
         ]
       },
       {
         id: "aura-6",
         name: "Tandoori Paneer Tikka Angara",
         categoryId: "starters",
-        price: 279,
+        price: 239,
         rating: 4.7,
         reviewCount: 195,
         isVeg: true,
@@ -274,20 +269,20 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 18,
         serving: "6 Large Skewered Cubes",
         calories: "410 kcal",
-        description: "Smoky cottage cheese cubes skewered with crisp bell peppers and red onions, marinated in cold-pressed mustard oil, ajwain and Kashmiri red chilies.",
-        preparationStyle: "Skewered with fresh peppers and charred over intense charcoal heat.",
+        description: "Smoky cottage cheese cubes skewered with bell peppers and red onions, marinated in cold-pressed mustard oil and Kashmiri chilies.",
+        preparationStyle: "Skewered with fresh crisp peppers and charred inside clay tandoor.",
         ingredients: ["Fresh Paneer", "Cold-Pressed Mustard Oil", "Kashmiri Degi Mirch", "Tricolor Bell Peppers", "Carom Seeds (Ajwain)"],
         allergens: ["Dairy", "Mustard"],
         image: REAL_FOOD_IMAGES.paneerTikkaAngara,
         customizations: [
-          { id: "cust-601", name: "Lemon Butter Baste", price: 25 }
+          { id: "cust-601", name: "Lemon Butter Brush", price: 20 }
         ]
       },
       {
         id: "aura-7",
-        name: "Coastal Pan-Seared Fish Masala",
-        categoryId: "seafood",
-        price: 399,
+        name: "Coastal Pan-Fried Fish",
+        categoryId: "fish",
+        price: 349,
         rating: 4.9,
         reviewCount: 220,
         isVeg: false,
@@ -296,23 +291,23 @@ export const DEFAULT_RESTAURANTS = [
         isSpicy: 2,
         isAvailable: true,
         minPrepTime: 16,
-        maxPrepTime: 22,
+        maxPrepTime: 20,
         serving: "2 Large Fresh Fillets (350g)",
         calories: "430 kcal",
-        description: "Fresh catch boneless fish fillet rubbed with hand-ground coastal spices, turmeric and kokum, then pan-seared in coconut oil until golden and crisp.",
-        preparationStyle: "Fresh day's catch pan-seared with crushed curry leaves and tempered shallots.",
-        ingredients: ["Fresh Sea Bass / Kingfish Fillet", "Kokum Extract", "Turmeric & Crushed Peppercorns", "Fresh Curry Leaves", "Cold-Pressed Coconut Oil"],
+        description: "Fresh fish marinated with turmeric, kokum and spices, then lightly fried until crisp on the outside and tender inside.",
+        preparationStyle: "Fresh day's catch pan-fried with curry leaves and shallots in coconut oil.",
+        ingredients: ["Fresh Catch Fish Fillet", "Kokum Extract", "Turmeric & Peppercorns", "Curry Leaves", "Coconut Oil"],
         allergens: ["Fish"],
         image: REAL_FOOD_IMAGES.grilledSalmon,
         customizations: [
-          { id: "cust-701", name: "Steamed Jasmine Rice Bowl", price: 45 }
+          { id: "cust-701", name: "Steamed Jasmine Rice Bowl", price: 40 }
         ]
       },
       {
         id: "aura-8",
-        name: "Dal Makhani Grandeur (24-Hour Simmered)",
-        categoryId: "curries",
-        price: 249,
+        name: "Dal Makhani (24-Hour Simmered)",
+        categoryId: "veg",
+        price: 199,
         rating: 4.9,
         reviewCount: 380,
         isVeg: true,
@@ -324,20 +319,20 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 15,
         serving: "Serves 2 (450ml)",
         calories: "420 kcal",
-        description: "Whole black lentils and kidney beans slow-simmered for 24 hours on gentle charcoal embers, finished with vine tomato reduction, white butter and cream.",
-        preparationStyle: "Traditional slow overnight wood-fired pot simmering.",
-        ingredients: ["Whole Black Urad Lentils", "Rajma Beans", "Vine Tomatoes", "Cultured White Butter", "Fresh Cream", "Ginger Garlic"],
+        description: "Whole black lentils and kidney beans slow-simmered for 24 hours on charcoal embers with butter and vine tomato reduction.",
+        preparationStyle: "Slow overnight pot simmer with continuous stirring on low heat.",
+        ingredients: ["Whole Black Urad Lentils", "Rajma Beans", "Vine Tomatoes", "White Butter", "Fresh Cream", "Ginger Garlic"],
         allergens: ["Dairy"],
         image: REAL_FOOD_IMAGES.dalMakhani,
         customizations: [
-          { id: "cust-801", name: "Extra White Butter Topping", price: 25 }
+          { id: "cust-801", name: "Extra White Butter Topping", price: 20 }
         ]
       },
       {
         id: "aura-9",
-        name: "Tandoori Charred Garlic Butter Naan",
+        name: "Garlic Butter Naan",
         categoryId: "breads",
-        price: 79,
+        price: 69,
         rating: 4.8,
         reviewCount: 520,
         isVeg: true,
@@ -349,20 +344,20 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 12,
         serving: "2 Large Slices",
         calories: "260 kcal",
-        description: "Traditional leavened flatbread slapped onto the walls of a scorching clay tandoor, brushed generously with minced garlic butter and fresh coriander.",
-        preparationStyle: "Baked at 400°C inside a clay oven until bubbled and crispy.",
-        ingredients: ["Fine Wheat Flour", "Fresh Chopped Garlic", "Pure Salted Butter", "Nigella Seeds", "Fresh Coriander"],
+        description: "Soft naan baked in a traditional tandoor and brushed with garlic butter and fresh coriander.",
+        preparationStyle: "Baked at 400°C inside a clay oven until blistered and tender.",
+        ingredients: ["Fine Wheat Flour", "Fresh Chopped Garlic", "Salted Butter", "Nigella Seeds", "Fresh Coriander"],
         allergens: ["Gluten", "Dairy"],
         image: REAL_FOOD_IMAGES.garlicButterNaan,
         customizations: [
-          { id: "cust-901", name: "Stuffed Cheddar Cheese Layer", price: 45 }
+          { id: "cust-901", name: "Cheddar Cheese Stuffing", price: 35 }
         ]
       },
       {
         id: "aura-10",
-        name: "Shahi Kesar Alphonso Mango Lassi",
+        name: "Shahi Kesar Mango Lassi",
         categoryId: "drinks",
-        price: 149,
+        price: 119,
         rating: 4.9,
         reviewCount: 310,
         isVeg: true,
@@ -374,20 +369,18 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 7,
         serving: "350ml Chilled Glass",
         calories: "280 kcal",
-        description: "Thick creamy churned yogurt blended with authentic Ratnagiri Alphonso mango pulp, saffron strands, crushed green cardamom and toasted pistachios.",
-        preparationStyle: "Hand-churned with chilled whole milk yogurt and natural fruit pulp.",
+        description: "Thick creamy churned yogurt blended with Alphonso mango pulp, saffron strands, cardamom and toasted pistachios.",
+        preparationStyle: "Hand-churned with chilled whole milk curd and pure mango reduction.",
         ingredients: ["Whole Milk Yogurt", "Alphonso Mango Puree", "Kashmiri Kesar", "Cardamom", "Pistachio Slivers"],
         allergens: ["Dairy", "Tree Nuts (Pistachios)"],
         image: REAL_FOOD_IMAGES.kesarMangoLassi,
-        customizations: [
-          { id: "cust-1001", name: "Extra Pistachio & Almond Crunch", price: 25 }
-        ]
+        customizations: []
       },
       {
         id: "aura-11",
-        name: "Warm Shahi Gulab Jamun with Saffron Rabdi",
+        name: "Gulab Jamun with Saffron Rabdi",
         categoryId: "desserts",
-        price: 169,
+        price: 139,
         rating: 4.9,
         reviewCount: 290,
         isVeg: true,
@@ -395,13 +388,13 @@ export const DEFAULT_RESTAURANTS = [
         isChefSpecial: true,
         isSpicy: 0,
         isAvailable: true,
-        minPrepTime: 5,
-        maxPrepTime: 8,
-        serving: "2 Warm Jamuns + Chilled Rabdi Cup",
+        minPrepTime: 3,
+        maxPrepTime: 5,
+        serving: "2 Warm Jamuns + Chilled Rabdi",
         calories: "380 kcal",
-        description: "Warm golden khoya dumplings soaked in green cardamom and rose sugar syrup, served atop a bed of slow-simmered chilled saffron rabdi.",
-        preparationStyle: "Fried in pure desi ghee and steeped in cardamom-scented syrup.",
-        ingredients: ["Fresh Khoya (Mawa)", "Rose & Cardamom Syrup", "Slow-Reduced Saffron Rabdi", "Pistachio Garnish"],
+        description: "Warm golden khoya dumplings soaked in rose-cardamom sugar syrup, served with chilled saffron rabdi.",
+        preparationStyle: "Slow-fried in pure ghee and steeped in cardamom-scented syrup.",
+        ingredients: ["Fresh Khoya (Mawa)", "Rose & Cardamom Syrup", "Saffron Rabdi", "Pistachios"],
         allergens: ["Dairy", "Tree Nuts"],
         image: REAL_FOOD_IMAGES.shahiGulabJamun,
         customizations: []
@@ -420,10 +413,10 @@ export const DEFAULT_RESTAURANTS = [
     currency: "€",
     theme: {
       mode: "light",
-      primaryColor: "#c8523b", // Warm Terracotta Red
-      accentColor: "#3d6a4e", // Tuscan Olive
-      bgGradient: "linear-gradient(180deg, #fbfaf8 0%, #f4eee3 100%)",
-      bgColor: "#fbfaf8",
+      primaryColor: "#8b1d2c", // Deep Burgundy
+      accentColor: "#c98a2c", // Warm Gold
+      bgColor: "#fbf8f2",
+      bgGradient: "linear-gradient(180deg, #fbf8f2 0%, #f4eee3 100%)",
       cardBg: "#ffffff",
       textPrimary: "#1b1e22",
       textSecondary: "#525760",
@@ -449,35 +442,20 @@ export const DEFAULT_RESTAURANTS = [
       defaultTable: "12",
       tablesCount: 18,
     },
-    specialOffers: [
-      {
-        id: "bistro-sp-1",
-        title: "Tuscan Duo Feast",
-        subtitle: "Serves 2",
-        description: "1 Margherita di Bufala Pizza + 1 Handmade Wild Mushroom Fettuccine + 1 Classic Tiramisu + 2 San Pellegrino Limonata.",
-        originalPrice: 42,
-        discountedPrice: 34,
-        badge: "Chef's Selection • Save €8",
-        image: REAL_FOOD_IMAGES.margheritaPizza,
-        available: true,
-        minPrepTime: 15,
-        maxPrepTime: 20,
-      }
-    ],
+    specialOffers: [],
     categories: [
-      { id: "favorites", name: "Today's Favorites", icon: "⭐", order: 1, active: true },
-      { id: "pizza", name: "Woodfired Sourdough Pizza", icon: "🍕", order: 2, active: true },
-      { id: "pasta", name: "Handmade Pasta & Risotto", icon: "🍝", order: 3, active: true },
-      { id: "antipasti", name: "Antipasti & Fresh Salads", icon: "🥗", order: 4, active: true },
-      { id: "desserts", name: "Dolci & Desserts", icon: "🍰", order: 5, active: true },
-      { id: "beverages", name: "Italian Beverages & Coffee", icon: "☕", order: 6, active: true }
+      { id: "favorites", name: "Popular", icon: "⭐", image: REAL_FOOD_IMAGES.catPopular, order: 1, active: true },
+      { id: "pizza", name: "Pizza", icon: "🍕", image: REAL_FOOD_IMAGES.margheritaPizza, order: 2, active: true },
+      { id: "pasta", name: "Pasta", icon: "🍝", image: REAL_FOOD_IMAGES.wildMushroomPasta, order: 3, active: true },
+      { id: "antipasti", name: "Antipasti", icon: "🥗", image: REAL_FOOD_IMAGES.burrataHeirloomSalad, order: 4, active: true },
+      { id: "desserts", name: "Desserts", icon: "🍰", image: REAL_FOOD_IMAGES.classicTiramisu, order: 5, active: true }
     ],
     items: [
       {
         id: "ls-1",
         name: "Margherita di Bufala DOP",
         categoryId: "pizza",
-        price: 15.5,
+        price: 14.5,
         rating: 4.9,
         reviewCount: 310,
         isVeg: true,
@@ -489,88 +467,14 @@ export const DEFAULT_RESTAURANTS = [
         maxPrepTime: 16,
         serving: "12-inch Sourdough Crust (8 slices)",
         calories: "720 kcal",
-        description: "48-hour fermented slow-rise dough topped with San Marzano tomato reduction, certified Buffalo Mozzarella Campana DOP, fresh sweet basil leaves and cold-pressed extra virgin olive oil.",
-        preparationStyle: "Woodfired baked in stone oven at 450°C for exactly 90 seconds.",
+        description: "48-hour fermented sourdough dough topped with San Marzano tomato reduction, certified Buffalo Mozzarella Campana DOP, fresh sweet basil and extra virgin olive oil.",
+        preparationStyle: "Baked in stone woodfired oven at 450°C for 90 seconds.",
         ingredients: ["Italian 00 Sourdough Flour", "San Marzano DOP Tomatoes", "Buffalo Mozzarella", "Fresh Sweet Basil", "Tuscan Extra Virgin Olive Oil"],
         allergens: ["Gluten", "Dairy"],
         image: REAL_FOOD_IMAGES.margheritaPizza,
         customizations: [
-          { id: "cust-ls-1", name: "Extra Creamy Burrata Center (100g)", price: 3.5 },
-          { id: "cust-ls-2", name: "Spicy Calabrian Chili Oil Drizzle", price: 1.0 }
-        ]
-      },
-      {
-        id: "ls-2",
-        name: "Wild Porcini & Truffle Tagliatelle",
-        categoryId: "pasta",
-        price: 17.0,
-        rating: 4.9,
-        reviewCount: 260,
-        isVeg: true,
-        isBestseller: true,
-        isChefSpecial: true,
-        isSpicy: 0,
-        isAvailable: true,
-        minPrepTime: 14,
-        maxPrepTime: 18,
-        serving: "1 Person (350g)",
-        calories: "640 kcal",
-        description: "Hand-rolled bronze-die egg tagliatelle tossed with sautéed wild porcini mushrooms, black truffle butter, fresh thyme and aged 24-month Parmigiano Reggiano.",
-        preparationStyle: "Pasta is extruded fresh in-house daily and cooked al dente.",
-        ingredients: ["Fresh Egg Tagliatelle", "Wild Porcini Mushrooms", "Black Truffle Butter", "Aged Parmigiano Reggiano DOP", "Garlic & Thyme"],
-        allergens: ["Gluten", "Egg", "Dairy"],
-        image: REAL_FOOD_IMAGES.wildMushroomPasta,
-        customizations: [
-          { id: "cust-ls-3", name: "Shaved Fresh Black Truffle", price: 4.0 },
-          { id: "cust-ls-4", name: "Gluten-Free Pasta Option", price: 2.0 }
-        ]
-      },
-      {
-        id: "ls-3",
-        name: "Pugliese Burrata & Heirloom Tomatoes",
-        categoryId: "antipasti",
-        price: 14.0,
-        rating: 4.8,
-        reviewCount: 180,
-        isVeg: true,
-        isBestseller: true,
-        isChefSpecial: false,
-        isSpicy: 0,
-        isAvailable: true,
-        minPrepTime: 6,
-        maxPrepTime: 10,
-        serving: "1-2 Persons (300g)",
-        calories: "410 kcal",
-        description: "Creamy whole 150g fresh burrata served alongside sliced rainbow heirloom tomatoes, genovese basil pesto, toasted pine nuts and 12-year aged Modena balsamic glaze.",
-        preparationStyle: "Plated fresh with artisanal chilled cheese and garden tomatoes.",
-        ingredients: ["Pugliese Burrata Cheese", "Heirloom Tomatoes", "Basil Pesto", "Aged Balsamic Glaze", "Toasted Pine Nuts"],
-        allergens: ["Dairy", "Tree Nuts (Pine Nuts)"],
-        image: REAL_FOOD_IMAGES.burrataHeirloomSalad,
-        customizations: []
-      },
-      {
-        id: "ls-4",
-        name: "Classic Treviso Tiramisu",
-        categoryId: "desserts",
-        price: 8.5,
-        rating: 5.0,
-        reviewCount: 410,
-        isVeg: true,
-        isBestseller: true,
-        isChefSpecial: true,
-        isSpicy: 0,
-        isAvailable: true,
-        minPrepTime: 4,
-        maxPrepTime: 6,
-        serving: "Generous Individual Cut",
-        calories: "450 kcal",
-        description: "Handmade Savoiardi ladyfingers soaked in single-origin Italian espresso, layered with whipped fresh mascarpone cream and dusted with Valrhona bitter cocoa powder.",
-        preparationStyle: "Chilled for 12 hours for layers to meld perfectly.",
-        ingredients: ["Savoiardi Ladyfingers", "Italian Dark Espresso", "Mascarpone Cheese", "Fresh Eggs", "Valrhona Cocoa"],
-        allergens: ["Gluten", "Egg", "Dairy"],
-        image: REAL_FOOD_IMAGES.classicTiramisu,
-        customizations: [
-          { id: "cust-ls-5", name: "Side of Fresh Espresso Shot", price: 1.5 }
+          { id: "cust-ls-1", name: "Extra Burrata Center (100g)", price: 3.5 },
+          { id: "cust-ls-2", name: "Calabrian Chili Oil", price: 1.0 }
         ]
       }
     ]

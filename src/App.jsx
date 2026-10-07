@@ -4,8 +4,9 @@ import { CartProvider, useCart } from './context/CartContext';
 import './styles/index.css';
 
 // Components
-import QrLandingModal from './components/landing/QrLandingModal';
 import StickyHeader from './components/header/StickyHeader';
+import RestaurantHero from './components/header/RestaurantHero';
+import InlineSearch from './components/search/InlineSearch';
 import QuickFilterBar from './components/header/QuickFilterBar';
 import CategoryNav from './components/menu/CategoryNav';
 import FeaturedSection from './components/menu/FeaturedSection';
@@ -17,6 +18,7 @@ import FloatingCartBar from './components/cart/FloatingCartBar';
 import CartDrawer from './components/cart/CartDrawer';
 import OrderSuccessModal from './components/cart/OrderSuccessModal';
 import RestaurantInfoModal from './components/info/RestaurantInfoModal';
+import RestaurantInfoSection from './components/info/RestaurantInfoSection';
 import CallWaiterModal from './components/info/CallWaiterModal';
 import TableSelectorModal from './components/info/TableSelectorModal';
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -30,7 +32,12 @@ function MainApp() {
   const { tableNumber } = useCart();
   const { categories = [], items = [], theme } = activeRestaurant;
 
-  // Modals & UI State
+  // Search & Filter State
+  const [inlineSearchQuery, setInlineSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeCategoryId, setActiveCategoryId] = useState(() => categories[0]?.id || 'favorites');
+
+  // Modals UI State
   const [selectedDetailItem, setSelectedDetailItem] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -40,15 +47,16 @@ function MainApp() {
   const [isQrStudioOpen, setIsQrStudioOpen] = useState(false);
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(false);
 
-  // Active Category & Quick Filters
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [activeCategoryId, setActiveCategoryId] = useState(() => categories[0]?.id || 'favorites');
-
   // Handle Category Click / Smooth Scroll
   const handleSelectCategory = (catId) => {
     setActiveCategoryId(catId);
     if (catId === 'favorites') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const favEl = document.getElementById('section-favorites');
+      if (favEl) {
+        favEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+      }
       return;
     }
     const targetElement = document.getElementById(`section-${catId}`);
@@ -60,7 +68,7 @@ function MainApp() {
   // Scrollspy to auto-detect active category on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 140;
+      const scrollPosition = window.scrollY + 170;
       const visibleCategories = categories.filter(c => c.active && c.id !== 'favorites');
 
       for (let i = visibleCategories.length - 1; i >= 0; i--) {
@@ -72,7 +80,7 @@ function MainApp() {
         }
       }
 
-      if (window.scrollY < 250) {
+      if (window.scrollY < 340) {
         setActiveCategoryId('favorites');
       }
     };
@@ -81,9 +89,20 @@ function MainApp() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [categories]);
 
-  // Filter Items based on active quick filter (All / Veg / Non-Veg / Bestsellers / Chef's)
+  // Filter Items based on Quick Filter & Search Query
   const getFilteredItems = (catItems) => {
     return catItems.filter(item => {
+      // Search matching
+      if (inlineSearchQuery.trim()) {
+        const q = inlineSearchQuery.toLowerCase().trim();
+        const matches =
+          item.name.toLowerCase().includes(q) ||
+          item.description?.toLowerCase().includes(q) ||
+          item.ingredients?.some(ing => ing.toLowerCase().includes(q));
+        if (!matches) return false;
+      }
+
+      // Dietary filter
       if (activeFilter === 'veg') return item.isVeg;
       if (activeFilter === 'nonveg') return !item.isVeg;
       if (activeFilter === 'bestsellers') return item.isBestseller;
@@ -105,13 +124,10 @@ function MainApp() {
         onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
-      {/* Main Mobile / Desktop Responsive Container */}
+      {/* Main Mobile Frame Container */}
       <div className={`mobile-device-frame ${isDesktopExpanded ? 'desktop-expanded' : ''}`}>
         
-        {/* QR Cinematic Intro Landing */}
-        <QrLandingModal />
-
-        {/* Sticky Header */}
+        {/* Sticky Compact Header */}
         <StickyHeader
           onOpenSearch={() => setIsSearchOpen(true)}
           onOpenInfo={() => setIsInfoOpen(true)}
@@ -120,41 +136,55 @@ function MainApp() {
           onChangeTable={() => setIsTableModalOpen(true)}
         />
 
-        {/* Quick Filter Bar */}
+        {/* Compact Restaurant Hero Introduction */}
+        <RestaurantHero
+          onExploreClick={() => handleSelectCategory('favorites')}
+        />
+
+        {/* Clean Rounded Search Field */}
+        <InlineSearch
+          searchQuery={inlineSearchQuery}
+          onSearchChange={setInlineSearchQuery}
+          onClear={() => setInlineSearchQuery('')}
+        />
+
+        {/* Quick Filter Bar (Veg / Non-Veg / Bestseller) */}
         <QuickFilterBar
           activeFilter={activeFilter}
           onSelectFilter={setActiveFilter}
         />
 
-        {/* Sticky Category Navigation */}
+        {/* Circular Category Navigation */}
         <CategoryNav
           activeCategoryId={activeCategoryId}
           onSelectCategory={handleSelectCategory}
         />
 
-        {/* Customer Favorites / Featured Section */}
-        {activeFilter === 'all' && (
-          <FeaturedSection
-            onOpenDetail={item => setSelectedDetailItem(item)}
-          />
+        {/* Popular Dishes / Featured Section */}
+        {!inlineSearchQuery && activeFilter === 'all' && (
+          <div id="section-favorites">
+            <FeaturedSection
+              onOpenDetail={item => setSelectedDetailItem(item)}
+            />
+          </div>
         )}
 
         {/* Special Offers & Combos */}
-        {activeFilter === 'all' && (
+        {!inlineSearchQuery && activeFilter === 'all' && (
           <SpecialOffersBanner
             onOpenDetail={item => setSelectedDetailItem(item)}
           />
         )}
 
         {/* Category-by-Category Menu Sections */}
-        <main style={{ minHeight: '60vh' }}>
+        <main style={{ minHeight: '50vh' }}>
           {activeCategories
             .filter(c => c.id !== 'favorites')
             .map(category => {
               const categoryItems = items.filter(i => i.categoryId === category.id);
               const filteredItems = getFilteredItems(categoryItems);
 
-              if (filteredItems.length === 0 && activeFilter !== 'all') {
+              if (filteredItems.length === 0) {
                 return null;
               }
 
@@ -167,9 +197,32 @@ function MainApp() {
                 />
               );
             })}
+
+          {/* Search No Results State */}
+          {inlineSearchQuery && items.filter(i => getFilteredItems([i]).length > 0).length === 0 && (
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🔍</div>
+              <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text-primary)', marginBottom: '6px' }}>
+                No dishes found matching "{inlineSearchQuery}"
+              </h3>
+              <p style={{ fontSize: '0.82rem', marginBottom: '14px' }}>
+                Try searching for biryani, chicken, paneer, fish, breads or desserts.
+              </p>
+              <button
+                onClick={() => setInlineSearchQuery('')}
+                className="btn-secondary"
+                style={{ padding: '8px 16px', fontSize: '0.8rem' }}
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
         </main>
 
-        {/* Floating Cart Button */}
+        {/* On-Page Restaurant Information */}
+        <RestaurantInfoSection />
+
+        {/* Floating Cart Bar (if items in cart and ordering enabled) */}
         <FloatingCartBar />
 
         {/* Footer */}
@@ -179,42 +232,49 @@ function MainApp() {
         />
       </div>
 
-      {/* Modals & Overlays */}
+      {/* Dish Detail Bottom Sheet Modal */}
       <FoodDetailModal
         item={selectedDetailItem}
         isOpen={Boolean(selectedDetailItem)}
         onClose={() => setSelectedDetailItem(null)}
       />
 
+      {/* Fullscreen Instant Search Overlay Modal */}
       <InstantSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onOpenDetail={item => setSelectedDetailItem(item)}
       />
 
+      {/* Cart Drawer */}
       <CartDrawer
         onChangeTable={() => {
           setIsTableModalOpen(true);
         }}
       />
 
+      {/* Order Confirmed Modal with Kitchen Simulation */}
       <OrderSuccessModal />
 
+      {/* Restaurant Info Popup Modal */}
       <RestaurantInfoModal
         isOpen={isInfoOpen}
         onClose={() => setIsInfoOpen(false)}
       />
 
+      {/* Call Waiter Service Modal */}
       <CallWaiterModal
         isOpen={isServiceOpen}
         onClose={() => setIsServiceOpen(false)}
       />
 
+      {/* Table Selector Modal */}
       <TableSelectorModal
         isOpen={isTableModalOpen}
         onClose={() => setIsTableModalOpen(false)}
       />
 
+      {/* Admin Dashboard */}
       <AdminDashboard
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
@@ -226,7 +286,7 @@ function MainApp() {
           <div
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90vh', padding: '20px', color: '#ffffff' }}
+            style={{ maxHeight: '90vh', padding: '20px', color: '#ffffff', background: '#141720' }}
           >
             <div className="sheet-handle" />
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
@@ -242,7 +302,7 @@ function MainApp() {
         </div>
       )}
 
-      {/* Toast Alert Feedback */}
+      {/* Toast Feedback */}
       <Toast />
     </div>
   );

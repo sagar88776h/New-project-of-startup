@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Clock, Flame, Sparkles, Plus, Minus } from 'lucide-react';
+import { Clock, Flame, Sparkles, Plus, Minus, Star } from 'lucide-react';
 import CardWrapper from '../common/CardWrapper';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -7,7 +7,7 @@ import { useRestaurant } from '../../context/RestaurantContext';
 export default function FoodCard({ item, onOpenDetail }) {
   const { addToCart, cartItems, updateQuantity } = useCart();
   const { activeRestaurant } = useRestaurant();
-  const { currency, theme } = activeRestaurant;
+  const { currency, theme, settings } = activeRestaurant;
 
   // Check if item is already in cart
   const itemInCart = cartItems.find(i => i.id === item.id);
@@ -43,7 +43,6 @@ export default function FoodCard({ item, onOpenDetail }) {
     }
   };
 
-  // Preparation time range display
   const prepTimeText = item.minPrepTime && item.maxPrepTime
     ? `${item.minPrepTime}–${item.maxPrepTime} min`
     : item.prepTime || '15–20 min';
@@ -52,24 +51,25 @@ export default function FoodCard({ item, onOpenDetail }) {
     <CardWrapper
       onClick={() => onOpenDetail(item)}
       style={{
-        padding: '14px',
+        padding: '12px',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '12px',
         cursor: 'pointer',
         position: 'relative',
         opacity: item.isAvailable ? 1 : 0.6,
       }}
     >
-      {/* Top Real Food Photography Container */}
+      {/* Left: Food Image Thumbnail */}
       <div
-        className="image-zoom-container"
         style={{
           position: 'relative',
-          width: '100%',
-          height: '180px',
-          borderRadius: 'var(--radius-md)',
-          marginBottom: '12px',
+          width: '108px',
+          height: '108px',
+          borderRadius: '14px',
+          overflow: 'hidden',
+          flexShrink: 0,
           backgroundColor: '#f3f4f6',
         }}
       >
@@ -85,17 +85,17 @@ export default function FoodCard({ item, onOpenDetail }) {
           }}
         />
 
-        {/* Dietary Indicator (Veg/Non-Veg) in top-left */}
+        {/* Dietary Indicator (Veg/Non-Veg) in top-left of image */}
         <div
           style={{
             position: 'absolute',
-            top: '8px',
-            left: '8px',
-            zIndex: 10,
+            top: '6px',
+            left: '6px',
+            zIndex: 5,
             background: 'rgba(255, 255, 255, 0.95)',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-            padding: '4px',
-            borderRadius: '5px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.12)',
+            padding: '3px',
+            borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -112,98 +112,90 @@ export default function FoodCard({ item, onOpenDetail }) {
           )}
         </div>
 
-        {/* Badges Top Right (Bestseller or Chef's Special) */}
-        <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-          {item.isBestseller && (
-            <span className="badge-gold">
-              <Flame size={11} />
-              <span>Bestseller</span>
-            </span>
-          )}
-          {item.isChefSpecial && (
-            <span className="badge-chef">
-              <Sparkles size={11} />
-              <span>Chef's Special</span>
-            </span>
-          )}
-        </div>
-
-        {/* Estimated Prep Time Pill on Image Bottom Right */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '8px',
-            right: '8px',
-            zIndex: 10,
-            background: 'rgba(25, 28, 33, 0.88)',
-            backdropFilter: 'blur(6px)',
-            color: '#ffffff',
-            borderRadius: '999px',
-            padding: '3px 9px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            fontSize: '0.68rem',
-            fontWeight: 700,
-          }}
-          title="Estimated preparation time"
-        >
-          <Clock size={11} color={theme.primaryColor || '#c98a2c'} />
-          <span>⏱ {prepTimeText}</span>
-        </div>
-
-        {/* Unavailable Overlay */}
+        {/* Unavailable Gray Overlay */}
         {!item.isAvailable && (
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'rgba(255, 255, 255, 0.8)',
+              background: 'rgba(255, 255, 255, 0.85)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#dc2626',
               fontWeight: 800,
-              fontSize: '0.8rem',
-              letterSpacing: '0.04em',
+              fontSize: '0.68rem',
+              textAlign: 'center',
+              padding: '4px',
               textTransform: 'uppercase',
             }}
           >
-            Currently Unavailable
+            Sold Out
           </div>
         )}
       </div>
 
-      {/* Dish Information */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      {/* Right: Dish Information */}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         
-        {/* Title & Rating */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-          <h3
-            style={{
-              fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '1.05rem',
-              fontWeight: 700,
-              color: 'var(--color-text-primary)',
-              lineHeight: 1.25,
-            }}
-          >
-            {item.name}
-          </h3>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#eab308', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
-            <Star size={12} fill="#eab308" color="#eab308" />
-            <span>{item.rating || '4.9'}</span>
-          </div>
+        {/* Top Badges Row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px', flexWrap: 'wrap' }}>
+          {item.isBestseller && (
+            <span className="badge-burgundy">
+              <Flame size={10} />
+              <span>Bestseller</span>
+            </span>
+          )}
+          {item.isChefSpecial && (
+            <span className="badge-gold">
+              <Sparkles size={10} />
+              <span>Chef Special</span>
+            </span>
+          )}
+          {item.isSpicy > 0 && (
+            <span style={{ fontSize: '0.68rem', color: '#b91c1c', fontWeight: 600 }}>
+              {'🌶'.repeat(item.isSpicy)}
+            </span>
+          )}
         </div>
 
-        {/* Useful Culinary Description */}
+        {/* Dish Name */}
+        <h3
+          style={{
+            fontFamily: theme.fontHeading || "'Playfair Display', serif",
+            fontSize: '1rem',
+            fontWeight: 700,
+            color: 'var(--color-text-primary)',
+            lineHeight: 1.25,
+            marginBottom: '3px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {item.name}
+        </h3>
+
+        {/* Price */}
+        <div
+          style={{
+            fontFamily: theme.fontHeading || "'Playfair Display', serif",
+            fontSize: '1.05rem',
+            fontWeight: 800,
+            color: 'var(--color-primary)',
+            marginBottom: '4px',
+          }}
+        >
+          {currency}{item.price}
+        </div>
+
+        {/* Short Descriptive Explanation */}
         <p
           style={{
-            fontSize: '0.8rem',
+            fontSize: '0.76rem',
             color: 'var(--color-text-secondary)',
-            lineHeight: 1.45,
-            marginBottom: '8px',
+            lineHeight: 1.35,
+            marginBottom: '6px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -213,80 +205,37 @@ export default function FoodCard({ item, onOpenDetail }) {
           {item.description}
         </p>
 
-        {/* Prepared with / Ingredients Snippet */}
-        {item.ingredients && item.ingredients.length > 0 && (
-          <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', marginBottom: '10px', lineHeight: 1.35 }}>
-            <span style={{ fontWeight: 600, color: 'var(--color-text-secondary)' }}>Prepared with: </span>
-            <span>{item.ingredients.slice(0, 4).join(', ')}{item.ingredients.length > 4 ? '...' : ''}</span>
-          </div>
-        )}
+        {/* Bottom Row: Estimated Preparation Time & Optional Add CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+          <span className="badge-prep-time">
+            <Clock size={11} />
+            <span>⏱ {prepTimeText}</span>
+          </span>
 
-        {/* Meta badges: Spice & Serving */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-          {item.isSpicy > 0 && (
-            <span className="badge-tag" style={{ color: '#dc2626', fontWeight: 600 }}>
-              {'🌶'.repeat(item.isSpicy)} {item.isSpicy === 1 ? 'Mild Spice' : item.isSpicy === 2 ? 'Medium' : 'Spicy'}
-            </span>
-          )}
-          {item.serving && (
-            <span className="badge-tag">
-              {item.serving}
-            </span>
+          {/* Add / Stepper Button if ordering enabled */}
+          {settings?.orderingEnabled && item.isAvailable && (
+            totalQtyInCart > 0 ? (
+              <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
+                <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
+                  <Minus size={11} />
+                </button>
+                <span className="qty-stepper-val">{totalQtyInCart}</span>
+                <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
+                  <Plus size={11} />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleQuickAdd}
+                className="btn-add-stepper"
+                aria-label={`Add ${item.name}`}
+              >
+                <Plus size={13} />
+                <span>ADD</span>
+              </button>
+            )
           )}
         </div>
-      </div>
-
-      {/* Bottom Row: Price & Add Action */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingTop: '8px',
-          borderTop: '1px solid var(--color-card-border)',
-        }}
-      >
-        <div>
-          <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block' }}>
-            Price
-          </span>
-          <span
-            style={{
-              fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '1.2rem',
-              fontWeight: 800,
-              color: theme.primaryColor || '#c98a2c',
-            }}
-          >
-            {currency}{item.price}
-          </span>
-        </div>
-
-        {/* Add Button or Stepper */}
-        {item.isAvailable ? (
-          totalQtyInCart > 0 ? (
-            <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
-              <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
-                <Minus size={12} />
-              </button>
-              <span className="qty-stepper-val">{totalQtyInCart}</span>
-              <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
-                <Plus size={12} />
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={handleQuickAdd}
-              className="btn-add-stepper"
-              aria-label={`Add ${item.name}`}
-            >
-              <Plus size={14} />
-              <span>ADD</span>
-            </button>
-          )
-        ) : (
-          <span style={{ fontSize: '0.74rem', color: '#9ca3af', fontStyle: 'italic' }}>Sold Out</span>
-        )}
       </div>
     </CardWrapper>
   );

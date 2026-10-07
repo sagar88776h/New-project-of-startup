@@ -8,12 +8,9 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
 
   const categories = activeRestaurant.categories.filter(c => c.active);
 
-  // Auto scroll active tab into view horizontally
+  // Auto scroll active category chip into view horizontally
   useEffect(() => {
     if (activeTabRef.current && navRef.current) {
-      const navRect = navRef.current.getBoundingClientRect();
-      const tabRect = activeTabRef.current.getBoundingClientRect();
-
       const scrollLeft =
         activeTabRef.current.offsetLeft -
         navRef.current.offsetWidth / 2 +
@@ -27,56 +24,68 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
   }, [activeCategoryId]);
 
   return (
-    <nav
-      className="glass-nav no-scrollbar"
-      ref={navRef}
+    <div
       style={{
         position: 'sticky',
-        top: '56px',
+        top: '52px',
         zIndex: 80,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '10px 16px',
-        overflowX: 'auto',
-        whiteSpace: 'nowrap',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        background: 'rgba(13, 14, 18, 0.88)',
+        background: 'rgba(251, 248, 242, 0.96)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--color-card-border)',
+        padding: '10px 12px 10px',
       }}
     >
-      {categories.map(cat => {
-        const isActive = activeCategoryId === cat.id;
-        return (
-          <button
-            key={cat.id}
-            ref={isActive ? activeTabRef : null}
-            onClick={() => onSelectCategory(cat.id)}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '999px',
-              fontSize: '0.82rem',
-              fontWeight: isActive ? 700 : 500,
-              cursor: 'pointer',
-              border: isActive
-                ? `1.5px solid var(--color-primary)`
-                : '1px solid rgba(255, 255, 255, 0.08)',
-              background: isActive
-                ? 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%)'
-                : 'rgba(255, 255, 255, 0.04)',
-              color: isActive ? '#0d0e12' : 'var(--color-text-secondary)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              flexShrink: 0,
-              boxShadow: isActive ? '0 4px 15px rgba(201, 151, 56, 0.3)' : 'none',
-              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          >
-            <span style={{ fontSize: '0.95rem' }}>{cat.icon || '🍽️'}</span>
-            <span>{cat.name}</span>
-          </button>
-        );
-      })}
-    </nav>
+      <nav
+        className="no-scrollbar"
+        ref={navRef}
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '14px',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          paddingBottom: '2px',
+        }}
+      >
+        {categories.map(cat => {
+          const isActive = activeCategoryId === cat.id;
+          return (
+            <button
+              key={cat.id}
+              ref={isActive ? activeTabRef : null}
+              onClick={() => onSelectCategory(cat.id)}
+              className={`category-circle-chip ${isActive ? 'active' : ''}`}
+            >
+              {/* Circular Food Thumbnail */}
+              <div className="category-circle-thumb">
+                {cat.image ? (
+                  <img src={cat.image} alt={cat.name} loading="lazy" />
+                ) : (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      background: 'rgba(139, 29, 44, 0.08)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '1.4rem',
+                      borderRadius: '50%',
+                    }}
+                  >
+                    {cat.icon || '🍽️'}
+                  </div>
+                )}
+              </div>
+
+              {/* Category Name */}
+              <span className="category-circle-name">
+                {cat.name}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
   );
 }
