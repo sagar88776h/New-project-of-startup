@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/index.css'
-import './styles/3d-effects.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

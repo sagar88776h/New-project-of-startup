@@ -154,7 +154,7 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
         <div style={{ fontSize: '0.7rem', color: '#6b7280', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
           <span>Crafted with</span>
           <Heart size={11} color="#ef4444" fill="#ef4444" />
-          <span>for Contactless Dining • 3D QR Menu</span>
+          <span>for Contactless Dining • Digital QR Menu</span>
         </div>
       </div>
     </footer>

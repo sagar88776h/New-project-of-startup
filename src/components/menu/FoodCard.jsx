@@ -1,6 +1,6 @@
 import React from 'react';
-import { Star, Flame, Sparkles, Plus, Check } from 'lucide-react';
-import Card3DWrapper from '../3d/Card3DWrapper';
+import { Star, Clock, Flame, Sparkles, Plus, Minus } from 'lucide-react';
+import CardWrapper from '../common/CardWrapper';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 
@@ -18,8 +18,7 @@ export default function FoodCard({ item, onOpenDetail }) {
   const handleQuickAdd = (e) => {
     e.stopPropagation();
     if (!item.isAvailable) return;
-    
-    // If item has required customizations, open detail modal
+
     if (item.customizations && item.customizations.length > 0) {
       onOpenDetail(item);
       return;
@@ -44,40 +43,40 @@ export default function FoodCard({ item, onOpenDetail }) {
     }
   };
 
+  // Preparation time range display
+  const prepTimeText = item.minPrepTime && item.maxPrepTime
+    ? `${item.minPrepTime}–${item.maxPrepTime} min`
+    : item.prepTime || '15–20 min';
+
   return (
-    <Card3DWrapper
+    <CardWrapper
       onClick={() => onOpenDetail(item)}
-      className="glass-panel"
       style={{
-        borderRadius: 'var(--radius-lg)',
-        padding: '12px',
+        padding: '14px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         cursor: 'pointer',
         position: 'relative',
-        overflow: 'hidden',
-        border: '1px solid var(--color-card-border)',
-        opacity: item.isAvailable ? 1 : 0.65,
+        opacity: item.isAvailable ? 1 : 0.6,
       }}
     >
-      {/* Top Image Container */}
+      {/* Top Real Food Photography Container */}
       <div
+        className="image-zoom-container"
         style={{
           position: 'relative',
           width: '100%',
-          height: '160px',
+          height: '180px',
           borderRadius: 'var(--radius-md)',
-          overflow: 'hidden',
-          marginBottom: '10px',
-          backgroundColor: '#1b1e28',
+          marginBottom: '12px',
+          backgroundColor: '#f3f4f6',
         }}
       >
         <img
           src={item.image}
           alt={item.name}
           loading="lazy"
-          className="card-3d-image-layer"
           style={{
             width: '100%',
             height: '100%',
@@ -93,10 +92,10 @@ export default function FoodCard({ item, onOpenDetail }) {
             top: '8px',
             left: '8px',
             zIndex: 10,
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(6px)',
-            padding: '3px',
-            borderRadius: '4px',
+            background: 'rgba(255, 255, 255, 0.95)',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+            padding: '4px',
+            borderRadius: '5px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -117,42 +116,40 @@ export default function FoodCard({ item, onOpenDetail }) {
         <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
           {item.isBestseller && (
             <span className="badge-gold">
-              <Flame size={10} />
+              <Flame size={11} />
               <span>Bestseller</span>
             </span>
           )}
           {item.isChefSpecial && (
             <span className="badge-chef">
-              <Sparkles size={10} />
-              <span>Chef's Pick</span>
+              <Sparkles size={11} />
+              <span>Chef's Special</span>
             </span>
           )}
         </div>
 
-        {/* Rating overlay bottom-left */}
+        {/* Estimated Prep Time Pill on Image Bottom Right */}
         <div
           style={{
             position: 'absolute',
             bottom: '8px',
-            left: '8px',
+            right: '8px',
             zIndex: 10,
-            background: 'rgba(13, 14, 18, 0.85)',
+            background: 'rgba(25, 28, 33, 0.88)',
             backdropFilter: 'blur(6px)',
+            color: '#ffffff',
             borderRadius: '999px',
-            padding: '2px 8px',
+            padding: '3px 9px',
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
-            fontSize: '0.7rem',
+            fontSize: '0.68rem',
             fontWeight: 700,
-            color: '#facc15',
           }}
+          title="Estimated preparation time"
         >
-          <Star size={11} fill="#facc15" color="#facc15" />
-          <span>{item.rating || '4.9'}</span>
-          <span style={{ color: '#9ca3af', fontWeight: 400, fontSize: '0.62rem' }}>
-            ({item.reviewCount || 42})
-          </span>
+          <Clock size={11} color={theme.primaryColor || '#c98a2c'} />
+          <span>⏱ {prepTimeText}</span>
         </div>
 
         {/* Unavailable Overlay */}
@@ -161,13 +158,13 @@ export default function FoodCard({ item, onOpenDetail }) {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'rgba(0, 0, 0, 0.65)',
+              background: 'rgba(255, 255, 255, 0.8)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#f87171',
-              fontWeight: 700,
-              fontSize: '0.78rem',
+              color: '#dc2626',
+              fontWeight: 800,
+              fontSize: '0.8rem',
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
             }}
@@ -177,27 +174,36 @@ export default function FoodCard({ item, onOpenDetail }) {
         )}
       </div>
 
-      {/* Dish Details */}
+      {/* Dish Information */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <h3
-          style={{
-            fontFamily: theme.fontHeading || "'Playfair Display', serif",
-            fontSize: '1rem',
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            marginBottom: '4px',
-            lineHeight: 1.25,
-          }}
-        >
-          {item.name}
-        </h3>
+        
+        {/* Title & Rating */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
+          <h3
+            style={{
+              fontFamily: theme.fontHeading || "'Playfair Display', serif",
+              fontSize: '1.05rem',
+              fontWeight: 700,
+              color: 'var(--color-text-primary)',
+              lineHeight: 1.25,
+            }}
+          >
+            {item.name}
+          </h3>
 
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#eab308', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
+            <Star size={12} fill="#eab308" color="#eab308" />
+            <span>{item.rating || '4.9'}</span>
+          </div>
+        </div>
+
+        {/* Useful Culinary Description */}
         <p
           style={{
-            fontSize: '0.78rem',
+            fontSize: '0.8rem',
             color: 'var(--color-text-secondary)',
-            lineHeight: 1.4,
-            marginBottom: '10px',
+            lineHeight: 1.45,
+            marginBottom: '8px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -207,16 +213,24 @@ export default function FoodCard({ item, onOpenDetail }) {
           {item.description}
         </p>
 
-        {/* Prep time and serving pills */}
+        {/* Prepared with / Ingredients Snippet */}
+        {item.ingredients && item.ingredients.length > 0 && (
+          <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', marginBottom: '10px', lineHeight: 1.35 }}>
+            <span style={{ fontWeight: 600, color: 'var(--color-text-secondary)' }}>Prepared with: </span>
+            <span>{item.ingredients.slice(0, 4).join(', ')}{item.ingredients.length > 4 ? '...' : ''}</span>
+          </div>
+        )}
+
+        {/* Meta badges: Spice & Serving */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-          {item.prepTime && (
-            <span className="badge-tag" style={{ fontSize: '0.68rem', padding: '1px 6px' }}>
-              ⏱ {item.prepTime}
+          {item.isSpicy > 0 && (
+            <span className="badge-tag" style={{ color: '#dc2626', fontWeight: 600 }}>
+              {'🌶'.repeat(item.isSpicy)} {item.isSpicy === 1 ? 'Mild Spice' : item.isSpicy === 2 ? 'Medium' : 'Spicy'}
             </span>
           )}
-          {item.isSpicy > 0 && (
-            <span className="badge-tag" style={{ fontSize: '0.68rem', padding: '1px 6px', color: '#f87171' }}>
-              {'🌶'.repeat(item.isSpicy)}
+          {item.serving && (
+            <span className="badge-tag">
+              {item.serving}
             </span>
           )}
         </div>
@@ -228,18 +242,20 @@ export default function FoodCard({ item, onOpenDetail }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingTop: '6px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          paddingTop: '8px',
+          borderTop: '1px solid var(--color-card-border)',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Price</span>
+        <div>
+          <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block' }}>
+            Price
+          </span>
           <span
             style={{
               fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '1.15rem',
+              fontSize: '1.2rem',
               fontWeight: 800,
-              color: theme.primaryColor || '#c99738',
+              color: theme.primaryColor || '#c98a2c',
             }}
           >
             {currency}{item.price}
@@ -251,27 +267,27 @@ export default function FoodCard({ item, onOpenDetail }) {
           totalQtyInCart > 0 ? (
             <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
               <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
-                -
+                <Minus size={12} />
               </button>
               <span className="qty-stepper-val">{totalQtyInCart}</span>
               <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
-                +
+                <Plus size={12} />
               </button>
             </div>
           ) : (
             <button
               onClick={handleQuickAdd}
               className="btn-add-stepper"
-              aria-label={`Add ${item.name} to order`}
+              aria-label={`Add ${item.name}`}
             >
               <Plus size={14} />
               <span>ADD</span>
             </button>
           )
         ) : (
-          <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontStyle: 'italic' }}>Sold Out</span>
+          <span style={{ fontSize: '0.74rem', color: '#9ca3af', fontStyle: 'italic' }}>Sold Out</span>
         )}
       </div>
-    </Card3DWrapper>
+    </CardWrapper>
   );
 }

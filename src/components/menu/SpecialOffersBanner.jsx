@@ -15,7 +15,6 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
   }
 
   const handleAddOffer = (offer) => {
-    // Transform offer to cart item
     const offerItem = {
       id: offer.id,
       name: offer.title,
@@ -24,6 +23,8 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
       isAvailable: true,
       image: offer.image,
       description: offer.description,
+      minPrepTime: offer.minPrepTime || 15,
+      maxPrepTime: offer.maxPrepTime || 20,
       customizations: [],
     };
     addToCart(offerItem, 1);
@@ -32,7 +33,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
   return (
     <section style={{ padding: '10px 16px 16px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-        <Sparkles size={16} color={theme.primaryColor || '#c99738'} />
+        <Sparkles size={16} color={theme.primaryColor || '#c98a2c'} />
         <h3
           style={{
             fontFamily: theme.fontHeading || "'Playfair Display', serif",
@@ -48,102 +49,99 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
         {availableOffers.map(offer => (
           <div
             key={offer.id}
-            className="glass-panel"
+            className="restaurant-card"
             style={{
-              borderRadius: 'var(--radius-lg)',
               overflow: 'hidden',
               position: 'relative',
-              background: 'linear-gradient(135deg, rgba(30, 34, 46, 0.9) 0%, rgba(18, 20, 26, 0.95) 100%)',
-              border: `1px solid rgba(201, 151, 56, 0.3)`,
-              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'stretch',
+              border: `1px solid rgba(201, 138, 44, 0.3)`,
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch' }}>
-              {/* Offer Image */}
-              <div style={{ width: '120px', minHeight: '120px', position: 'relative', flexShrink: 0 }}>
-                <img
-                  src={offer.image}
-                  alt={offer.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                <div
+            {/* Offer Real Photography */}
+            <div style={{ width: '120px', minHeight: '120px', position: 'relative', flexShrink: 0, backgroundColor: '#f3f4f6' }}>
+              <img
+                src={offer.image}
+                alt={offer.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '6px',
+                  left: '6px',
+                  background: 'var(--color-accent)',
+                  color: '#ffffff',
+                  fontSize: '0.62rem',
+                  fontWeight: 800,
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                }}
+              >
+                SPECIAL
+              </div>
+            </div>
+
+            {/* Offer Details */}
+            <div style={{ padding: '12px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ fontSize: '0.68rem', color: theme.primaryColor || '#c98a2c', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
+                  {offer.badge || 'Chef Selection'}
+                </div>
+                <h4
                   style={{
-                    position: 'absolute',
-                    top: '6px',
-                    left: '6px',
-                    background: 'rgba(139, 30, 47, 0.9)',
-                    color: '#fff',
-                    fontSize: '0.62rem',
-                    fontWeight: 800,
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    backdropFilter: 'blur(4px)',
+                    fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                    fontSize: '0.98rem',
+                    fontWeight: 700,
+                    color: 'var(--color-text-primary)',
+                    marginBottom: '4px',
                   }}
                 >
-                  OFFER
-                </div>
+                  {offer.title}
+                </h4>
+                <p
+                  style={{
+                    fontSize: '0.74rem',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.35,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {offer.description}
+                </p>
               </div>
 
-              {/* Offer Info */}
-              <div style={{ padding: '12px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{ fontSize: '0.68rem', color: theme.primaryColor || '#c99738', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
-                    {offer.badge || 'Limited Time Special'}
-                  </div>
-                  <h4
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                  <span
                     style={{
                       fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                      fontSize: '0.98rem',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      marginBottom: '4px',
+                      fontSize: '1.15rem',
+                      fontWeight: 800,
+                      color: theme.primaryColor || '#c98a2c',
                     }}
                   >
-                    {offer.title}
-                  </h4>
-                  <p
-                    style={{
-                      fontSize: '0.74rem',
-                      color: 'var(--color-text-secondary)',
-                      lineHeight: 1.35,
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    {offer.description}
-                  </p>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                    <span
-                      style={{
-                        fontFamily: theme.fontHeading || "'Playfair Display', serif",
-                        fontSize: '1.15rem',
-                        fontWeight: 800,
-                        color: theme.primaryColor || '#c99738',
-                      }}
-                    >
-                      {currency}{offer.discountedPrice}
+                    {currency}{offer.discountedPrice}
+                  </span>
+                  {offer.originalPrice && (
+                    <span style={{ fontSize: '0.75rem', color: '#9ca3af', textDecoration: 'line-through' }}>
+                      {currency}{offer.originalPrice}
                     </span>
-                    {offer.originalPrice && (
-                      <span style={{ fontSize: '0.75rem', color: '#6b7280', textDecoration: 'line-through' }}>
-                        {currency}{offer.originalPrice}
-                      </span>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={() => handleAddOffer(offer)}
-                    className="btn-add-stepper"
-                    style={{ padding: '5px 12px', fontSize: '0.75rem' }}
-                  >
-                    <Plus size={13} />
-                    <span>CLAIM</span>
-                  </button>
+                  )}
                 </div>
+
+                <button
+                  onClick={() => handleAddOffer(offer)}
+                  className="btn-add-stepper"
+                  style={{ padding: '5px 12px', fontSize: '0.75rem' }}
+                >
+                  <Plus size={13} />
+                  <span>CLAIM</span>
+                </button>
               </div>
             </div>
           </div>

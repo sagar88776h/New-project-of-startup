@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Trash2, ShoppingBag, Send, Plus, Minus, Utensils, ShieldCheck, Edit3 } from 'lucide-react';
+import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 
@@ -26,6 +26,11 @@ export default function CartDrawer({ onChangeTable }) {
 
   if (!isCartOpen) return null;
 
+  const maxPrepEstimate = cartItems.reduce((max, item) => {
+    const itemMax = item.maxPrepTime || 20;
+    return Math.max(max, itemMax);
+  }, 15);
+
   return (
     <div className={`modal-overlay ${isCartOpen ? 'active' : ''}`} onClick={() => setIsCartOpen(false)}>
       <div
@@ -35,7 +40,6 @@ export default function CartDrawer({ onChangeTable }) {
           maxHeight: '92vh',
           display: 'flex',
           flexDirection: 'column',
-          color: '#ffffff',
         }}
       >
         <div className="sheet-handle" />
@@ -47,18 +51,18 @@ export default function CartDrawer({ onChangeTable }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--color-card-border)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <ShoppingBag size={20} color={theme.primaryColor || '#c99738'} />
+            <ShoppingBag size={20} color={theme.primaryColor || '#c98a2c'} />
             <div>
               <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700 }}>
                 Your Table Order
               </h3>
               <div
                 onClick={onChangeTable}
-                style={{ fontSize: '0.72rem', color: theme.primaryColor || '#c99738', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                style={{ fontSize: '0.74rem', color: theme.primaryColor || '#c98a2c', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
               >
                 <span>Table {tableNumber}</span>
                 <Edit3 size={11} />
@@ -73,7 +77,7 @@ export default function CartDrawer({ onChangeTable }) {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#ef4444',
+                  color: '#dc2626',
                   fontSize: '0.75rem',
                   fontWeight: 600,
                   cursor: 'pointer',
@@ -94,9 +98,9 @@ export default function CartDrawer({ onChangeTable }) {
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'rgba(0, 0, 0, 0.06)',
                 border: 'none',
-                color: '#ffffff',
+                color: 'var(--color-text-primary)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -108,42 +112,64 @@ export default function CartDrawer({ onChangeTable }) {
           </div>
         </div>
 
-        {/* Scrollable Order Items List */}
+        {/* Scrollable Order Items */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px 90px' }}>
           {cartItems.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '50px 20px', color: '#9ca3af' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🛒</div>
-              <h4 style={{ fontSize: '1.1rem', color: '#ffffff', marginBottom: '6px' }}>Your cart is empty</h4>
+            <div style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--color-text-muted)' }}>
+              <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🍽️</div>
+              <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-primary)', marginBottom: '6px' }}>Your cart is empty</h4>
               <p style={{ fontSize: '0.82rem', marginBottom: '20px' }}>
-                Explore delicious creations from our gourmet menu and add your favorites.
+                Discover our freshly prepared chef specialties and add dishes to your order.
               </p>
               <button
                 onClick={() => setIsCartOpen(false)}
                 className="btn-primary"
                 style={{ padding: '10px 20px', fontSize: '0.85rem' }}
               >
-                Browse Menu
+                Explore Menu
               </button>
             </div>
           ) : (
             <>
-              {/* Item Cards */}
+              {/* Estimated Kitchen Prep Alert Box */}
+              <div
+                style={{
+                  background: 'rgba(201, 138, 44, 0.08)',
+                  border: '1px solid rgba(201, 138, 44, 0.25)',
+                  borderRadius: '12px',
+                  padding: '10px 14px',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '0.78rem',
+                  color: 'var(--color-text-primary)',
+                }}
+              >
+                <Clock size={16} color={theme.primaryColor || '#c98a2c'} />
+                <span>
+                  Estimated kitchen preparation time for this order: <b>~{maxPrepEstimate} minutes</b>
+                </span>
+              </div>
+
+              {/* Items List */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
                 {cartItems.map(item => (
                   <div
                     key={item.cartItemId}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: 'var(--color-card-bg)',
+                      border: '1px solid var(--color-card-border)',
                       borderRadius: '16px',
                       padding: '12px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       gap: '12px',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
                     }}
                   >
-                    {/* Item Thumbnail & Info */}
+                    {/* Item Thumbnail & Details */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
                       <img
                         src={item.image}
@@ -157,31 +183,31 @@ export default function CartDrawer({ onChangeTable }) {
                           ) : (
                             <span className="non-veg-indicator" style={{ width: '12px', height: '12px' }}><span className="non-veg-indicator-triangle" style={{ borderLeftWidth: '3px', borderRightWidth: '3px', borderBottomWidth: '5px' }} /></span>
                           )}
-                          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {item.name}
                           </h4>
                         </div>
 
-                        {/* Customizations list */}
+                        {/* Customizations */}
                         {item.selectedCustomizations && item.selectedCustomizations.length > 0 && (
-                          <div style={{ fontSize: '0.7rem', color: theme.primaryColor || '#c99738', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.72rem', color: theme.primaryColor || '#c98a2c', marginTop: '2px' }}>
                             + {item.selectedCustomizations.map(c => c.name).join(', ')}
                           </div>
                         )}
 
                         {item.specialNotes && (
-                          <div style={{ fontSize: '0.68rem', color: '#9ca3af', fontStyle: 'italic', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', fontStyle: 'italic', marginTop: '2px' }}>
                             Note: "{item.specialNotes}"
                           </div>
                         )}
 
-                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: theme.primaryColor || '#c99738', marginTop: '4px' }}>
+                        <div style={{ fontSize: '0.82rem', fontWeight: 800, color: theme.primaryColor || '#c98a2c', marginTop: '3px' }}>
                           {currency}{item.unitPrice} each
                         </div>
                       </div>
                     </div>
 
-                    {/* Stepper Controls & Total */}
+                    {/* Stepper Controls & Price */}
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', flexShrink: 0 }}>
                       <div className="qty-stepper-container">
                         <button
@@ -199,31 +225,31 @@ export default function CartDrawer({ onChangeTable }) {
                         </button>
                       </div>
 
-                      <span style={{ fontSize: '0.92rem', fontWeight: 800, color: '#ffffff' }}>
-                        {currency}{item.totalPrice}
+                      <span style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+                        {currency}{item.totalPrice.toFixed(2)}
                       </span>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Kitchen Note Input */}
+              {/* Kitchen Note */}
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
-                  Cooking Instructions for Head Chef
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '5px' }}>
+                  Cooking Instructions for Kitchen
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="e.g. Please bring extra plates, food mild spicy, serve desserts after mains..."
+                  placeholder="e.g. Please make curries mild spicy, bring extra small plates..."
                   value={orderNotes}
                   onChange={e => setOrderNotes(e.target.value)}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
                     borderRadius: '12px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#ffffff',
+                    background: 'rgba(0, 0, 0, 0.03)',
+                    border: '1px solid var(--color-card-border)',
+                    color: 'var(--color-text-primary)',
                     fontSize: '0.82rem',
                     outline: 'none',
                     resize: 'none',
@@ -231,11 +257,11 @@ export default function CartDrawer({ onChangeTable }) {
                 />
               </div>
 
-              {/* Bill Details Breakdown */}
+              {/* Bill Details */}
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'rgba(0, 0, 0, 0.02)',
+                  border: '1px solid var(--color-card-border)',
                   borderRadius: '16px',
                   padding: '14px',
                   display: 'flex',
@@ -243,25 +269,25 @@ export default function CartDrawer({ onChangeTable }) {
                   gap: '8px',
                 }}
               >
-                <h4 style={{ fontSize: '0.82rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                  Bill Breakdown
+                <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                  Bill Summary
                 </h4>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#d1d5db' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
                   <span>Item Subtotal</span>
                   <span>{currency}{subtotal.toFixed(2)}</span>
                 </div>
 
                 {settings?.taxRate > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#9ca3af' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
                     <span>GST / Taxes ({settings.taxRate}%)</span>
                     <span>{currency}{taxAmount.toFixed(2)}</span>
                   </div>
                 )}
 
                 {settings?.serviceChargeRate > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#9ca3af' }}>
-                    <span>Restaurant Service Charge ({settings.serviceChargeRate}%)</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
+                    <span>Service Charge ({settings.serviceChargeRate}%)</span>
                     <span>{currency}{serviceChargeAmount.toFixed(2)}</span>
                   </div>
                 )}
@@ -269,14 +295,14 @@ export default function CartDrawer({ onChangeTable }) {
                 <div
                   style={{
                     height: '1px',
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: 'var(--color-card-border)',
                     margin: '4px 0',
                   }}
                 />
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: 800, color: '#ffffff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                   <span>Grand Total</span>
-                  <span style={{ color: theme.primaryColor || '#c99738' }}>{currency}{grandTotal.toFixed(2)}</span>
+                  <span style={{ color: theme.primaryColor || '#c98a2c' }}>{currency}{grandTotal.toFixed(2)}</span>
                 </div>
               </div>
             </>
@@ -292,9 +318,9 @@ export default function CartDrawer({ onChangeTable }) {
               left: 0,
               right: 0,
               padding: '14px 20px',
-              background: 'rgba(18, 20, 28, 0.96)',
-              backdropFilter: 'blur(16px)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--color-card-bg)',
+              borderTop: '1px solid var(--color-card-border)',
+              boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.08)',
             }}
           >
             <button
@@ -314,7 +340,7 @@ export default function CartDrawer({ onChangeTable }) {
               }}
             >
               <Send size={18} />
-              <span>SEND TO KITCHEN • {currency}{grandTotal.toFixed(2)}</span>
+              <span>PROCEED TO ORDER • {currency}{grandTotal.toFixed(2)}</span>
             </button>
           </div>
         )}

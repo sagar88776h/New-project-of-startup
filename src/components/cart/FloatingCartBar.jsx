@@ -1,17 +1,25 @@
 import React from 'react';
-import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { ShoppingBag, ArrowRight, Clock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function FloatingCartBar() {
   const { cartItems, totalItemsCount, subtotal, setIsCartOpen, tableNumber } = useCart();
   const { activeRestaurant } = useRestaurant();
-  const { currency, theme } = activeRestaurant;
+  const { currency, theme, settings } = activeRestaurant;
 
-  const isVisible = totalItemsCount > 0;
+  if (!settings?.orderingEnabled || totalItemsCount === 0) {
+    return null;
+  }
+
+  // Calculate maximum estimated preparation time among items in cart
+  const maxPrepEstimate = cartItems.reduce((max, item) => {
+    const itemMax = item.maxPrepTime || 20;
+    return Math.max(max, itemMax);
+  }, 15);
 
   return (
-    <div className={`floating-cart-bar ${isVisible ? 'visible' : ''}`}>
+    <div className="floating-cart-bar visible">
       {/* Left Item Count & Subtotal */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div
@@ -19,14 +27,14 @@ export default function FloatingCartBar() {
             width: '38px',
             height: '38px',
             borderRadius: '50%',
-            background: theme.primaryColor || '#c99738',
-            color: '#0d0e12',
+            background: theme.primaryColor || '#c98a2c',
+            color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: 800,
             fontSize: '0.9rem',
-            boxShadow: '0 4px 12px rgba(201, 151, 56, 0.4)',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.25)',
           }}
         >
           <ShoppingBag size={18} />
@@ -37,23 +45,30 @@ export default function FloatingCartBar() {
             <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#ffffff' }}>
               {totalItemsCount} {totalItemsCount === 1 ? 'ITEM' : 'ITEMS'}
             </span>
-            <span style={{ fontSize: '0.72rem', color: '#9ca3af' }}>•</span>
-            <span style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 600 }}>Table {tableNumber}</span>
+            <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>•</span>
+            <span style={{ fontSize: '0.75rem', color: '#4ade80', fontWeight: 600 }}>Table {tableNumber}</span>
           </div>
-          <div
-            style={{
-              fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '1.05rem',
-              fontWeight: 800,
-              color: theme.primaryColor || '#c99738',
-            }}
-          >
-            {currency}{subtotal}
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span
+              style={{
+                fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                fontSize: '1.05rem',
+                fontWeight: 800,
+                color: theme.primaryColor || '#c98a2c',
+              }}
+            >
+              {currency}{subtotal.toFixed(2)}
+            </span>
+            <span style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '3px' }}>
+              <Clock size={11} />
+              <span>⏱ ~{maxPrepEstimate} min</span>
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Right View Cart CTA */}
+      {/* Right View Order CTA */}
       <button
         onClick={() => setIsCartOpen(true)}
         className="btn-primary"

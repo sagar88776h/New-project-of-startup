@@ -3,8 +3,8 @@ import { DEFAULT_RESTAURANTS } from '../data/defaultRestaurants';
 
 const RestaurantContext = createContext();
 
-const STORAGE_KEY = 'gourmet_qr_restaurants_v2';
-const ACTIVE_RESTAURANT_KEY = 'gourmet_qr_active_slug';
+const STORAGE_KEY = 'real_photography_qr_menu_v3';
+const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_v3';
 
 export function RestaurantProvider({ children }) {
   const [restaurants, setRestaurants] = useState(() => {
@@ -21,7 +21,6 @@ export function RestaurantProvider({ children }) {
 
   // Determine active restaurant from URL hash / path or localStorage
   const getInitialSlug = () => {
-    // Check path like /menu/royal-biryani or query ?restaurant=royal-biryani or hash #/menu/royal-biryani
     const path = window.location.pathname;
     const match = path.match(/\/menu\/([^/?#]+)/);
     if (match && match[1]) return match[1];
@@ -35,7 +34,7 @@ export function RestaurantProvider({ children }) {
     const saved = localStorage.getItem(ACTIVE_RESTAURANT_KEY);
     if (saved && DEFAULT_RESTAURANTS.some(r => r.slug === saved)) return saved;
 
-    return 'royal-biryani';
+    return 'royal-dining';
   };
 
   const [activeSlug, setActiveSlug] = useState(getInitialSlug);
@@ -215,7 +214,7 @@ export function RestaurantProvider({ children }) {
   // Reset to sample data
   const resetToSampleData = () => {
     setRestaurants(DEFAULT_RESTAURANTS);
-    setActiveSlug('royal-biryani');
+    setActiveSlug('royal-dining');
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(ACTIVE_RESTAURANT_KEY);
   };

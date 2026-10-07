@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { RestaurantProvider, useRestaurant } from './context/RestaurantContext';
 import { CartProvider, useCart } from './context/CartContext';
 import './styles/index.css';
-import './styles/3d-effects.css';
 
 // Components
 import QrLandingModal from './components/landing/QrLandingModal';

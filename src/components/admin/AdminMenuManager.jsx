@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Plus, Edit2, Trash2, Eye, EyeOff, Sparkles, Flame, Check, X, Image as ImageIcon, Search } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, EyeOff, Sparkles, Flame, Check, X, Clock, ChefHat, Search } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { REAL_FOOD_IMAGES } from '../../data/defaultRestaurants';
 
 export default function AdminMenuManager() {
   const {
@@ -18,24 +19,26 @@ export default function AdminMenuManager() {
   const [editingItem, setEditingItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Form State
+  // Form State with Min / Max Prep Time
   const initialForm = {
     name: '',
-    categoryId: categories[0]?.id || 'mains',
+    categoryId: categories[0]?.id || 'curries',
     price: 299,
     description: '',
-    prepTime: '15 mins',
-    serving: '1-2 Persons',
-    calories: '500 kcal',
-    image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&auto=format&fit=crop&q=80',
+    preparationStyle: '',
+    minPrepTime: 15,
+    maxPrepTime: 20,
+    serving: 'Serves 1–2 (450g)',
+    calories: '520 kcal',
+    image: REAL_FOOD_IMAGES.chickenBiryani,
     isVeg: true,
     isBestseller: false,
     isChefSpecial: false,
     isSpicy: 1,
     isAvailable: true,
-    ingredientsStr: 'Fresh Produce, Spices, Olive Oil',
+    ingredientsStr: 'Fresh Produce, Whole Spices, Desi Butter',
     customizations: [
-      { id: 'c1', name: 'Extra Cheese / Sauce', price: 40 },
+      { id: 'c1', name: 'Extra Portion / Sauce', price: 40 },
     ],
   };
 
@@ -51,6 +54,9 @@ export default function AdminMenuManager() {
     setEditingItem(item);
     setFormData({
       ...item,
+      minPrepTime: item.minPrepTime || 15,
+      maxPrepTime: item.maxPrepTime || 20,
+      preparationStyle: item.preparationStyle || '',
       ingredientsStr: item.ingredients?.join(', ') || '',
       customizations: item.customizations || [],
     });
@@ -67,6 +73,8 @@ export default function AdminMenuManager() {
     const payload = {
       ...formData,
       price: Number(formData.price),
+      minPrepTime: Number(formData.minPrepTime),
+      maxPrepTime: Number(formData.maxPrepTime),
       isSpicy: Number(formData.isSpicy),
       ingredients: formData.ingredientsStr
         ? formData.ingredientsStr.split(',').map(s => s.trim()).filter(Boolean)
@@ -91,7 +99,6 @@ export default function AdminMenuManager() {
     }
   };
 
-  // Filter Items by search
   const filteredItems = items.filter(
     i =>
       i.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -101,13 +108,13 @@ export default function AdminMenuManager() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       
-      {/* Top Header & Add Button */}
+      {/* Top Header & Search */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
         <div style={{ position: 'relative', flex: 1 }}>
           <Search size={16} color="#9ca3af" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
           <input
             type="text"
-            placeholder="Search menu items..."
+            placeholder="Search menu dishes..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             style={{
@@ -115,7 +122,7 @@ export default function AdminMenuManager() {
               padding: '8px 12px 8px 36px',
               borderRadius: '12px',
               background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
               color: '#ffffff',
               fontSize: '0.82rem',
               outline: 'none',
@@ -129,7 +136,7 @@ export default function AdminMenuManager() {
           style={{ padding: '8px 16px', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
         >
           <Plus size={16} />
-          <span>Add Dish</span>
+          <span>Add Real Dish</span>
         </button>
       </div>
 
@@ -137,6 +144,10 @@ export default function AdminMenuManager() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {filteredItems.map(item => {
           const cat = categories.find(c => c.id === item.categoryId);
+          const prepText = item.minPrepTime && item.maxPrepTime
+            ? `${item.minPrepTime}–${item.maxPrepTime} min`
+            : item.prepTime || '15–20 min';
+
           return (
             <div
               key={item.id}
@@ -149,7 +160,7 @@ export default function AdminMenuManager() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '12px',
-                opacity: item.isAvailable ? 1 : 0.65,
+                opacity: item.isAvailable ? 1 : 0.6,
               }}
             >
               {/* Thumbnail and Info */}
@@ -157,7 +168,7 @@ export default function AdminMenuManager() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
+                  style={{ width: '52px', height: '52px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                 />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -171,10 +182,11 @@ export default function AdminMenuManager() {
                     </h4>
                   </div>
                   <div style={{ fontSize: '0.74rem', color: '#9ca3af', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '2px' }}>
-                    <span>{cat?.name || 'Item'}</span>
+                    <span>{cat?.name || 'Dish'}</span>
                     <span>•</span>
-                    <span style={{ fontWeight: 700, color: theme.primaryColor || '#c99738' }}>{currency}{item.price}</span>
-                    {item.isBestseller && <span style={{ color: '#f59e0b' }}>★ Bestseller</span>}
+                    <span style={{ fontWeight: 700, color: theme.primaryColor || '#c98a2c' }}>{currency}{item.price}</span>
+                    <span>•</span>
+                    <span style={{ color: '#cbd5e1' }}>⏱ {prepText}</span>
                   </div>
                 </div>
               </div>
@@ -183,11 +195,11 @@ export default function AdminMenuManager() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <button
                   onClick={() => toggleItemAvailability(item.id)}
-                  title={item.isAvailable ? 'Mark as Out of Stock' : 'Mark as In Stock'}
+                  title={item.isAvailable ? 'Mark as Out of Stock' : 'Mark as Available'}
                   style={{
-                    background: item.isAvailable ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                    background: item.isAvailable ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                     border: 'none',
-                    color: item.isAvailable ? '#10b981' : '#ef4444',
+                    color: item.isAvailable ? '#22c55e' : '#ef4444',
                     padding: '6px',
                     borderRadius: '8px',
                     cursor: 'pointer',
@@ -200,7 +212,7 @@ export default function AdminMenuManager() {
                   onClick={() => handleOpenEdit(item)}
                   title="Edit Dish"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.06)',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     border: 'none',
                     color: '#ffffff',
                     padding: '6px',
@@ -215,7 +227,7 @@ export default function AdminMenuManager() {
                   onClick={() => handleDelete(item)}
                   title="Delete Dish"
                   style={{
-                    background: 'rgba(239, 68, 68, 0.1)',
+                    background: 'rgba(239, 68, 68, 0.12)',
                     border: 'none',
                     color: '#ef4444',
                     padding: '6px',
@@ -231,19 +243,19 @@ export default function AdminMenuManager() {
         })}
       </div>
 
-      {/* Add / Edit Dish Modal */}
+      {/* Add / Edit Modal */}
       {isModalOpen && (
         <div className="modal-overlay active" onClick={() => setIsModalOpen(false)}>
           <div
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '92vh', padding: '20px', color: '#ffffff' }}
+            style={{ maxHeight: '92vh', padding: '20px', color: '#ffffff', background: '#141720' }}
           >
             <div className="sheet-handle" />
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
               <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700 }}>
-                {editingItem ? 'Edit Dish' : 'Add New Dish'}
+                {editingItem ? 'Edit Menu Item' : 'Add New Real Dish'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -263,6 +275,7 @@ export default function AdminMenuManager() {
                 <input
                   type="text"
                   required
+                  placeholder="e.g. Shahi Chicken Dum Biryani"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
                   style={{
@@ -277,7 +290,7 @@ export default function AdminMenuManager() {
                 />
               </div>
 
-              {/* Category & Price Row */}
+              {/* Category & Price */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
@@ -290,7 +303,7 @@ export default function AdminMenuManager() {
                       width: '100%',
                       padding: '10px 12px',
                       borderRadius: '10px',
-                      background: '#181b24',
+                      background: '#1c202a',
                       border: '1px solid rgba(255, 255, 255, 0.15)',
                       color: '#ffffff',
                       fontSize: '0.85rem',
@@ -325,13 +338,48 @@ export default function AdminMenuManager() {
                 </div>
               </div>
 
-              {/* Image URL */}
+              {/* Preparation Time: Min Time & Max Time */}
+              <div style={{ background: 'rgba(201, 138, 44, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(201, 138, 44, 0.2)' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: theme.primaryColor || '#c98a2c', marginBottom: '8px' }}>
+                  ⏱ Estimated Preparation Time (Minutes)
+                </label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div>
+                    <span style={{ fontSize: '0.72rem', color: '#9ca3af', display: 'block', marginBottom: '3px' }}>Minimum Time (min)</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={120}
+                      value={formData.minPrepTime}
+                      onChange={e => setFormData({ ...formData, minPrepTime: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', background: '#1c202a', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+                    />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.72rem', color: '#9ca3af', display: 'block', marginBottom: '3px' }}>Maximum Time (min)</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={120}
+                      value={formData.maxPrepTime}
+                      onChange={e => setFormData({ ...formData, maxPrepTime: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', background: '#1c202a', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+                    />
+                  </div>
+                </div>
+                <div style={{ fontSize: '0.72rem', color: '#cbd5e1', marginTop: '6px' }}>
+                  Customer will see: <b>⏱ {formData.minPrepTime}–{formData.maxPrepTime} min</b>
+                </div>
+              </div>
+
+              {/* Real Food Photograph URL */}
               <div>
                 <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
-                  Food Image URL (Unsplash or direct image link)
+                  Real Food Photograph URL
                 </label>
                 <input
                   type="url"
+                  placeholder="https://images.unsplash.com/..."
                   value={formData.image}
                   onChange={e => setFormData({ ...formData, image: e.target.value })}
                   style={{
@@ -346,13 +394,14 @@ export default function AdminMenuManager() {
                 />
               </div>
 
-              {/* Description */}
+              {/* Meaningful Description */}
               <div>
                 <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
-                  Description
+                  Meaningful Description (Explain clearly what customer is getting)
                 </label>
                 <textarea
                   rows={2}
+                  placeholder="e.g. Boneless chicken cooked with fragrant basmati rice, caramelized onions, and saffron..."
                   value={formData.description}
                   onChange={e => setFormData({ ...formData, description: e.target.value })}
                   style={{
@@ -368,7 +417,80 @@ export default function AdminMenuManager() {
                 />
               </div>
 
-              {/* Dietary & Highlight Checkboxes */}
+              {/* Preparation Style */}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
+                  Preparation Style & Technique
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Slow-cooked in sealed clay handi over wood charcoal embers"
+                  value={formData.preparationStyle}
+                  onChange={e => setFormData({ ...formData, preparationStyle: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    color: '#ffffff',
+                    fontSize: '0.85rem',
+                  }}
+                />
+              </div>
+
+              {/* Ingredients */}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
+                  Key Ingredients (comma separated)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Basmati Rice, Chicken, Saffron, Desi Ghee, Cardamom"
+                  value={formData.ingredientsStr}
+                  onChange={e => setFormData({ ...formData, ingredientsStr: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    color: '#ffffff',
+                    fontSize: '0.85rem',
+                  }}
+                />
+              </div>
+
+              {/* Serving Size & Calories */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
+                    Serving Size
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Serves 1–2 (600g)"
+                    value={formData.serving}
+                    onChange={e => setFormData({ ...formData, serving: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
+                    Calories (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 580 kcal"
+                    value={formData.calories}
+                    onChange={e => setFormData({ ...formData, calories: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+                  />
+                </div>
+              </div>
+
+              {/* Dietary Checkboxes */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#e5e7eb', cursor: 'pointer' }}>
                   <input
@@ -385,7 +507,7 @@ export default function AdminMenuManager() {
                     checked={formData.isBestseller}
                     onChange={e => setFormData({ ...formData, isBestseller: e.target.checked })}
                   />
-                  <span>🔥 Bestseller Badge</span>
+                  <span>⭐ Bestseller Badge</span>
                 </label>
 
                 <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#e5e7eb', cursor: 'pointer' }}>
@@ -403,19 +525,19 @@ export default function AdminMenuManager() {
                     checked={formData.isAvailable}
                     onChange={e => setFormData({ ...formData, isAvailable: e.target.checked })}
                   />
-                  <span>✅ In Stock / Available</span>
+                  <span>✅ Available in Kitchen</span>
                 </label>
               </div>
 
-              {/* Spice Level */}
+              {/* Spice Level Range */}
               <div>
                 <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
-                  Spice Level (0: Mild to 4: Extra Spicy)
+                  Spice Level (0: Mild, 1: Medium, 2: Spicy, 3: Hot)
                 </label>
                 <input
                   type="range"
                   min={0}
-                  max={4}
+                  max={3}
                   value={formData.isSpicy}
                   onChange={e => setFormData({ ...formData, isSpicy: Number(e.target.value) })}
                   style={{ width: '100%' }}
@@ -424,39 +546,17 @@ export default function AdminMenuManager() {
                   <span>0 (Mild)</span>
                   <span>1 (Medium)</span>
                   <span>2 (Spicy)</span>
-                  <span>3 (Very Hot)</span>
-                  <span>4 (Extreme 🔥)</span>
+                  <span>3 (Extra Hot 🌶)</span>
                 </div>
-              </div>
-
-              {/* Ingredients String */}
-              <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', marginBottom: '4px' }}>
-                  Key Ingredients (comma separated)
-                </label>
-                <input
-                  type="text"
-                  value={formData.ingredientsStr}
-                  onChange={e => setFormData({ ...formData, ingredientsStr: e.target.value })}
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    borderRadius: '10px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    color: '#ffffff',
-                    fontSize: '0.85rem',
-                  }}
-                />
               </div>
 
               {/* Save CTA */}
               <button
                 type="submit"
                 className="btn-primary"
-                style={{ width: '100%', padding: '14px', borderRadius: '12px', marginTop: '10px' }}
+                style={{ width: '100%', padding: '14px', borderRadius: '12px', marginTop: '8px' }}
               >
-                {editingItem ? 'Save Changes' : 'Create Dish'}
+                {editingItem ? 'Save Changes' : 'Add Item to Menu'}
               </button>
             </form>
           </div>

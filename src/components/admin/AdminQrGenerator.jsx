@@ -184,7 +184,7 @@ export default function AdminQrGenerator() {
           {activeRestaurant.name}
         </h3>
         <p style={{ fontSize: '0.75rem', color: '#9ca3af', marginBottom: '16px' }}>
-          Scan to View 3D Menu & Order from Table
+          Scan to View Digital Menu & Order from Table
         </p>
 
         {/* QR Code Container */}
