@@ -10,6 +10,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
 
   return (
     <div
+      className="hero-animate"
       style={{
         position: 'relative',
         width: '100%',

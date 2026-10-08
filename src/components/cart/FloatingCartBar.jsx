@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ShoppingBag, ArrowRight, Clock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -7,6 +7,19 @@ export default function FloatingCartBar() {
   const { cartItems, totalItemsCount, subtotal, setIsCartOpen, tableNumber } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { currency, theme, settings } = activeRestaurant;
+
+  // Bounce animation when items are added
+  const [isBouncing, setIsBouncing] = useState(false);
+  const prevCountRef = useRef(totalItemsCount);
+
+  useEffect(() => {
+    if (totalItemsCount > prevCountRef.current) {
+      setIsBouncing(true);
+      const t = setTimeout(() => setIsBouncing(false), 600);
+      return () => clearTimeout(t);
+    }
+    prevCountRef.current = totalItemsCount;
+  }, [totalItemsCount]);
 
   if (!settings?.orderingEnabled || totalItemsCount === 0) {
     return null;
@@ -19,7 +32,7 @@ export default function FloatingCartBar() {
   }, 15);
 
   return (
-    <div className="floating-cart-bar visible">
+    <div className={`floating-cart-bar visible${isBouncing ? ' cart-bar-bounce' : ''}`}>
       {/* Left Item Count & Subtotal */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div

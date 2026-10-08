@@ -77,8 +77,8 @@ export default function FeaturedSection({ onOpenDetail }) {
           boxSizing: 'border-box',
         }}
       >
-        {favorites.map(item => (
-          <FoodCard key={item.id} item={item} onOpenDetail={onOpenDetail} />
+        {favorites.map((item, idx) => (
+          <FoodCard key={item.id} item={item} onOpenDetail={onOpenDetail} index={idx} />
         ))}
       </div>
     </section>

@@ -20,7 +20,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
       }}
     >
       {/* Category Header with Divider */}
-      <div style={{ marginBottom: '12px' }}>
+      <div className="section-header-animate" style={{ marginBottom: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
             <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>{category.icon || '🍽️'}</span>
@@ -77,8 +77,8 @@ export default function MenuSection({ category, items, onOpenDetail }) {
           boxSizing: 'border-box',
         }}
       >
-        {items.map(dish => (
-          <FoodCard key={dish.id} item={dish} onOpenDetail={onOpenDetail} />
+        {items.map((dish, idx) => (
+          <FoodCard key={dish.id} item={dish} onOpenDetail={onOpenDetail} index={idx} />
         ))}
       </div>
     </section>

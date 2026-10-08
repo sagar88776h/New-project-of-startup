@@ -4,7 +4,7 @@ import CardWrapper from '../common/CardWrapper';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 
-export default function FoodCard({ item, onOpenDetail }) {
+export default function FoodCard({ item, onOpenDetail, index = 0 }) {
   const { addToCart, cartItems, updateQuantity } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { currency, theme, settings } = activeRestaurant;
@@ -50,6 +50,7 @@ export default function FoodCard({ item, onOpenDetail }) {
   return (
     <CardWrapper
       onClick={() => onOpenDetail(item)}
+      className="food-card-animate"
       style={{
         padding: '10px 12px',
         display: 'flex',
@@ -62,6 +63,7 @@ export default function FoodCard({ item, onOpenDetail }) {
         width: '100%',
         maxWidth: '100%',
         boxSizing: 'border-box',
+        animationDelay: `${index * 0.06}s`,
       }}
     >
       {/* Left: Food Image Thumbnail */}
