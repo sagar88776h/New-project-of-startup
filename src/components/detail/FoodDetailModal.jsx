@@ -114,12 +114,13 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
               borderRadius: '16px',
               overflow: 'hidden',
               marginBottom: '14px',
-              backgroundColor: '#f3f4f6',
+              backgroundColor: '#141110',
             }}
           >
             <img
               src={item.image}
               alt={item.name}
+              loading="lazy"
               style={{
                 width: '100%',
                 height: '100%',
@@ -163,10 +164,10 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             </h2>
             <div
               style={{
-                fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                fontFamily: theme.fontHeading || "'Fraunces', serif",
                 fontSize: '1.25rem',
                 fontWeight: 800,
-                color: 'var(--color-primary)',
+                color: 'var(--color-accent)',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
               }}
@@ -349,12 +350,12 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
             left: 0,
             right: 0,
             padding: '12px 16px calc(14px + var(--sab))',
-            background: '#ffffff',
+            background: 'var(--color-card-bg)',
             borderTop: '1px solid var(--color-card-border)',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.06)',
+            boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.5)',
             zIndex: 20,
             boxSizing: 'border-box',
           }}

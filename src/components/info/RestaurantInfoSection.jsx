@@ -40,10 +40,10 @@ export default function RestaurantInfoSection() {
       >
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Utensils size={18} color="var(--color-primary)" />
+          <Utensils size={18} color="var(--color-accent)" />
           <h3
             style={{
-              fontFamily: theme.fontHeading || "'Playfair Display', serif",
+              fontFamily: theme.fontHeading || "'Fraunces', serif",
               fontSize: '1.2rem',
               fontWeight: 700,
               color: 'var(--color-text-primary)',
@@ -62,8 +62,8 @@ export default function RestaurantInfoSection() {
         {contact?.wifiPassword && (
           <div
             style={{
-              background: 'rgba(139, 29, 44, 0.05)',
-              border: '1px solid rgba(139, 29, 44, 0.15)',
+              background: 'rgba(196, 22, 28, 0.08)',
+              border: '1px solid rgba(212, 166, 74, 0.2)',
               borderRadius: '12px',
               padding: '10px 14px',
               display: 'flex',

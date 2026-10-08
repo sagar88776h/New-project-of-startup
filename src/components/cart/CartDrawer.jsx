@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3 } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3, MessageSquare } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 
@@ -9,7 +9,7 @@ export default function CartDrawer({ onChangeTable }) {
     setIsCartOpen,
     cartItems,
     updateQuantity,
-    removeFromCart,
+    updateItemNote,
     clearCart,
     subtotal,
     taxAmount,
@@ -20,6 +20,9 @@ export default function CartDrawer({ onChangeTable }) {
     setOrderNotes,
     placeOrder,
   } = useCart();
+
+  const [editingNoteItemId, setEditingNoteItemId] = useState(null);
+  const [tempNoteText, setTempNoteText] = useState('');
 
   const { activeRestaurant } = useRestaurant();
   const { currency, theme, settings } = activeRestaurant;
@@ -67,7 +70,7 @@ export default function CartDrawer({ onChangeTable }) {
                 onClick={onChangeTable}
                 style={{ fontSize: '0.74rem', color: theme.primaryColor || '#c98a2c', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
               >
-                <span>Table {tableNumber}</span>
+                <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
                 <Edit3 size={11} />
               </div>
             </div>
@@ -177,6 +180,7 @@ export default function CartDrawer({ onChangeTable }) {
                       <img
                         src={item.image}
                         alt={item.name}
+                        loading="lazy"
                         style={{ width: '52px', height: '52px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                       />
                       <div style={{ minWidth: 0, flex: 1 }}>
@@ -198,10 +202,91 @@ export default function CartDrawer({ onChangeTable }) {
                           </div>
                         )}
 
-                        {item.specialNotes && (
-                          <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', fontStyle: 'italic', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            Note: "{item.specialNotes}"
+                        {/* Cooking Note per item */}
+                        {editingNoteItemId === item.cartItemId ? (
+                          <div style={{ marginTop: '4px', display: 'flex', gap: '4px', alignItems: 'center' }}>
+                            <input
+                              type="text"
+                              value={tempNoteText}
+                              placeholder="e.g. less spicy, no onion"
+                              onChange={e => setTempNoteText(e.target.value)}
+                              autoFocus
+                              style={{
+                                fontSize: '0.72rem',
+                                padding: '3px 6px',
+                                borderRadius: '6px',
+                                border: '1px solid var(--color-card-border)',
+                                background: 'rgba(0,0,0,0.04)',
+                                color: 'var(--color-text-primary)',
+                                outline: 'none',
+                                width: '130px',
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                updateItemNote(item.cartItemId, tempNoteText.trim());
+                                setEditingNoteItemId(null);
+                              }}
+                              style={{
+                                fontSize: '0.68rem',
+                                padding: '3px 6px',
+                                borderRadius: '6px',
+                                background: theme.primaryColor || '#c98a2c',
+                                color: '#ffffff',
+                                border: 'none',
+                                cursor: 'pointer',
+                                fontWeight: 700,
+                              }}
+                            >
+                              Save
+                            </button>
                           </div>
+                        ) : item.specialNotes ? (
+                          <div
+                            onClick={() => {
+                              setEditingNoteItemId(item.cartItemId);
+                              setTempNoteText(item.specialNotes);
+                            }}
+                            style={{
+                              fontSize: '0.68rem',
+                              color: 'var(--color-text-muted)',
+                              fontStyle: 'italic',
+                              marginTop: '2px',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '3px',
+                            }}
+                            title="Click to edit cooking note"
+                          >
+                            <MessageSquare size={10} />
+                            <span>"{item.specialNotes}"</span>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingNoteItemId(item.cartItemId);
+                              setTempNoteText('');
+                            }}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              padding: '2px 0',
+                              fontSize: '0.68rem',
+                              color: theme.primaryColor || '#c98a2c',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '3px',
+                              marginTop: '2px',
+                              fontWeight: 600,
+                            }}
+                          >
+                            <MessageSquare size={10} />
+                            <span>+ Add cooking note</span>
+                          </button>
                         )}
 
                         <div style={{ fontSize: '0.8rem', fontWeight: 800, color: theme.primaryColor || '#c98a2c', marginTop: '2px' }}>

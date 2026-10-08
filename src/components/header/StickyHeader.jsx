@@ -93,10 +93,10 @@ export default function StickyHeader({
               cursor: 'pointer',
               fontWeight: 600,
             }}
-            title="Click to change table"
+            title="Click to select/change table"
           >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#15803d' }} />
-            <span>Table {tableNumber}</span>
+            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: tableNumber ? '#15803d' : '#f59e0b' }} />
+            <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
           </div>
         </div>
       </div>

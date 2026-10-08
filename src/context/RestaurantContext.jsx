@@ -5,17 +5,40 @@ const RestaurantContext = createContext();
 
 const STORAGE_KEY = 'real_photography_qr_menu_devi_v1';
 const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_devi_v1';
+const THEME_VERSION_KEY = 'devi_dark_premium_theme_v2';
+const CURRENT_THEME_VERSION = '2.0.0';
 
 export function RestaurantProvider({ children }) {
   const [restaurants, setRestaurants] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
+      const savedVersion = localStorage.getItem(THEME_VERSION_KEY);
+
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Migration: If theme is from previous version, update theme & fonts for Devi without wiping custom items/categories/history
+        if (savedVersion !== CURRENT_THEME_VERSION) {
+          const migrated = parsed.map(r => {
+            if (r.slug === 'royal-dining' || r.id === 'royal-dining') {
+              return {
+                ...r,
+                theme: {
+                  ...DEFAULT_RESTAURANTS[0].theme,
+                },
+              };
+            }
+            return r;
+          });
+          localStorage.setItem(THEME_VERSION_KEY, CURRENT_THEME_VERSION);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+          return migrated;
+        }
+        return parsed;
       }
     } catch (e) {
       console.error('Failed to load restaurants from localStorage', e);
     }
+    localStorage.setItem(THEME_VERSION_KEY, CURRENT_THEME_VERSION);
     return DEFAULT_RESTAURANTS;
   });
 
@@ -63,15 +86,17 @@ export function RestaurantProvider({ children }) {
     const { theme } = activeRestaurant;
     const root = document.documentElement;
 
-    root.style.setProperty('--color-primary', theme.primaryColor || '#c99738');
-    root.style.setProperty('--color-accent', theme.accentColor || '#8b1e2f');
-    root.style.setProperty('--color-bg', theme.bgColor || '#0d0e12');
-    root.style.setProperty('--bg-gradient', theme.bgGradient || 'linear-gradient(180deg, #0d0e12 0%, #16181f 100%)');
-    root.style.setProperty('--color-card-bg', theme.cardBg || 'rgba(26, 29, 38, 0.75)');
-    root.style.setProperty('--color-text-primary', theme.textPrimary || '#f5f5f7');
-    root.style.setProperty('--color-text-secondary', theme.textSecondary || '#a1a1aa');
-    root.style.setProperty('--font-heading', theme.fontHeading || "'Playfair Display', serif");
-    root.style.setProperty('--font-body', theme.fontBody || "'Plus Jakarta Sans', sans-serif");
+    root.style.setProperty('--color-primary', theme.primaryColor || '#C4161C');
+    root.style.setProperty('--color-accent', theme.accentColor || '#D4A64A');
+    root.style.setProperty('--color-bg', theme.bgColor || '#0E0B0A');
+    root.style.setProperty('--bg-gradient', theme.bgGradient || 'linear-gradient(180deg, #0E0B0A 0%, #181312 100%)');
+    root.style.setProperty('--color-card-bg', theme.cardBg || '#1A1514');
+    root.style.setProperty('--color-card-border', theme.cardBorder || 'rgba(212, 166, 74, 0.15)');
+    root.style.setProperty('--color-card-hover-border', 'rgba(212, 166, 74, 0.35)');
+    root.style.setProperty('--color-text-primary', theme.textPrimary || '#F6EFE3');
+    root.style.setProperty('--color-text-secondary', theme.textSecondary || '#B8AEA2');
+    root.style.setProperty('--font-heading', theme.fontHeading || "'Fraunces', Georgia, serif");
+    root.style.setProperty('--font-body', theme.fontBody || "'DM Sans', -apple-system, sans-serif");
   }, [activeRestaurant]);
 
   // Restaurant Switcher

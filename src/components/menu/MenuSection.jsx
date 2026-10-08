@@ -26,7 +26,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
             <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>{category.icon || '🍽️'}</span>
             <h2
               style={{
-                fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                fontFamily: theme.fontHeading || "'Fraunces', serif",
                 fontSize: '1.2rem',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
@@ -44,7 +44,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
             style={{
               fontSize: '0.7rem',
               color: 'var(--color-text-muted)',
-              background: 'rgba(0, 0, 0, 0.04)',
+              background: 'rgba(255, 255, 255, 0.05)',
               padding: '2px 8px',
               borderRadius: '999px',
               border: '1px solid var(--color-card-border)',
@@ -61,7 +61,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
           style={{
             width: '100%',
             height: '1.5px',
-            background: `linear-gradient(90deg, var(--color-primary) 0%, rgba(139, 29, 44, 0.1) 60%, transparent 100%)`,
+            background: `linear-gradient(90deg, var(--color-primary) 0%, rgba(196, 22, 28, 0.15) 60%, transparent 100%)`,
           }}
         />
       </div>

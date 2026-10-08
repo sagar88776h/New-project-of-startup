@@ -194,18 +194,34 @@ export default function AdminMenuManager() {
               {/* Action Buttons */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <button
+                  type="button"
                   onClick={() => toggleItemAvailability(item.id)}
-                  title={item.isAvailable ? 'Mark as Out of Stock' : 'Mark as Available'}
+                  title={item.isAvailable ? 'Mark as Sold Out' : 'Mark as Available / In Stock'}
                   style={{
                     background: item.isAvailable ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                    border: 'none',
+                    border: item.isAvailable ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
                     color: item.isAvailable ? '#22c55e' : '#ef4444',
-                    padding: '6px',
+                    padding: '5px 10px',
                     borderRadius: '8px',
                     cursor: 'pointer',
+                    fontSize: '0.74rem',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
                   }}
                 >
-                  {item.isAvailable ? <Eye size={15} /> : <EyeOff size={15} />}
+                  {item.isAvailable ? (
+                    <>
+                      <Eye size={13} />
+                      <span>In Stock</span>
+                    </>
+                  ) : (
+                    <>
+                      <EyeOff size={13} />
+                      <span>Sold Out</span>
+                    </>
+                  )}
                 </button>
 
                 <button

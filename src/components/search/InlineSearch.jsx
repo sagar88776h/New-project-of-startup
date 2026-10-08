@@ -11,11 +11,11 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          background: '#ffffff',
-          border: '1.5px solid rgba(0, 0, 0, 0.08)',
+          background: 'var(--color-card-bg)',
+          border: '1.5px solid var(--color-card-border)',
           borderRadius: '999px',
           padding: '9px 14px',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+          boxShadow: 'var(--shadow-sm)',
           transition: 'border-color 0.2s ease',
         }}
       >

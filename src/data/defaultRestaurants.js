@@ -65,16 +65,17 @@ export const DEFAULT_RESTAURANTS = [
     coverImage: REAL_FOOD_IMAGES.restaurantCover,
     currency: "₹",
     theme: {
-      mode: "light",
-      primaryColor: "#8b1d2c", // Deep Burgundy / Wine
-      accentColor: "#c98a2c", // Warm Gold
-      bgColor: "#fbf8f2", // Warm Cream / Off-White
-      bgGradient: "linear-gradient(180deg, #fbf8f2 0%, #f4eee3 100%)",
-      cardBg: "#ffffff",
-      textPrimary: "#1a1a1c",
-      textSecondary: "#525760",
-      fontHeading: "'Playfair Display', Georgia, serif",
-      fontBody: "'Plus Jakarta Sans', -apple-system, sans-serif",
+      mode: "dark",
+      primaryColor: "#C4161C", // Rich Red
+      accentColor: "#D4A64A", // Premium Gold
+      bgColor: "#0E0B0A", // Near-black warm charcoal
+      bgGradient: "linear-gradient(180deg, #0E0B0A 0%, #181312 100%)",
+      cardBg: "#1A1514", // Surface cards
+      cardBorder: "rgba(212, 166, 74, 0.15)",
+      textPrimary: "#F6EFE3", // Warm Cream
+      textSecondary: "#B8AEA2", // Muted Warm Grey
+      fontHeading: "'Fraunces', Georgia, serif",
+      fontBody: "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     },
     contact: {
       phone: "+91 98765 43210",

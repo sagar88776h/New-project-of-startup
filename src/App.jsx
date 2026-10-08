@@ -30,7 +30,7 @@ import WelcomeIntroModal from './components/landing/WelcomeIntroModal';
 
 function MainApp() {
   const { activeRestaurant } = useRestaurant();
-  const { tableNumber } = useCart();
+  const { isTableModalOpen, setIsTableModalOpen } = useCart();
   const { categories = [], items = [], theme } = activeRestaurant;
 
   // Search & Filter State
@@ -52,7 +52,6 @@ function MainApp() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isServiceOpen, setIsServiceOpen] = useState(false);
-  const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isQrStudioOpen, setIsQrStudioOpen] = useState(false);
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(false);

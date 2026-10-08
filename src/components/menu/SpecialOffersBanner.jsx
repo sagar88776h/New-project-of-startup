@@ -63,10 +63,11 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
             }}
           >
             {/* Offer Real Photography */}
-            <div style={{ width: 'clamp(96px, 28vw, 115px)', minHeight: '110px', position: 'relative', flexShrink: 0, backgroundColor: '#f3f4f6' }}>
+            <div style={{ width: 'clamp(96px, 28vw, 115px)', minHeight: '110px', position: 'relative', flexShrink: 0, backgroundColor: '#1A1514' }}>
               <img
                 src={offer.image}
                 alt={offer.title}
+                loading="lazy"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               <div
@@ -89,12 +90,12 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
             {/* Offer Details */}
             <div style={{ padding: '10px 12px', flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: '0.68rem', color: theme.primaryColor || '#c98a2c', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--color-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
                   {offer.badge || 'Chef Selection'}
                 </div>
                 <h4
                   style={{
-                    fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                    fontFamily: theme.fontHeading || "'Fraunces', serif",
                     fontSize: '0.96rem',
                     fontWeight: 700,
                     color: 'var(--color-text-primary)',
@@ -126,16 +127,16 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
                   <span
                     style={{
-                      fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                      fontFamily: theme.fontHeading || "'Fraunces', serif",
                       fontSize: '1.05rem',
                       fontWeight: 800,
-                      color: theme.primaryColor || '#c98a2c',
+                      color: 'var(--color-accent)',
                     }}
                   >
                     {currency}{offer.discountedPrice}
                   </span>
                   {offer.originalPrice && (
-                    <span style={{ fontSize: '0.72rem', color: '#9ca3af', textDecoration: 'line-through' }}>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', textDecoration: 'line-through' }}>
                       {currency}{offer.originalPrice}
                     </span>
                   )}

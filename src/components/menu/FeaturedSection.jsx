@@ -34,7 +34,7 @@ export default function FeaturedSection({ onOpenDetail }) {
           <div>
             <h2
               style={{
-                fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                fontFamily: theme.fontHeading || "'Fraunces', serif",
                 fontSize: '1.18rem',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
@@ -52,12 +52,12 @@ export default function FeaturedSection({ onOpenDetail }) {
         <span
           style={{
             fontSize: '0.7rem',
-            color: theme.primaryColor || '#c98a2c',
+            color: 'var(--color-accent)',
             fontWeight: 700,
-            background: 'rgba(201, 138, 44, 0.1)',
+            background: 'rgba(212, 166, 74, 0.12)',
             padding: '2px 8px',
             borderRadius: '999px',
-            border: '1px solid rgba(201, 138, 44, 0.2)',
+            border: '1px solid rgba(212, 166, 74, 0.25)',
             whiteSpace: 'nowrap',
             flexShrink: 0,
           }}

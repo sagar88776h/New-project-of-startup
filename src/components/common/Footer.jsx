@@ -19,8 +19,8 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
       style={{
         marginTop: '30px',
         padding: '24px 16px calc(90px + var(--sab))',
-        background: 'rgba(10, 11, 15, 0.95)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'rgba(14, 11, 10, 0.98)',
+        borderTop: '1px solid rgba(212, 166, 74, 0.15)',
         color: '#9ca3af',
         textAlign: 'center',
         width: '100%',
@@ -37,13 +37,13 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
             height: '54px',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: `2px solid ${theme.primaryColor || '#c99738'}`,
+            border: `2px solid var(--color-accent)`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 12px',
-            background: '#ffffff',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
+            background: '#1A1514',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)',
           }}
         >
           {activeRestaurant.logo ? (
@@ -53,16 +53,16 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
-            <Utensils size={24} color={theme.primaryColor || '#c99738'} />
+            <Utensils size={24} color="var(--color-accent)" />
           )}
         </div>
 
         <h3
           style={{
-            fontFamily: theme.fontHeading || "'Playfair Display', serif",
+            fontFamily: theme.fontHeading || "'Fraunces', serif",
             fontSize: '1.25rem',
             fontWeight: 700,
-            color: '#ffffff',
+            color: '#F6EFE3',
             marginBottom: '4px',
           }}
         >

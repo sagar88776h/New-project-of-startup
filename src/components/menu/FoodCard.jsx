@@ -184,10 +184,10 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
         {/* Price */}
         <div
           style={{
-            fontFamily: theme.fontHeading || "'Playfair Display', serif",
-            fontSize: '1rem',
+            fontFamily: theme.fontHeading || "'Fraunces', serif",
+            fontSize: '1.05rem',
             fontWeight: 800,
-            color: 'var(--color-primary)',
+            color: 'var(--color-accent)',
             marginBottom: '2px',
           }}
         >
@@ -219,25 +219,44 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
           </span>
 
           {/* Add / Stepper Button if ordering enabled */}
-          {settings?.orderingEnabled && item.isAvailable && (
-            totalQtyInCart > 0 ? (
-              <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
-                <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
-                  <Minus size={10} />
+          {settings?.orderingEnabled && (
+            item.isAvailable ? (
+              totalQtyInCart > 0 ? (
+                <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
+                  <button className="qty-stepper-btn" onClick={handleDecrement} aria-label="Decrease quantity">
+                    <Minus size={10} />
+                  </button>
+                  <span className="qty-stepper-val">{totalQtyInCart}</span>
+                  <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
+                    <Plus size={10} />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleQuickAdd}
+                  className="btn-add-stepper"
+                  aria-label={`Add ${item.name}`}
+                >
+                  <Plus size={12} />
+                  <span>ADD</span>
                 </button>
-                <span className="qty-stepper-val">{totalQtyInCart}</span>
-                <button className="qty-stepper-btn" onClick={handleIncrement} aria-label="Increase quantity">
-                  <Plus size={10} />
-                </button>
-              </div>
+              )
             ) : (
               <button
-                onClick={handleQuickAdd}
+                type="button"
+                disabled
                 className="btn-add-stepper"
-                aria-label={`Add ${item.name}`}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  borderColor: 'rgba(255, 255, 255, 0.1)',
+                  color: '#9ca3af',
+                  cursor: 'not-allowed',
+                  opacity: 0.7,
+                }}
+                aria-label={`${item.name} is sold out`}
               >
-                <Plus size={12} />
-                <span>ADD</span>
+                <span>Sold Out</span>
               </button>
             )
           )}

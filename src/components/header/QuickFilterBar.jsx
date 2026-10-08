@@ -56,7 +56,7 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
                 border: isActive ? `1.5px solid var(--color-primary)` : '1px solid var(--color-card-border)',
                 background: isActive
                   ? 'var(--color-primary)'
-                  : '#ffffff',
+                  : 'var(--color-card-bg)',
                 color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
                 cursor: 'pointer',
                 display: 'inline-flex',

@@ -191,7 +191,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                 {/* Image & Indicators */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
                   <div style={{ width: '64px', height: '64px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
-                    <img src={dish.image} alt={dish.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={dish.image} alt={dish.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <div style={{ position: 'absolute', top: '4px', left: '4px' }}>
                       {dish.isVeg ? (
                         <span className="veg-indicator" style={{ width: '12px', height: '12px' }}><span className="veg-indicator-dot" style={{ width: '5px', height: '5px' }} /></span>
