@@ -63,6 +63,7 @@ export const DEFAULT_RESTAURANTS = [
     logoText: "DEVI",
     logoSubtitle: "THE REAL FAST FOOD CENTRE",
     coverImage: "/devi-banner.png",
+    coverImage2x: "/devi-banner.png",
     currency: "₹",
     theme: {
       mode: "dark",

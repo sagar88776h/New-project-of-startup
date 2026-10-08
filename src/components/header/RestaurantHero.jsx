@@ -21,76 +21,77 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
         overflow: 'hidden',
       }}
     >
-      {/* Cover Image with Gradient Overlay */}
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: 'clamp(135px, 25vw, 210px)',
-          backgroundColor: '#141110',
-          overflow: 'hidden',
-        }}
-      >
-        <img
-          src={activeRestaurant.coverImage || '/devi-banner.png'}
-          alt={activeRestaurant.name}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            opacity: 0.96,
-            display: 'block',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(180deg, rgba(14,11,10,0.1) 0%, rgba(14,11,10,0.7) 100%)',
-          }}
-        />
-
-        {/* Top Badges (Intro Replay + Table Number) */}
-        <div style={{ position: 'absolute', top: '10px', right: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          {onOpenIntro && (
-            <button
-              onClick={onOpenIntro}
-              style={{
-                background: 'rgba(0, 0, 0, 0.65)',
-                backdropFilter: 'blur(6px)',
-                border: '1px solid rgba(212, 166, 74, 0.3)',
-                color: '#F6EFE3',
-                padding: '3px 8px',
-                borderRadius: '999px',
-                fontSize: '0.68rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-            >
-              <Sparkles size={11} color="var(--color-accent)" />
-              <span>Intro</span>
-            </button>
-          )}
-
+      {/* Centered Cover Banner Wrapper */}
+      <div className="hero-banner-wrapper">
+        <div className="hero-banner-container">
+          <img
+            src={activeRestaurant.coverImage || '/devi-banner.png'}
+            srcSet={`${activeRestaurant.coverImage || '/devi-banner.png'} 1200w, ${activeRestaurant.coverImage2x || activeRestaurant.coverImage || '/devi-banner.png'} 2400w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1200px) 1200px, 1200px"
+            alt={activeRestaurant.name}
+            width="1200"
+            height="375"
+            fetchPriority="high"
+            decoding="async"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+            }}
+          />
+          {/* Bottom Edge Subtle Dark Gradient Overlay */}
           <div
             style={{
-              background: 'rgba(26, 21, 20, 0.92)',
-              backdropFilter: 'blur(6px)',
-              border: '1px solid rgba(212, 166, 74, 0.3)',
-              color: 'var(--color-accent)',
-              padding: '3px 9px',
-              borderRadius: '999px',
-              fontSize: '0.7rem',
-              fontWeight: 800,
-              letterSpacing: '0.04em',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(180deg, transparent 65%, rgba(14, 11, 10, 0.75) 100%)',
+              pointerEvents: 'none',
             }}
-          >
-            {tableNumber ? `TABLE ${tableNumber}` : 'TABLE ?'}
+          />
+
+          {/* Top Badges (Intro Replay + Table Number) */}
+          <div style={{ position: 'absolute', top: '10px', right: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {onOpenIntro && (
+              <button
+                onClick={onOpenIntro}
+                style={{
+                  background: 'rgba(0, 0, 0, 0.65)',
+                  backdropFilter: 'blur(6px)',
+                  border: '1px solid rgba(212, 166, 74, 0.3)',
+                  color: '#F6EFE3',
+                  padding: '3px 8px',
+                  borderRadius: '999px',
+                  fontSize: '0.68rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                }}
+              >
+                <Sparkles size={11} color="var(--color-accent)" />
+                <span>Intro</span>
+              </button>
+            )}
+
+            <div
+              style={{
+                background: 'rgba(26, 21, 20, 0.92)',
+                backdropFilter: 'blur(6px)',
+                border: '1px solid rgba(212, 166, 74, 0.3)',
+                color: 'var(--color-accent)',
+                padding: '3px 9px',
+                borderRadius: '999px',
+                fontSize: '0.7rem',
+                fontWeight: 800,
+                letterSpacing: '0.04em',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+              }}
+            >
+              {tableNumber ? `TABLE ${tableNumber}` : 'TABLE ?'}
+            </div>
           </div>
         </div>
       </div>
