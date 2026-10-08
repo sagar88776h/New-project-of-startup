@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ShoppingBag, Info, BellRing, Settings, UtensilsCrossed } from 'lucide-react';
+import { Search, ShoppingBag, Info, BellRing, Settings, UtensilsCrossed, Sun, Moon } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 
@@ -11,7 +11,7 @@ export default function StickyHeader({
   onChangeTable,
   onOpenIntro,
 }) {
-  const { activeRestaurant } = useRestaurant();
+  const { activeRestaurant, themeMode, toggleThemeMode } = useRestaurant();
   const { totalItemsCount, setIsCartOpen, tableNumber } = useCart();
   const { theme, settings } = activeRestaurant;
 
@@ -144,6 +144,29 @@ export default function StickyHeader({
           }}
         >
           <BellRing size={15} />
+        </button>
+
+        {/* Dark / Light Theme Toggle */}
+        <button
+          onClick={toggleThemeMode}
+          aria-label={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          title={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            background: themeMode === 'dark' ? 'rgba(212, 166, 74, 0.1)' : 'rgba(0, 0, 0, 0.04)',
+            border: themeMode === 'dark' ? '1px solid rgba(212, 166, 74, 0.25)' : '1px solid rgba(0, 0, 0, 0.1)',
+            color: themeMode === 'dark' ? '#D4A64A' : 'var(--color-primary)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            flexShrink: 0,
+            transition: 'all 0.2s ease',
+          }}
+        >
+          {themeMode === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
         </button>
 
         {/* Restaurant Info Button */}

@@ -49,6 +49,27 @@
   --sar: env(safe-area-inset-right, 0px);
 }
 
+[data-theme="light"] {
+  --color-primary: #C4161C;
+  --color-primary-hover: #D92329;
+  --color-accent: #B8860B;
+  --color-bg: #FAF7F2;
+  --bg-gradient: linear-gradient(180deg, #FAF7F2 0%, #F3EDE2 100%);
+  --color-card-bg: #FFFFFF;
+  --color-card-border: rgba(0, 0, 0, 0.08);
+  --color-card-hover-border: rgba(196, 22, 28, 0.25);
+  --color-text-primary: #1C1715;
+  --color-text-secondary: #685D54;
+  --color-text-muted: #8E8478;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 /* ==========================================================================
    KEYFRAME ANIMATIONS  (transform + opacity only — GPU-friendly)
    ========================================================================== */

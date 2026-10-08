@@ -8,7 +8,31 @@ const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_devi_v1';
 const THEME_VERSION_KEY = 'devi_dark_premium_theme_v2';
 const CURRENT_THEME_VERSION = '2.0.0';
 
+const THEME_MODE_STORAGE_KEY = 'devi_theme_mode_v1';
+
 export function RestaurantProvider({ children }) {
+  const [themeMode, setThemeMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem(THEME_MODE_STORAGE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (e) {
+      console.error('Failed to read theme mode', e);
+    }
+    return 'dark';
+  });
+
+  const toggleThemeMode = () => {
+    setThemeMode(prev => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem(THEME_MODE_STORAGE_KEY, next);
+      } catch (e) {
+        console.error('Failed to save theme mode', e);
+      }
+      return next;
+    });
+  };
+
   const [restaurants, setRestaurants] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -86,18 +110,44 @@ export function RestaurantProvider({ children }) {
     const { theme } = activeRestaurant;
     const root = document.documentElement;
 
-    root.style.setProperty('--color-primary', theme.primaryColor || '#C4161C');
-    root.style.setProperty('--color-accent', theme.accentColor || '#D4A64A');
-    root.style.setProperty('--color-bg', theme.bgColor || '#0E0B0A');
-    root.style.setProperty('--bg-gradient', theme.bgGradient || 'linear-gradient(180deg, #0E0B0A 0%, #181312 100%)');
-    root.style.setProperty('--color-card-bg', theme.cardBg || '#1A1514');
-    root.style.setProperty('--color-card-border', theme.cardBorder || 'rgba(212, 166, 74, 0.15)');
-    root.style.setProperty('--color-card-hover-border', 'rgba(212, 166, 74, 0.35)');
-    root.style.setProperty('--color-text-primary', theme.textPrimary || '#F6EFE3');
-    root.style.setProperty('--color-text-secondary', theme.textSecondary || '#B8AEA2');
-    root.style.setProperty('--font-heading', theme.fontHeading || "'Fraunces', Georgia, serif");
-    root.style.setProperty('--font-body', theme.fontBody || "'DM Sans', -apple-system, sans-serif");
-  }, [activeRestaurant]);
+    root.setAttribute('data-theme', themeMode);
+
+    if (themeMode === 'light') {
+      root.style.setProperty('--color-primary', theme.primaryColor || '#C4161C');
+      root.style.setProperty('--color-primary-hover', '#D92329');
+      root.style.setProperty('--color-accent', '#B8860B');
+      root.style.setProperty('--color-bg', '#FAF7F2');
+      root.style.setProperty('--bg-gradient', 'linear-gradient(180deg, #FAF7F2 0%, #F3EDE2 100%)');
+      root.style.setProperty('--color-card-bg', '#FFFFFF');
+      root.style.setProperty('--color-card-border', 'rgba(0, 0, 0, 0.08)');
+      root.style.setProperty('--color-card-hover-border', 'rgba(196, 22, 28, 0.25)');
+      root.style.setProperty('--color-text-primary', '#1C1715');
+      root.style.setProperty('--color-text-secondary', '#685D54');
+      root.style.setProperty('--color-text-muted', '#8E8478');
+      root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.88)');
+      root.style.setProperty('--glass-border', '1px solid rgba(0, 0, 0, 0.08)');
+      root.style.setProperty('--shadow-card', '0 4px 16px rgba(0, 0, 0, 0.06)');
+      root.style.setProperty('--font-heading', theme.fontHeading || "'Fraunces', Georgia, serif");
+      root.style.setProperty('--font-body', theme.fontBody || "'DM Sans', -apple-system, sans-serif");
+    } else {
+      root.style.setProperty('--color-primary', theme.primaryColor || '#C4161C');
+      root.style.setProperty('--color-primary-hover', '#D92329');
+      root.style.setProperty('--color-accent', theme.accentColor || '#D4A64A');
+      root.style.setProperty('--color-bg', theme.bgColor || '#0E0B0A');
+      root.style.setProperty('--bg-gradient', theme.bgGradient || 'linear-gradient(180deg, #0E0B0A 0%, #181312 100%)');
+      root.style.setProperty('--color-card-bg', theme.cardBg || '#1A1514');
+      root.style.setProperty('--color-card-border', theme.cardBorder || 'rgba(212, 166, 74, 0.15)');
+      root.style.setProperty('--color-card-hover-border', 'rgba(212, 166, 74, 0.35)');
+      root.style.setProperty('--color-text-primary', theme.textPrimary || '#F6EFE3');
+      root.style.setProperty('--color-text-secondary', theme.textSecondary || '#B8AEA2');
+      root.style.setProperty('--color-text-muted', '#8E8478');
+      root.style.setProperty('--glass-bg', 'rgba(26, 21, 20, 0.85)');
+      root.style.setProperty('--glass-border', '1px solid rgba(212, 166, 74, 0.15)');
+      root.style.setProperty('--shadow-card', '0 6px 20px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(212, 166, 74, 0.08)');
+      root.style.setProperty('--font-heading', theme.fontHeading || "'Fraunces', Georgia, serif");
+      root.style.setProperty('--font-body', theme.fontBody || "'DM Sans', -apple-system, sans-serif");
+    }
+  }, [activeRestaurant, themeMode]);
 
   // Restaurant Switcher
   const switchRestaurant = (slug) => {
@@ -301,6 +351,9 @@ export function RestaurantProvider({ children }) {
         restaurants,
         activeRestaurant,
         activeSlug,
+        themeMode,
+        setThemeMode,
+        toggleThemeMode,
         switchRestaurant,
         updateRestaurantSettings,
         updateTheme,
