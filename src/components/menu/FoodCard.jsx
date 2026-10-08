@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Flame, Sparkles, Plus, Minus, Star } from 'lucide-react';
+import { Clock, Flame, Sparkles, Plus, Minus } from 'lucide-react';
 import CardWrapper from '../common/CardWrapper';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
