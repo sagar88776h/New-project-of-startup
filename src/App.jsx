@@ -31,7 +31,16 @@ import WelcomeIntroModal from './components/landing/WelcomeIntroModal';
 function MainApp() {
   const { activeRestaurant } = useRestaurant();
   const { isTableModalOpen, setIsTableModalOpen } = useCart();
-  const { categories = [], items = [], theme } = activeRestaurant;
+  const { categories = [], items = [] } = activeRestaurant;
+
+  // Admin access via ?admin=1 in URL parameter
+  const [isAdminParam] = useState(() => {
+    try {
+      return new URLSearchParams(window.location.search).get('admin') === '1';
+    } catch {
+      return false;
+    }
+  });
 
   // Search & Filter State
   const [inlineSearchQuery, setInlineSearchQuery] = useState('');
@@ -42,7 +51,7 @@ function MainApp() {
   const [isIntroOpen, setIsIntroOpen] = useState(() => {
     try {
       return !sessionStorage.getItem('seen_devi_intro');
-    } catch (e) {
+    } catch {
       return true;
     }
   });
@@ -54,7 +63,6 @@ function MainApp() {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isQrStudioOpen, setIsQrStudioOpen] = useState(false);
-  const [isDesktopExpanded, setIsDesktopExpanded] = useState(false);
 
   // Handle Category Click / Smooth Scroll
   const handleSelectCategory = (catId) => {
@@ -125,16 +133,16 @@ function MainApp() {
   return (
     <div className="app-viewport-wrapper">
       
-      {/* Top Test & Simulator Toolbar */}
-      <DeviceFrameToggle
-        isDesktopExpanded={isDesktopExpanded}
-        onToggleExpanded={() => setIsDesktopExpanded(!isDesktopExpanded)}
-        onOpenQr={() => setIsQrStudioOpen(true)}
-        onOpenAdmin={() => setIsAdminOpen(true)}
-      />
+      {/* Admin Test & Controls Toolbar (Only shown when ?admin=1 is in URL) */}
+      {isAdminParam && (
+        <DeviceFrameToggle
+          onOpenQr={() => setIsQrStudioOpen(true)}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+      )}
 
-      {/* Main Mobile Frame Container */}
-      <div className={`mobile-device-frame ${isDesktopExpanded ? 'desktop-expanded' : ''}`}>
+      {/* Main Responsive Container */}
+      <div className="site-main-container">
         
         {/* Sticky Compact Header */}
         <StickyHeader
@@ -146,92 +154,95 @@ function MainApp() {
           onOpenIntro={() => setIsIntroOpen(true)}
         />
 
-        {/* Compact Restaurant Hero Introduction */}
+        {/* Restaurant Hero Banner */}
         <RestaurantHero
           onExploreClick={() => handleSelectCategory('favorites')}
           onOpenIntro={() => setIsIntroOpen(true)}
         />
 
-        {/* Clean Rounded Search Field */}
-        <InlineSearch
-          searchQuery={inlineSearchQuery}
-          onSearchChange={setInlineSearchQuery}
-          onClear={() => setInlineSearchQuery('')}
-        />
-
-        {/* Quick Filter Bar (Veg / Non-Veg / Bestseller) */}
-        <QuickFilterBar
-          activeFilter={activeFilter}
-          onSelectFilter={setActiveFilter}
-        />
-
-        {/* Circular Category Navigation */}
-        <CategoryNav
-          activeCategoryId={activeCategoryId}
-          onSelectCategory={handleSelectCategory}
-        />
-
-        {/* Popular Dishes / Featured Section */}
-        {!inlineSearchQuery && activeFilter === 'all' && (
-          <div id="section-favorites">
-            <FeaturedSection
-              onOpenDetail={item => setSelectedDetailItem(item)}
-            />
-          </div>
-        )}
-
-        {/* Special Offers & Combos */}
-        {!inlineSearchQuery && activeFilter === 'all' && (
-          <SpecialOffersBanner
-            onOpenDetail={item => setSelectedDetailItem(item)}
+        {/* Responsive Content Body */}
+        <div className="site-content-container">
+          {/* Clean Rounded Search Field */}
+          <InlineSearch
+            searchQuery={inlineSearchQuery}
+            onSearchChange={setInlineSearchQuery}
+            onClear={() => setInlineSearchQuery('')}
           />
-        )}
 
-        {/* Category-by-Category Menu Sections */}
-        <main style={{ minHeight: '50vh' }}>
-          {activeCategories
-            .filter(c => c.id !== 'favorites')
-            .map(category => {
-              const categoryItems = items.filter(i => i.categoryId === category.id);
-              const filteredItems = getFilteredItems(categoryItems);
+          {/* Quick Filter Bar (Veg / Non-Veg / Bestseller) */}
+          <QuickFilterBar
+            activeFilter={activeFilter}
+            onSelectFilter={setActiveFilter}
+          />
 
-              if (filteredItems.length === 0) {
-                return null;
-              }
+          {/* Circular Category Navigation */}
+          <CategoryNav
+            activeCategoryId={activeCategoryId}
+            onSelectCategory={handleSelectCategory}
+          />
 
-              return (
-                <MenuSection
-                  key={category.id}
-                  category={category}
-                  items={filteredItems}
-                  onOpenDetail={item => setSelectedDetailItem(item)}
-                />
-              );
-            })}
-
-          {/* Search No Results State */}
-          {inlineSearchQuery && items.filter(i => getFilteredItems([i]).length > 0).length === 0 && (
-            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🔍</div>
-              <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text-primary)', marginBottom: '6px' }}>
-                No dishes found matching "{inlineSearchQuery}"
-              </h3>
-              <p style={{ fontSize: '0.82rem', marginBottom: '14px' }}>
-                Try searching for biryani, chicken, paneer, fish, breads or desserts.
-              </p>
-              <button
-                onClick={() => setInlineSearchQuery('')}
-                className="btn-secondary"
-                style={{ padding: '8px 16px', fontSize: '0.8rem' }}
-              >
-                Clear Search
-              </button>
+          {/* Popular Dishes / Featured Section */}
+          {!inlineSearchQuery && activeFilter === 'all' && (
+            <div id="section-favorites">
+              <FeaturedSection
+                onOpenDetail={item => setSelectedDetailItem(item)}
+              />
             </div>
           )}
-        </main>
 
-        {/* On-Page Restaurant Information */}
-        <RestaurantInfoSection />
+          {/* Special Offers & Combos */}
+          {!inlineSearchQuery && activeFilter === 'all' && (
+            <SpecialOffersBanner
+              onOpenDetail={item => setSelectedDetailItem(item)}
+            />
+          )}
+
+          {/* Category-by-Category Menu Sections */}
+          <main style={{ minHeight: '50vh' }}>
+            {activeCategories
+              .filter(c => c.id !== 'favorites')
+              .map(category => {
+                const categoryItems = items.filter(i => i.categoryId === category.id);
+                const filteredItems = getFilteredItems(categoryItems);
+
+                if (filteredItems.length === 0) {
+                  return null;
+                }
+
+                return (
+                  <MenuSection
+                    key={category.id}
+                    category={category}
+                    items={filteredItems}
+                    onOpenDetail={item => setSelectedDetailItem(item)}
+                  />
+                );
+              })}
+
+            {/* Search No Results State */}
+            {inlineSearchQuery && items.filter(i => getFilteredItems([i]).length > 0).length === 0 && (
+              <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
+                <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🔍</div>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text-primary)', marginBottom: '6px' }}>
+                  No dishes found matching "{inlineSearchQuery}"
+                </h3>
+                <p style={{ fontSize: '0.82rem', marginBottom: '14px' }}>
+                  Try searching for biryani, chicken, paneer, fish, breads or desserts.
+                </p>
+                <button
+                  onClick={() => setInlineSearchQuery('')}
+                  className="btn-secondary"
+                  style={{ padding: '8px 16px', fontSize: '0.8rem' }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
+          </main>
+
+          {/* On-Page Restaurant Information */}
+          <RestaurantInfoSection />
+        </div>
 
         {/* Floating Cart Bar (if items in cart and ordering enabled) */}
         <FloatingCartBar />

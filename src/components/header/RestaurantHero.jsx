@@ -89,92 +89,94 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
 
       {/* Restaurant Identity Content */}
       <div style={{ padding: '0 14px 14px', marginTop: '-28px', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
-          
-          {/* Logo Monogram */}
-          <div
-            onClick={onOpenIntro}
-            title="Click to view Welcome to Devi intro"
+        <div className="header-inner-container" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+            
+            {/* Logo Monogram */}
+            <div
+              onClick={onOpenIntro}
+              title="Click to view Welcome to Devi intro"
+              style={{
+                width: 'clamp(54px, 14vw, 64px)',
+                height: 'clamp(54px, 14vw, 64px)',
+                borderRadius: '50%',
+                background: '#1A1514',
+                border: `2px solid var(--color-accent)`,
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+                flexShrink: 0,
+                cursor: 'pointer',
+              }}
+            >
+              {activeRestaurant.logo ? (
+                <img
+                  src={activeRestaurant.logo}
+                  alt={activeRestaurant.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <Utensils size={24} color="var(--color-accent)" />
+              )}
+            </div>
+
+            {/* Quick CTA */}
+            <button
+              onClick={onExploreClick}
+              style={{
+                background: 'rgba(196, 22, 28, 0.12)',
+                border: '1px solid rgba(196, 22, 28, 0.3)',
+                color: 'var(--color-primary)',
+                padding: '5px 11px',
+                borderRadius: '999px',
+                fontSize: '0.74rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                flexShrink: 0,
+              }}
+            >
+              <span>Explore Menu</span>
+              <ArrowDown size={12} />
+            </button>
+          </div>
+
+          {/* Restaurant Name & Tagline */}
+          <h1
             style={{
-              width: 'clamp(54px, 14vw, 64px)',
-              height: 'clamp(54px, 14vw, 64px)',
-              borderRadius: '50%',
-              background: '#1A1514',
-              border: `2px solid var(--color-accent)`,
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-              flexShrink: 0,
-              cursor: 'pointer',
+              fontFamily: theme.fontHeading || "'Fraunces', serif",
+              fontSize: 'clamp(1.2rem, 4.5vw, 1.45rem)',
+              fontWeight: 700,
+              color: 'var(--color-text-primary)',
+              lineHeight: 1.2,
+              marginBottom: '4px',
+              overflowWrap: 'anywhere',
             }}
           >
-            {activeRestaurant.logo ? (
-              <img
-                src={activeRestaurant.logo}
-                alt={activeRestaurant.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              <Utensils size={24} color="var(--color-accent)" />
+            {activeRestaurant.name}
+          </h1>
+
+          <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.4, marginBottom: '6px', overflowWrap: 'anywhere' }}>
+            {activeRestaurant.tagline}
+          </p>
+
+          {/* Snippet Row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.72rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#15803d', flexShrink: 0 }} />
+              <span>Open & Serving Fresh</span>
+            </div>
+            {contact?.address && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '180px' }}>
+                <MapPin size={11} flexShrink={0} />
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.address.split(',')[0]}</span>
+              </div>
             )}
           </div>
-
-          {/* Quick CTA */}
-          <button
-            onClick={onExploreClick}
-            style={{
-              background: 'rgba(196, 22, 28, 0.12)',
-              border: '1px solid rgba(196, 22, 28, 0.3)',
-              color: 'var(--color-primary)',
-              padding: '5px 11px',
-              borderRadius: '999px',
-              fontSize: '0.74rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              flexShrink: 0,
-            }}
-          >
-            <span>Explore Menu</span>
-            <ArrowDown size={12} />
-          </button>
-        </div>
-
-        {/* Restaurant Name & Tagline */}
-        <h1
-          style={{
-            fontFamily: theme.fontHeading || "'Fraunces', serif",
-            fontSize: 'clamp(1.2rem, 4.5vw, 1.45rem)',
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            lineHeight: 1.2,
-            marginBottom: '4px',
-            overflowWrap: 'anywhere',
-          }}
-        >
-          {activeRestaurant.name}
-        </h1>
-
-        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.4, marginBottom: '6px', overflowWrap: 'anywhere' }}>
-          {activeRestaurant.tagline}
-        </p>
-
-        {/* Snippet Row */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.72rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#15803d', flexShrink: 0 }} />
-            <span>Open & Serving Fresh</span>
-          </div>
-          {contact?.address && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '3px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '180px' }}>
-              <MapPin size={11} flexShrink={0} />
-              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.address.split(',')[0]}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>

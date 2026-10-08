@@ -35,12 +35,11 @@ export default function CartDrawer({ onChangeTable }) {
   }, 15);
 
   return (
-    <div className={`modal-overlay ${isCartOpen ? 'active' : ''}`} onClick={() => setIsCartOpen(false)}>
+    <div className={`modal-overlay cart-overlay ${isCartOpen ? 'active' : ''}`} onClick={() => setIsCartOpen(false)}>
       <div
-        className="bottom-sheet"
+        className="bottom-sheet cart-drawer-sheet"
         onClick={e => e.stopPropagation()}
         style={{
-          maxHeight: '90svh',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',

@@ -67,16 +67,7 @@ export default function FeaturedSection({ onOpenDetail }) {
       </div>
 
       {/* Grid of Favorite Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
-          gap: '12px',
-          width: '100%',
-          maxWidth: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div className="menu-food-grid">
         {favorites.map((item, idx) => (
           <FoodCard key={item.id} item={item} onOpenDetail={onOpenDetail} index={idx} />
         ))}

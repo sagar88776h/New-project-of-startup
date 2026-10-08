@@ -112,39 +112,43 @@ export default function AdminDashboard({ isOpen, onClose }) {
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
           overflowX: 'auto',
           whiteSpace: 'nowrap',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
       >
-        {tabs.map(tab => {
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                padding: '8px 14px',
-                borderRadius: '10px',
-                fontSize: '0.8rem',
-                fontWeight: isActive ? 700 : 500,
-                border: isActive ? `1px solid ${theme.primaryColor || '#c99738'}` : '1px solid transparent',
-                background: isActive ? 'rgba(201, 151, 56, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                color: isActive ? (theme.primaryColor || '#c99738') : '#9ca3af',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer',
-                flexShrink: 0,
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          );
-        })}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
+          {tabs.map(tab => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  fontSize: '0.8rem',
+                  fontWeight: isActive ? 700 : 500,
+                  border: isActive ? `1px solid ${theme.primaryColor || '#c99738'}` : '1px solid transparent',
+                  background: isActive ? 'rgba(201, 151, 56, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+                  color: isActive ? (theme.primaryColor || '#c99738') : '#9ca3af',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {tab.icon}
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Tab Body View */}
-      <main style={{ flex: 1, overflowY: 'auto', padding: '20px 16px 60px', maxWidth: '800px', width: '100%', margin: '0 auto' }}>
+      <main style={{ flex: 1, overflowY: 'auto', padding: '20px 20px 60px', maxWidth: '1200px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
         {activeTab === 'analytics' && <AdminAnalytics />}
         {activeTab === 'menu' && <AdminMenuManager />}
         {activeTab === 'categories' && <AdminCategoryManager />}

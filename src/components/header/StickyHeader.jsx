@@ -25,16 +25,13 @@ export default function StickyHeader({
         width: '100%',
         maxWidth: '100%',
         boxSizing: 'border-box',
-        padding: '8px 12px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '6px',
+        padding: '8px 14px',
         transition: 'all 0.2s ease',
       }}
     >
-      {/* Left: Brand Monogram & Name */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
+      <div className="header-inner-container">
+        {/* Left: Brand Monogram & Name */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
         <div
           onClick={onOpenIntro}
           title="Click to replay Welcome Intro"
@@ -259,6 +256,7 @@ export default function StickyHeader({
           <Settings size={13} />
         </button>
       </div>
-    </header>
-  );
+    </div>
+  </header>
+);
 }

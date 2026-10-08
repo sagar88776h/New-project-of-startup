@@ -33,8 +33,9 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
         maxWidth: '100%',
         boxSizing: 'border-box',
         overflow: 'hidden',
-        background: 'rgba(251, 248, 242, 0.96)',
-        backdropFilter: 'blur(12px)',
+        background: 'var(--glass-bg)',
+        backdropFilter: 'var(--glass-blur)',
+        WebkitBackdropFilter: 'var(--glass-blur)',
         borderBottom: '1px solid var(--color-card-border)',
         padding: '8px 10px 8px',
       }}

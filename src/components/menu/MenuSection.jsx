@@ -67,16 +67,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
       </div>
 
       {/* Grid of Compact Dishes */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '12px',
-          width: '100%',
-          maxWidth: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div className="menu-food-grid">
         {items.map((dish, idx) => (
           <FoodCard key={dish.id} item={dish} onOpenDetail={onOpenDetail} index={idx} />
         ))}

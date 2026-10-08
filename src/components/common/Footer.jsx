@@ -28,7 +28,7 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
         boxSizing: 'border-box',
       }}
     >
-      <div style={{ maxWidth: '480px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+      <div className="site-content-container" style={{ maxWidth: '800px' }}>
         
         {/* Monogram Logo */}
         <div

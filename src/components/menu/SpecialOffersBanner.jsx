@@ -45,7 +45,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
         </h3>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '100%' }}>
+      <div className="offers-grid">
         {availableOffers.map(offer => (
           <div
             key={offer.id}
