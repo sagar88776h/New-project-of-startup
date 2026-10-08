@@ -48,7 +48,7 @@ export const REAL_FOOD_IMAGES = {
   freshLimeMintSoda: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop&q=80",
 
   // Restaurant Cover
-  restaurantCover: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=85",
+  restaurantCover: "/devi-banner.png",
   restaurantTableCover: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&auto=format&fit=crop&q=85",
 };
 
@@ -62,7 +62,7 @@ export const DEFAULT_RESTAURANTS = [
     logo: "/devi-logo.png",
     logoText: "DEVI",
     logoSubtitle: "THE REAL FAST FOOD CENTRE",
-    coverImage: REAL_FOOD_IMAGES.restaurantCover,
+    coverImage: "/devi-banner.png",
     currency: "₹",
     theme: {
       mode: "dark",

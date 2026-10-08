@@ -6,7 +6,7 @@ const RestaurantContext = createContext();
 const STORAGE_KEY = 'real_photography_qr_menu_devi_v1';
 const ACTIVE_RESTAURANT_KEY = 'real_photography_qr_slug_devi_v1';
 const THEME_VERSION_KEY = 'devi_dark_premium_theme_v2';
-const CURRENT_THEME_VERSION = '2.0.0';
+const CURRENT_THEME_VERSION = '2.1.0';
 
 const THEME_MODE_STORAGE_KEY = 'devi_theme_mode_v1';
 
@@ -40,12 +40,13 @@ export function RestaurantProvider({ children }) {
 
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Migration: If theme is from previous version, update theme & fonts for Devi without wiping custom items/categories/history
+        // Migration: If theme or banner is from previous version, update theme & banner for Devi without wiping custom items/categories/history
         if (savedVersion !== CURRENT_THEME_VERSION) {
           const migrated = parsed.map(r => {
             if (r.slug === 'royal-dining' || r.id === 'royal-dining') {
               return {
                 ...r,
+                coverImage: '/devi-banner.png',
                 theme: {
                   ...DEFAULT_RESTAURANTS[0].theme,
                 },

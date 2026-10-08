@@ -26,20 +26,28 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
         style={{
           position: 'relative',
           width: '100%',
-          height: 'clamp(125px, 28vw, 150px)',
+          height: 'clamp(135px, 25vw, 210px)',
           backgroundColor: '#141110',
+          overflow: 'hidden',
         }}
       >
         <img
-          src={activeRestaurant.coverImage}
+          src={activeRestaurant.coverImage || '/devi-banner.png'}
           alt={activeRestaurant.name}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.88 }}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            opacity: 0.96,
+            display: 'block',
+          }}
         />
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(180deg, rgba(14,11,10,0.2) 0%, rgba(14,11,10,0.85) 100%)',
+            background: 'linear-gradient(180deg, rgba(14,11,10,0.1) 0%, rgba(14,11,10,0.7) 100%)',
           }}
         />
 
