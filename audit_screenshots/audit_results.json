@@ -1,0 +1,2258 @@
+{
+  "320_portrait": {
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "bodyScrollWidth": 320,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 64,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 26,
+        "height": 26,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 61,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 216,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 79,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 96,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 94,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 106,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 123,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 78,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 71,
+        "height": 34,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 226,
+        "height": 37,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 226,
+        "height": 18,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 108,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 108,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 138,
+        "height": 41,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 116,
+        "height": 41,
+        "class": ""
+      }
+    ]
+  },
+  "360_portrait": {
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "bodyScrollWidth": 360,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 64,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 26,
+        "height": 26,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 61,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 256,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 79,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 96,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 94,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 106,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 123,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 78,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 83,
+        "height": 34,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 266,
+        "height": 37,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 266,
+        "height": 18,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 128,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 128,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 140,
+        "height": 29,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 117,
+        "height": 29,
+        "class": ""
+      }
+    ]
+  },
+  "375_portrait": {
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "bodyScrollWidth": 375,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 68,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 26,
+        "height": 26,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 63,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 271,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 82,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 99,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 97,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 110,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 128,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 81,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 87,
+        "height": 34,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 281,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 281,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 136,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 136,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 147,
+        "height": 30,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 122,
+        "height": 30,
+        "class": ""
+      }
+    ]
+  },
+  "390_portrait": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "bodyScrollWidth": 390,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 68,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 31,
+        "height": 31,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 26,
+        "height": 26,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 63,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 286,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 82,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 99,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 97,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 110,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 128,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 81,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 91,
+        "height": 34,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 296,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 296,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 143,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 143,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 147,
+        "height": 30,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 122,
+        "height": 30,
+        "class": ""
+      }
+    ]
+  },
+  "412_portrait": {
+    "scrollWidth": 412,
+    "clientWidth": 412,
+    "bodyScrollWidth": 412,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 68,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 31,
+        "height": 31,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 31,
+        "height": 31,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 31,
+        "height": 31,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 31,
+        "height": 31,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 33,
+        "height": 33,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 27,
+        "height": 27,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 63,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 308,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 82,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 99,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 97,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 110,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 128,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 81,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 91,
+        "height": 22,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 318,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 318,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 154,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 154,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 147,
+        "height": 30,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 122,
+        "height": 30,
+        "class": ""
+      }
+    ]
+  },
+  "430_portrait": {
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "bodyScrollWidth": 430,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 68,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 32,
+        "height": 32,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 32,
+        "height": 32,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 32,
+        "height": 32,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 32,
+        "height": 32,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 34,
+        "height": 34,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 63,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 326,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 82,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 99,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 97,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 110,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 128,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 81,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 91,
+        "height": 22,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 336,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 336,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 163,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 163,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 147,
+        "height": 30,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 122,
+        "height": 30,
+        "class": ""
+      }
+    ]
+  },
+  "667_landscape": {
+    "scrollWidth": 667,
+    "clientWidth": 667,
+    "bodyScrollWidth": 667,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 68,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 34,
+        "height": 34,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 34,
+        "height": 34,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 36,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 34,
+        "height": 34,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 34,
+        "height": 34,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 30,
+        "height": 30,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 63,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 555,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 82,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 99,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 97,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 110,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 128,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 81,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 79,
+        "height": 37,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 91,
+        "height": 22,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 565,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 565,
+        "height": 20,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 278,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 278,
+        "height": 39,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 147,
+        "height": 30,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 122,
+        "height": 30,
+        "class": ""
+      }
+    ]
+  },
+  "320_568_short": {
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "bodyScrollWidth": 320,
+    "hasHorizontalScroll": false,
+    "overflowing": [],
+    "smallTapTargets": [
+      {
+        "tag": "BUTTON",
+        "text": "Select Table",
+        "width": 64,
+        "height": 20,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search Dishes",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Call Waiter",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to Light Theme",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Restaurant Info",
+        "width": 28,
+        "height": 28,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Shopping Cart",
+        "width": 29,
+        "height": 29,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Dashboard",
+        "width": 26,
+        "height": 26,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Intro",
+        "width": 61,
+        "height": 22,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "INPUT",
+        "text": "unnamed",
+        "width": 216,
+        "height": 21,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "All Items",
+        "width": 79,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pure Veg",
+        "width": 96,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Non-Veg",
+        "width": 94,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bestsellers",
+        "width": 106,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Chef's Special",
+        "width": 123,
+        "height": 36,
+        "class": "touch-target-44"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "CLAIM",
+        "width": 78,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "ADD",
+        "width": 60,
+        "height": 36,
+        "class": "btn-add-stepper touch-target-4"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy Key",
+        "width": 71,
+        "height": 34,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Devi Fast Food Centre, Ma",
+        "width": 226,
+        "height": 37,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "+91 98765 43210",
+        "width": 226,
+        "height": 18,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 108,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 108,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "Instagram",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "A",
+        "text": "WhatsApp",
+        "width": 38,
+        "height": 38,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "🔄 Switch Restaurant",
+        "width": 138,
+        "height": 41,
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Admin Portal",
+        "width": 116,
+        "height": 41,
+        "class": ""
+      }
+    ]
+  }
+}

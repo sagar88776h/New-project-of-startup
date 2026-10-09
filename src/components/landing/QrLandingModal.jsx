@@ -143,6 +143,10 @@ export default function QrLandingModal({ onExplore }) {
           <img
             src={activeRestaurant.coverImage}
             alt={activeRestaurant.name}
+            width="360"
+            height="220"
+            loading="lazy"
+            decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
           <div

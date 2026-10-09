@@ -1,14 +1,23 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, QrCode } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function TableSelectorModal({ isOpen, onClose }) {
   const { tableNumber, setTableNumber, showToast } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme, settings } = activeRestaurant;
+  const modalRef = useModalA11y(isOpen, onClose);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOpen]);
 
   const totalTables = settings?.tablesCount || 24;
   const tables = Array.from({ length: totalTables }, (_, i) => String(i + 1).padStart(2, '0'));
@@ -27,7 +36,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="table-selector-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -36,15 +45,19 @@ export default function TableSelectorModal({ isOpen, onClose }) {
           className="modal-overlay active"
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             key="table-selector-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Select Dining Table"
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '20px 18px max(20px, env(safe-area-inset-bottom, 20px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
@@ -57,14 +70,15 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                 </h3>
               </div>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
                 aria-label="Close modal"
+                className="touch-target-44"
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: 'none',
@@ -76,7 +90,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                 }}
               >
                 <X size={18} />
-              </motion.button>
+              </m.button>
             </div>
 
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginBottom: '18px' }}>
@@ -88,20 +102,23 @@ export default function TableSelectorModal({ isOpen, onClose }) {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '10px',
+                gap: '8px',
                 marginBottom: '20px',
               }}
             >
               {tables.map(num => {
                 const isSelected = tableNumber === num;
                 return (
-                  <motion.button
+                  <m.button
                     key={num}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleSelect(num)}
+                    className="touch-target-44"
                     style={{
                       aspectRatio: '1',
+                      minHeight: '48px',
+                      minWidth: '48px',
                       borderRadius: '14px',
                       border: isSelected
                         ? `2px solid var(--color-primary)`
@@ -120,12 +137,12 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                   >
                     <span style={{ fontSize: '0.62rem', opacity: 0.75, fontWeight: 700 }}>TBL</span>
                     <span>{num}</span>
-                  </motion.button>
+                  </m.button>
                 );
               })}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3, MessageSquare } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function CartDrawer({ onChangeTable }) {
   const {
@@ -29,15 +30,24 @@ export default function CartDrawer({ onChangeTable }) {
   const { activeRestaurant } = useRestaurant();
   const { currency, theme, settings } = activeRestaurant;
 
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isCartOpen]);
+
   const maxPrepEstimate = cartItems.reduce((max, item) => {
     const itemMax = item.maxPrepTime || 20;
     return Math.max(max, itemMax);
   }, 15);
 
+  const modalRef = useModalA11y(isCartOpen, () => setIsCartOpen(false));
+
   return (
     <AnimatePresence>
       {isCartOpen && (
-        <motion.div
+        <m.div
           key="cart-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -46,7 +56,11 @@ export default function CartDrawer({ onChangeTable }) {
           className="modal-overlay cart-overlay active"
           onClick={() => setIsCartOpen(false)}
         >
-          <motion.div
+          <m.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Your Table Order Cart"
             key="cart-drawer-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -55,10 +69,13 @@ export default function CartDrawer({ onChangeTable }) {
             className="bottom-sheet cart-drawer-sheet"
             onClick={e => e.stopPropagation()}
             style={{
+              maxHeight: '90dvh',
+              height: 'auto',
               display: 'flex',
               flexDirection: 'column',
               position: 'relative',
               paddingBottom: 0,
+              overscrollBehavior: 'contain',
             }}
           >
             <div className="sheet-handle" />
@@ -80,48 +97,52 @@ export default function CartDrawer({ onChangeTable }) {
                   <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700 }}>
                     Your Table Order
                   </h3>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                     onClick={onChangeTable}
-                    style={{ fontSize: '0.74rem', color: theme.primaryColor || '#c98a2c', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                    className="touch-target-44"
+                    style={{ fontSize: '0.74rem', color: theme.primaryColor || '#c98a2c', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600, minHeight: '24px' }}
                   >
                     <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
                     <Edit3 size={11} />
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 {cartItems.length > 0 && (
-                  <motion.button
+                  <m.button
                     whileTap={{ scale: 0.9 }}
                     onClick={clearCart}
+                    className="touch-target-44"
                     style={{
                       background: 'none',
                       border: 'none',
                       color: '#dc2626',
-                      fontSize: '0.75rem',
+                      fontSize: '0.78rem',
                       fontWeight: 600,
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
+                      padding: '6px 10px',
                     }}
                   >
-                    <Trash2 size={13} />
+                    <Trash2 size={14} />
                     <span>Clear</span>
-                  </motion.button>
+                  </m.button>
                 )}
 
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsCartOpen(false)}
                   aria-label="Close cart"
+                  className="touch-target-44"
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: '36px',
+                    height: '36px',
                     borderRadius: '50%',
                     background: 'rgba(255, 255, 255, 0.08)',
                     border: 'none',
@@ -133,12 +154,12 @@ export default function CartDrawer({ onChangeTable }) {
                   }}
                 >
                   <X size={18} />
-                </motion.button>
+                </m.button>
               </div>
             </div>
 
             {/* Scrollable Order Items */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px calc(90px + var(--sab))' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px calc(90px + env(safe-area-inset-bottom, 16px))', overscrollBehavior: 'contain' }}>
               {cartItems.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--color-text-muted)' }}>
                   <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🍽️</div>
@@ -146,15 +167,15 @@ export default function CartDrawer({ onChangeTable }) {
                   <p style={{ fontSize: '0.82rem', marginBottom: '20px' }}>
                     Discover our freshly prepared chef specialties and add dishes to your order.
                   </p>
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsCartOpen(false)}
-                    className="btn-primary"
-                    style={{ padding: '10px 20px', fontSize: '0.85rem' }}
+                    className="btn-primary touch-target-44"
+                    style={{ padding: '10px 20px', fontSize: '0.85rem', minHeight: '44px' }}
                   >
                     Explore Menu
-                  </motion.button>
+                  </m.button>
                 </div>
               ) : (
                 <>
@@ -182,7 +203,7 @@ export default function CartDrawer({ onChangeTable }) {
                   {/* Items List */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
                     {cartItems.map(item => (
-                      <motion.div
+                      <m.div
                         layout
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -198,24 +219,49 @@ export default function CartDrawer({ onChangeTable }) {
                           justifyContent: 'space-between',
                           gap: '10px',
                           boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                          minWidth: 0,
                         }}
                       >
                         {/* Item Thumbnail & Details */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1, overflow: 'hidden' }}>
                           <img
                             src={item.image}
                             alt={item.name}
+                            width="52"
+                            height="52"
                             loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              if (e.currentTarget.nextElementSibling) {
+                                e.currentTarget.nextElementSibling.style.display = 'flex';
+                              }
+                            }}
                             style={{ width: '52px', height: '52px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                           />
-                          <div style={{ minWidth: 0, flex: 1 }}>
+                          <div
+                            style={{
+                              width: '52px',
+                              height: '52px',
+                              borderRadius: '10px',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              display: 'none',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              fontSize: '1.2rem',
+                            }}
+                          >
+                            {item.isVeg ? '🌱' : '🍗'}
+                          </div>
+                          <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                               {item.isVeg ? (
                                 <span className="veg-indicator" style={{ width: '12px', height: '12px' }}><span className="veg-indicator-dot" style={{ width: '5px', height: '5px' }} /></span>
                               ) : (
                                 <span className="non-veg-indicator" style={{ width: '12px', height: '12px' }}><span className="non-veg-indicator-triangle" style={{ borderLeftWidth: '3px', borderRightWidth: '3px', borderBottomWidth: '5px' }} /></span>
                               )}
-                              <h4 style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              <h4 style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', wordBreak: 'break-word' }}>
                                 {item.name}
                               </h4>
                             </div>
@@ -237,14 +283,14 @@ export default function CartDrawer({ onChangeTable }) {
                                   onChange={e => setTempNoteText(e.target.value)}
                                   autoFocus
                                   style={{
-                                    fontSize: '0.72rem',
-                                    padding: '3px 6px',
-                                    borderRadius: '6px',
+                                    fontSize: '16px',
+                                    padding: '5px 8px',
+                                    borderRadius: '8px',
                                     border: '1px solid var(--color-card-border)',
                                     background: 'rgba(255,255,255,0.06)',
                                     color: 'var(--color-text-primary)',
                                     outline: 'none',
-                                    width: '130px',
+                                    width: '140px',
                                   }}
                                 />
                                 <button
@@ -253,15 +299,17 @@ export default function CartDrawer({ onChangeTable }) {
                                     updateItemNote(item.cartItemId, tempNoteText.trim());
                                     setEditingNoteItemId(null);
                                   }}
+                                  className="touch-target-44"
                                   style={{
-                                    fontSize: '0.68rem',
-                                    padding: '3px 6px',
-                                    borderRadius: '6px',
+                                    fontSize: '0.72rem',
+                                    padding: '5px 10px',
+                                    borderRadius: '8px',
                                     background: theme.primaryColor || '#c98a2c',
                                     color: '#ffffff',
                                     border: 'none',
                                     cursor: 'pointer',
                                     fontWeight: 700,
+                                    minHeight: '34px',
                                   }}
                                 >
                                   Save
@@ -322,29 +370,33 @@ export default function CartDrawer({ onChangeTable }) {
 
                         {/* Stepper Controls & Price */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
-                          <div className="qty-stepper-container">
-                            <motion.button
+                          <div className="qty-stepper-container" style={{ minHeight: '36px' }}>
+                            <m.button
                               whileTap={{ scale: 0.85 }}
-                              className="qty-stepper-btn"
+                              className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}
+                              aria-label={`Decrease ${item.name} quantity`}
+                              style={{ width: '32px', height: '32px' }}
                             >
                               <Minus size={11} />
-                            </motion.button>
-                            <span className="qty-stepper-val">{item.quantity}</span>
-                            <motion.button
+                            </m.button>
+                            <span className="qty-stepper-val" style={{ minWidth: '22px' }}>{item.quantity}</span>
+                            <m.button
                               whileTap={{ scale: 0.85 }}
-                              className="qty-stepper-btn"
+                              className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}
+                              aria-label={`Increase ${item.name} quantity`}
+                              style={{ width: '32px', height: '32px' }}
                             >
                               <Plus size={11} />
-                            </motion.button>
+                            </m.button>
                           </div>
 
                           <span style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                             {currency}{item.totalPrice.toFixed(2)}
                           </span>
                         </div>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
 
@@ -355,18 +407,19 @@ export default function CartDrawer({ onChangeTable }) {
                     </label>
                     <textarea
                       rows={2}
+                      aria-label="Cooking instructions for kitchen"
                       placeholder="e.g. Please make curries mild spicy, bring extra small plates..."
                       value={orderNotes}
                       onChange={e => setOrderNotes(e.target.value)}
                       style={{
                         width: '100%',
                         boxSizing: 'border-box',
-                        padding: '9px 12px',
+                        padding: '10px 12px',
                         borderRadius: '12px',
                         background: 'rgba(255, 255, 255, 0.04)',
                         border: '1px solid var(--color-card-border)',
                         color: 'var(--color-text-primary)',
-                        fontSize: '0.82rem',
+                        fontSize: '16px',
                         outline: 'none',
                         resize: 'none',
                       }}
@@ -433,7 +486,7 @@ export default function CartDrawer({ onChangeTable }) {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  padding: '12px 16px calc(14px + var(--sab))',
+                  padding: '12px 16px max(14px, env(safe-area-inset-bottom, 14px))',
                   background: 'var(--color-card-bg)',
                   borderTop: '1px solid var(--color-card-border)',
                   boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.4)',
@@ -441,11 +494,11 @@ export default function CartDrawer({ onChangeTable }) {
                   zIndex: 20,
                 }}
               >
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={placeOrder}
-                  className="btn-primary"
+                  className="btn-primary touch-target-44"
                   style={{
                     width: '100%',
                     padding: '14px',
@@ -457,15 +510,16 @@ export default function CartDrawer({ onChangeTable }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
+                    minHeight: '48px',
                   }}
                 >
                   <Send size={16} />
                   <span>PROCEED TO ORDER • {currency}{grandTotal.toFixed(2)}</span>
-                </motion.button>
+                </m.button>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

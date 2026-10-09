@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Clock, Users, Flame, Sparkles, Check, AlertCircle } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import FoodMedia from '../common/FoodMedia';
+import useModalA11y from '../../hooks/useModalA11y';
 
 function FoodDetailContent({ item, onClose }) {
   const { addToCart, showToast } = useCart();
@@ -42,8 +44,14 @@ function FoodDetailContent({ item, onClose }) {
     ? `${item.minPrepTime}–${item.maxPrepTime} min`
     : item.prepTime || '15–20 min';
 
+  const modalRef = useModalA11y(true, onClose);
+
   return (
-    <motion.div
+    <m.div
+      ref={modalRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${item.name} details`}
       variants={bottomSheetVariants}
       initial="hidden"
       animate="visible"
@@ -51,17 +59,19 @@ function FoodDetailContent({ item, onClose }) {
       className="bottom-sheet"
       onClick={e => e.stopPropagation()}
       style={{
-        maxHeight: '90svh',
+        maxHeight: '90dvh',
+        height: 'auto',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
         paddingBottom: 0,
+        overscrollBehavior: 'contain',
       }}
     >
       <div className="sheet-handle" />
 
       {/* Scrollable Content */}
-      <div style={{ padding: '0 16px calc(90px + var(--sab))', overflowY: 'auto', flex: 1 }}>
+      <div style={{ padding: '0 16px calc(90px + env(safe-area-inset-bottom, 16px))', overflowY: 'auto', flex: 1, overscrollBehavior: 'contain' }}>
         
         {/* Header Row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
@@ -75,19 +85,20 @@ function FoodDetailContent({ item, onClose }) {
                 <span className="non-veg-indicator-triangle" />
               </span>
             )}
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: item.isVeg ? '#15803d' : '#b91c1c' }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: item.isVeg ? '#15803d' : '#b91c1c' }}>
               {item.isVeg ? 'Vegetarian' : 'Non-Vegetarian'}
             </span>
           </div>
 
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
             aria-label="Close modal"
+            className="touch-target-44"
             style={{
-              width: '32px',
-              height: '32px',
+              width: '36px',
+              height: '36px',
               borderRadius: '50%',
               background: 'rgba(255, 255, 255, 0.08)',
               border: 'none',
@@ -99,7 +110,7 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             <X size={18} />
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Large Real Food Photograph */}
@@ -107,23 +118,23 @@ function FoodDetailContent({ item, onClose }) {
           style={{
             position: 'relative',
             width: '100%',
-            height: 'clamp(170px, 42vw, 230px)',
+            height: 'clamp(160px, 42vw, 220px)',
             borderRadius: '16px',
             overflow: 'hidden',
             marginBottom: '14px',
             backgroundColor: '#141110',
           }}
         >
-          <img
+          <FoodMedia
             src={item.image}
+            videoSrc={item.video || item.clip}
             alt={item.name}
-            loading="lazy"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-            }}
+            isVeg={item.isVeg}
+            aspectRatio="16 / 9"
+            width={600}
+            height={340}
+            priority={true}
+            style={{ width: '100%', height: '100%' }}
           />
 
           {/* Badges on Image */}
@@ -155,6 +166,7 @@ function FoodDetailContent({ item, onClose }) {
               textTransform: 'uppercase',
               letterSpacing: '0.01em',
               overflowWrap: 'anywhere',
+              wordBreak: 'break-word',
             }}
           >
             {item.name}
@@ -174,7 +186,7 @@ function FoodDetailContent({ item, onClose }) {
         </div>
 
         {/* Description */}
-        <p style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', lineHeight: 1.5, marginBottom: '14px', overflowWrap: 'anywhere' }}>
+        <p style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', lineHeight: 1.5, marginBottom: '14px', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
           {item.description}
         </p>
 
@@ -217,7 +229,7 @@ function FoodDetailContent({ item, onClose }) {
             <h4 style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
               INGREDIENTS
             </h4>
-            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
               {item.ingredients.join(', ')}.
             </p>
           </div>
@@ -229,7 +241,7 @@ function FoodDetailContent({ item, onClose }) {
             <h4 style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
               PREPARATION
             </h4>
-            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.45, overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
               {item.preparationStyle}
             </p>
           </div>
@@ -266,27 +278,29 @@ function FoodDetailContent({ item, onClose }) {
               {item.customizations.map(cust => {
                 const isChecked = selectedCustomizations.some(c => c.id === cust.id);
                 return (
-                  <motion.div
+                  <m.div
                     whileTap={{ scale: 0.98 }}
                     key={cust.id}
                     onClick={() => toggleCustomization(cust)}
+                    className="touch-target-44"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      padding: '9px 12px',
+                      padding: '10px 12px',
                       borderRadius: '10px',
                       background: isChecked ? 'rgba(196, 22, 28, 0.12)' : 'rgba(255, 255, 255, 0.04)',
                       border: isChecked ? `1.5px solid var(--color-primary)` : '1px solid var(--color-card-border)',
                       cursor: 'pointer',
                       transition: 'border-color 0.18s ease, background 0.18s ease',
+                      minHeight: '44px',
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <div
                         style={{
-                          width: '16px',
-                          height: '16px',
+                          width: '18px',
+                          height: '18px',
                           borderRadius: '4px',
                           border: isChecked ? 'none' : '1.5px solid #9ca3af',
                           background: isChecked ? 'var(--color-primary)' : 'transparent',
@@ -308,7 +322,7 @@ function FoodDetailContent({ item, onClose }) {
                         +{currency}{cust.price}
                       </span>
                     )}
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
@@ -328,13 +342,14 @@ function FoodDetailContent({ item, onClose }) {
             style={{
               width: '100%',
               boxSizing: 'border-box',
-              padding: '9px 12px',
+              padding: '10px 12px',
               borderRadius: '10px',
               background: 'rgba(255, 255, 255, 0.04)',
               border: '1px solid var(--color-card-border)',
               color: 'var(--color-text-primary)',
-              fontSize: '0.82rem',
+              fontSize: '16px',
               outline: 'none',
+              minHeight: '44px',
             }}
           />
         </div>
@@ -347,13 +362,13 @@ function FoodDetailContent({ item, onClose }) {
           bottom: 0,
           left: 0,
           right: 0,
-          padding: '12px 16px calc(14px + var(--sab))',
+          padding: '12px 16px max(14px, env(safe-area-inset-bottom, 14px))',
           background: 'var(--color-card-bg)',
           borderTop: '1px solid var(--color-card-border)',
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.5)',
+          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.6)',
           zIndex: 20,
           boxSizing: 'border-box',
         }}
@@ -368,18 +383,21 @@ function FoodDetailContent({ item, onClose }) {
             borderRadius: '10px',
             padding: '2px',
             flexShrink: 0,
+            height: '42px',
           }}
         >
-          <motion.button
+          <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            aria-label="Decrease quantity"
+            className="touch-target-44"
             style={{
-              width: '28px',
-              height: '28px',
+              width: '36px',
+              height: '36px',
               background: 'none',
               border: 'none',
               color: 'var(--color-text-primary)',
-              fontSize: '1.1rem',
+              fontSize: '1.2rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -387,20 +405,22 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             -
-          </motion.button>
-          <span style={{ minWidth: '22px', textAlign: 'center', fontWeight: 800, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+          </m.button>
+          <span style={{ minWidth: '24px', textAlign: 'center', fontWeight: 800, fontSize: '0.94rem', color: 'var(--color-text-primary)' }}>
             {quantity}
           </span>
-          <motion.button
+          <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(quantity + 1)}
+            aria-label="Increase quantity"
+            className="touch-target-44"
             style={{
-              width: '28px',
-              height: '28px',
+              width: '36px',
+              height: '36px',
               background: 'none',
               border: 'none',
               color: 'var(--color-text-primary)',
-              fontSize: '1.1rem',
+              fontSize: '1.2rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -408,41 +428,49 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             +
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Add CTA */}
-        <motion.button
+        <m.button
           whileHover={{ scale: item.isAvailable ? 1.02 : 1 }}
           whileTap={{ scale: item.isAvailable ? 0.97 : 1 }}
           onClick={handleAddToCart}
-          className="btn-primary"
+          className="btn-primary touch-target-44"
           disabled={!item.isAvailable}
           style={{
             flex: 1,
             padding: '12px 10px',
             borderRadius: '12px',
-            fontSize: '0.88rem',
+            fontSize: '0.9rem',
             fontWeight: 800,
             opacity: item.isAvailable ? 1 : 0.5,
             cursor: item.isAvailable ? 'pointer' : 'not-allowed',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            minHeight: '44px',
           }}
         >
           {item.isAvailable ? `ADD • ${currency}${totalPrice}` : 'SOLD OUT'}
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
 export default function FoodDetailModal({ item, isOpen, onClose }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && item && (
-        <motion.div
+        <m.div
           key="food-detail-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -452,7 +480,7 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
           onClick={onClose}
         >
           <FoodDetailContent key={item.id} item={item} onClose={onClose} />
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

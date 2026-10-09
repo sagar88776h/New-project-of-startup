@@ -1,55 +1,55 @@
-// Curated High-Resolution Real Food Photography (100% Real Plating, Zero Beef)
+// Curated High-Resolution Real Food Photography (100% Real Plating, Zero Beef - Optimized WebP & AVIF)
 export const REAL_FOOD_IMAGES = {
-  // Category Circular Thumbnails
-  catPopular: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200&auto=format&fit=crop&q=80",
-  catChicken: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=200&auto=format&fit=crop&q=80",
-  catMutton: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=200&auto=format&fit=crop&q=80",
-  catFish: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&auto=format&fit=crop&q=80",
-  catVeg: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=200&auto=format&fit=crop&q=80",
-  catBiryani: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200&auto=format&fit=crop&q=80",
-  catStarters: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=200&auto=format&fit=crop&q=80",
-  catBreads: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=200&auto=format&fit=crop&q=80",
-  catDrinks: "https://images.unsplash.com/photo-1546173159-315724a31696?w=200&auto=format&fit=crop&q=80",
-  catDesserts: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=200&auto=format&fit=crop&q=80",
+  // Category Circular Thumbnails (< 20 KB each)
+  catPopular: "/food/catPopular.webp",
+  catChicken: "/food/catChicken.webp",
+  catMutton: "/food/catMutton.webp",
+  catFish: "/food/catFish.webp",
+  catVeg: "/food/catVeg.webp",
+  catBiryani: "/food/catBiryani.webp",
+  catStarters: "/food/catStarters.webp",
+  catBreads: "/food/catBreads.webp",
+  catDrinks: "/food/catDrinks.webp",
+  catDesserts: "/food/catDesserts.webp",
 
-  // Chicken Specialties
-  chickenBiryani: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&auto=format&fit=crop&q=80",
-  butterChicken: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&auto=format&fit=crop&q=80",
-  chickenTandooriTikka: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=800&auto=format&fit=crop&q=80",
-  chickenKebab: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop&q=80",
+  // Chicken Specialties (< 60 KB each)
+  chickenBiryani: "/food/chickenBiryani.webp",
+  butterChicken: "/food/butterChicken.webp",
+  chickenTandooriTikka: "/food/chickenTandooriTikka.webp",
+  chickenKebab: "/food/chickenKebab.webp",
   
-  // Mutton Specialties
-  muttonDumBiryani: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800&auto=format&fit=crop&q=80",
-  muttonRoganJosh: "https://images.unsplash.com/photo-1545247181-516773cae754?w=800&auto=format&fit=crop&q=80",
+  // Mutton Specialties (< 60 KB each)
+  muttonDumBiryani: "/food/muttonDumBiryani.webp",
+  muttonRoganJosh: "/food/muttonRoganJosh.webp",
   
-  // Fresh Fish & Seafood
-  grilledSalmon: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&auto=format&fit=crop&q=80",
-  crispyPrawnsTandoori: "https://images.unsplash.com/photo-1559742811-822873691df8?w=800&auto=format&fit=crop&q=80",
+  // Fresh Fish & Seafood (< 50 KB each)
+  grilledSalmon: "/food/grilledSalmon.webp",
+  crispyPrawnsTandoori: "/food/crispyPrawnsTandoori.webp",
 
-  // Vegetarian & Paneer
-  paneerButterMasala: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&auto=format&fit=crop&q=80",
-  paneerTikkaAngara: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&auto=format&fit=crop&q=80",
-  dalMakhani: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&auto=format&fit=crop&q=80",
-  royalVegBiryani: "https://images.unsplash.com/photo-1642821373181-696a54913e9a?w=800&auto=format&fit=crop&q=80",
-  margheritaPizza: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=800&auto=format&fit=crop&q=80",
-  burrataHeirloomSalad: "https://images.unsplash.com/photo-1592417817098-8f3d6ef23946?w=800&auto=format&fit=crop&q=80",
-  wildMushroomPasta: "https://images.unsplash.com/photo-1621996346565-e3d5d6281691?w=800&auto=format&fit=crop&q=80",
+  // Vegetarian & Paneer (< 60 KB each)
+  paneerButterMasala: "/food/paneerButterMasala.webp",
+  paneerTikkaAngara: "/food/paneerTikkaAngara.webp",
+  dalMakhani: "/food/dalMakhani.webp",
+  royalVegBiryani: "/food/royalVegBiryani.webp",
+  margheritaPizza: "/food/margheritaPizza.webp",
+  burrataHeirloomSalad: "/food/burrataHeirloomSalad.webp",
+  wildMushroomPasta: "/food/wildMushroomPasta.webp",
 
-  // Tandoori Breads
-  garlicButterNaan: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80",
-  lacchaParatha: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&auto=format&fit=crop&q=80",
+  // Tandoori Breads (< 50 KB each)
+  garlicButterNaan: "/food/garlicButterNaan.webp",
+  lacchaParatha: "/food/lacchaParatha.webp",
 
-  // Desserts
-  shahiGulabJamun: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=800&auto=format&fit=crop&q=80",
-  classicTiramisu: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop&q=80",
+  // Desserts (< 40 KB each)
+  shahiGulabJamun: "/food/shahiGulabJamun.webp",
+  classicTiramisu: "/food/classicTiramisu.webp",
 
-  // Beverages
-  kesarMangoLassi: "https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop&q=80",
-  freshLimeMintSoda: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop&q=80",
+  // Beverages (< 40 KB each)
+  kesarMangoLassi: "/food/kesarMangoLassi.webp",
+  freshLimeMintSoda: "/food/freshLimeMintSoda.webp",
 
-  // Restaurant Cover
-  restaurantCover: "/devi-banner.png",
-  restaurantTableCover: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&auto=format&fit=crop&q=85",
+  // Restaurant Cover & Table Backdrops
+  restaurantCover: "/food/devi-banner.webp",
+  restaurantTableCover: "/food/restaurantTableCover.webp",
 };
 
 export const DEFAULT_RESTAURANTS = [
@@ -59,11 +59,11 @@ export const DEFAULT_RESTAURANTS = [
     name: "Devi - The Real Fast Food Centre",
     tagline: "The Real Fast Food Centre • Pure Taste & Quality",
     description: "Welcome to Devi - The Real Fast Food Centre. Discover our mouthwatering, freshly prepared authentic delicacies crafted with passion and top quality ingredients.",
-    logo: "/devi-logo.png",
+    logo: "/food/devi-logo.webp",
     logoText: "DEVI",
     logoSubtitle: "THE REAL FAST FOOD CENTRE",
-    coverImage: "/devi-banner.png",
-    coverImage2x: "/devi-banner.png",
+    coverImage: "/food/devi-banner.webp",
+    coverImage2x: "/food/devi-banner-2x.webp",
     currency: "₹",
     theme: {
       mode: "dark",

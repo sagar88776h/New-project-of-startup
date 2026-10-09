@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
@@ -28,7 +28,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
     <div
       style={{
         position: 'sticky',
-        top: '48px',
+        top: 'calc(48px + var(--sat))',
         zIndex: 80,
         width: '100%',
         maxWidth: '100%',
@@ -42,7 +42,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
       }}
     >
       <nav
-        className="no-scrollbar"
+        className="horizontal-scroll-row no-scrollbar"
         ref={navRef}
         style={{
           width: '100%',
@@ -54,51 +54,68 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
           overflowX: 'auto',
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
-          WebkitOverflowScrolling: 'touch',
           paddingBottom: '2px',
         }}
       >
         {categories.map((cat, idx) => {
           const isActive = activeCategoryId === cat.id;
           return (
-            <motion.button
+            <m.button
               key={cat.id}
               ref={isActive ? activeTabRef : null}
               onClick={() => onSelectCategory(cat.id)}
               className={`category-circle-chip ${isActive ? 'active' : ''}`}
+              aria-label={`View category ${cat.name}`}
+              aria-pressed={isActive}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.03, duration: 0.3 }}
               whileHover={{ y: -2, scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
+              style={{
+                minWidth: '56px',
+                minHeight: '64px',
+              }}
             >
               {/* Circular Food Thumbnail */}
               <div className="category-circle-thumb">
                 {cat.image ? (
-                  <img src={cat.image} alt={cat.name} loading="lazy" />
-                ) : (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      background: 'rgba(139, 29, 44, 0.08)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.4rem',
-                      borderRadius: '50%',
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    width="54"
+                    height="54"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.nextElementSibling) {
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }
                     }}
-                  >
-                    {cat.icon || '🍽️'}
-                  </div>
-                )}
+                  />
+                ) : null}
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    background: 'rgba(139, 29, 44, 0.08)',
+                    display: cat.image ? 'none' : 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.4rem',
+                    borderRadius: '50%',
+                  }}
+                >
+                  {cat.icon || '🍽️'}
+                </div>
               </div>
 
               {/* Category Name */}
               <span className="category-circle-name">
                 {cat.name}
               </span>
-            </motion.button>
+            </m.button>
           );
         })}
       </nav>

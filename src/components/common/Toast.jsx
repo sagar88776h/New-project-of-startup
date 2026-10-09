@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 
@@ -20,7 +20,7 @@ export default function Toast() {
   return (
     <AnimatePresence>
       {toastMessage && (
-        <motion.div
+        <m.div
           key={toastMessage.id || 'toast'}
           initial={{ opacity: 0, y: -20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -48,7 +48,7 @@ export default function Toast() {
         >
           {getIcon(toastMessage.type)}
           <span>{toastMessage.message}</span>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

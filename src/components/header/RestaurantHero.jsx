@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Utensils, ArrowDown, MapPin, Sparkles } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -23,7 +23,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
       }}
     >
       {/* Subtle Floating Ambient Background Glows */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         animate={{
           x: [0, 15, -10, 0],
@@ -50,7 +50,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
         }}
       />
 
-      <motion.div
+      <m.div
         aria-hidden="true"
         animate={{
           x: [0, -20, 15, 0],
@@ -80,10 +80,10 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
 
       {/* Centered Cover Banner Wrapper */}
       <div className="hero-banner-wrapper" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="hero-banner-container" style={{ position: 'relative', overflow: 'hidden' }}>
-          <motion.img
-            initial={{ scale: 1.08, opacity: 0.8 }}
-            animate={{ scale: 1, opacity: 1 }}
+        <div className="hero-banner-container" style={{ position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '16 / 7', minHeight: '135px', maxHeight: '250px' }}>
+          <m.img
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             src={activeRestaurant.coverImage || '/devi-banner.png'}
             srcSet={`${activeRestaurant.coverImage || '/devi-banner.png'} 1200w, ${activeRestaurant.coverImage2x || activeRestaurant.coverImage || '/devi-banner.png'} 2400w`}
@@ -106,45 +106,46 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(180deg, transparent 55%, rgba(14, 11, 10, 0.85) 100%)',
+              background: 'linear-gradient(180deg, transparent 50%, rgba(14, 11, 10, 0.9) 100%)',
               pointerEvents: 'none',
             }}
           />
 
           {/* Top Badges (Intro Replay + Table Number) */}
-          <div style={{ position: 'absolute', top: '10px', right: '12px', display: 'flex', alignItems: 'center', gap: '6px', zIndex: 5 }}>
+          <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex', alignItems: 'center', gap: '6px', zIndex: 5 }}>
             {onOpenIntro && (
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.94 }}
                 onClick={onOpenIntro}
+                className="touch-target-44"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.72)',
+                  background: 'rgba(0, 0, 0, 0.75)',
                   backdropFilter: 'blur(8px)',
                   border: '1px solid rgba(212, 166, 74, 0.35)',
                   color: '#F6EFE3',
                   padding: '4px 10px',
                   borderRadius: '999px',
-                  fontSize: '0.7rem',
+                  fontSize: '0.72rem',
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '5px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  gap: '4px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
                 }}
               >
                 <Sparkles size={11} color="var(--color-accent)" />
                 <span>Intro</span>
-              </motion.button>
+              </m.button>
             )}
 
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 400, damping: 25 }}
               style={{
-                background: 'rgba(26, 21, 20, 0.92)',
+                background: 'rgba(26, 21, 20, 0.94)',
                 backdropFilter: 'blur(8px)',
                 border: '1px solid rgba(212, 166, 74, 0.35)',
                 color: 'var(--color-accent)',
@@ -153,35 +154,38 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
                 fontSize: '0.72rem',
                 fontWeight: 800,
                 letterSpacing: '0.04em',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.35)',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                minHeight: '26px',
               }}
             >
               {tableNumber ? `TABLE ${tableNumber}` : 'TABLE ?'}
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>
 
       {/* Restaurant Identity Content with Staggered Entrance */}
-      <motion.div
+      <m.div
         variants={staggerContainer(0.08, 0.1)}
         initial="hidden"
         animate="visible"
-        style={{ padding: '0 14px 14px', marginTop: '-28px', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}
+        style={{ padding: '0 12px 14px', marginTop: '-26px', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}
       >
         <div className="header-inner-container" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
             
             {/* Logo Monogram */}
-            <motion.div
+            <m.div
               variants={scaleIn}
               whileHover={{ scale: 1.06, rotate: 3 }}
               whileTap={{ scale: 0.94 }}
               onClick={onOpenIntro}
               title="Click to view Welcome to Devi intro"
               style={{
-                width: 'clamp(54px, 14vw, 64px)',
-                height: 'clamp(54px, 14vw, 64px)',
+                width: 'clamp(52px, 14vw, 64px)',
+                height: 'clamp(52px, 14vw, 64px)',
                 borderRadius: '50%',
                 background: '#1A1514',
                 border: `2.5px solid var(--color-accent)`,
@@ -198,75 +202,83 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
                 <img
                   src={activeRestaurant.logo}
                   alt={activeRestaurant.name}
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
                 <Utensils size={24} color="var(--color-accent)" />
               )}
-            </motion.div>
+            </m.div>
 
             {/* Quick CTA */}
-            <motion.button
+            <m.button
               variants={fadeUp}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={onExploreClick}
+              className="touch-target-44"
               style={{
                 background: 'rgba(196, 22, 28, 0.14)',
                 border: '1px solid rgba(196, 22, 28, 0.35)',
                 color: 'var(--color-primary)',
-                padding: '6px 14px',
+                padding: '8px 16px',
+                minHeight: '44px',
                 borderRadius: '999px',
-                fontSize: '0.76rem',
+                fontSize: '0.78rem',
                 fontWeight: 700,
                 cursor: 'pointer',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: '5px',
+                justifyContent: 'center',
+                gap: '6px',
                 flexShrink: 0,
                 boxShadow: '0 2px 8px rgba(196, 22, 28, 0.15)',
               }}
             >
               <span>Explore Menu</span>
-              <motion.div
+              <m.div
                 animate={{ y: [0, 3, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
               >
-                <ArrowDown size={13} />
-              </motion.div>
-            </motion.button>
+                <ArrowDown size={14} />
+              </m.div>
+            </m.button>
           </div>
 
           {/* Restaurant Name & Tagline */}
-          <motion.h1
+          <m.h1
             variants={fadeUp}
             style={{
               fontFamily: theme.fontHeading || "'Fraunces', serif",
-              fontSize: 'clamp(1.22rem, 4.5vw, 1.5rem)',
+              fontSize: 'clamp(1.18rem, 4.5vw, 1.45rem)',
               fontWeight: 700,
               color: 'var(--color-text-primary)',
               lineHeight: 1.2,
               marginBottom: '4px',
               overflowWrap: 'anywhere',
+              wordBreak: 'break-word',
               letterSpacing: '-0.01em',
             }}
           >
             {activeRestaurant.name}
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
-            style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.4, marginBottom: '8px', overflowWrap: 'anywhere' }}
+            style={{ fontSize: 'clamp(0.78rem, 2.5vw, 0.82rem)', color: 'var(--color-text-secondary)', lineHeight: 1.4, marginBottom: '8px', overflowWrap: 'anywhere', wordBreak: 'break-word' }}
           >
             {activeRestaurant.tagline}
-          </motion.p>
+          </m.p>
 
           {/* Snippet Row */}
-          <motion.div
+          <m.div
             variants={fadeUp}
-            style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.74rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.74rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
               <span
                 style={{
                   width: '7px',
@@ -280,14 +292,14 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
               <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Open & Serving Fresh</span>
             </div>
             {contact?.address && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '200px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '170px', minWidth: 0 }}>
                 <MapPin size={12} color="var(--color-accent)" style={{ flexShrink: 0 }} />
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.address.split(',')[0]}</span>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

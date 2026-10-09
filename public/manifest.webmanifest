@@ -1,0 +1,26 @@
+{
+  "name": "Devi - The Real Fast Food Centre",
+  "short_name": "Devi Menu",
+  "description": "Contactless digital QR menu, live kitchen tracking, and contactless ordering at Devi Fast Food Centre.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0E0B0A",
+  "theme_color": "#0E0B0A",
+  "icons": [
+    {
+      "src": "/food/devi-logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/devi-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "restaurant", "shopping"],
+  "lang": "en"
+}

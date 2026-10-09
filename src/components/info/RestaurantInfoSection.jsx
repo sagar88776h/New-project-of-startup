@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { MapPin, Phone, Clock, Wifi, Copy, Check, ExternalLink, MessageCircle, Utensils } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -30,7 +30,7 @@ export default function RestaurantInfoSection() {
   };
 
   return (
-    <motion.section
+    <m.section
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -86,7 +86,7 @@ export default function RestaurantInfoSection() {
                 WiFi: <b>{contact.wifiSsid}</b>
               </div>
             </div>
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
               onClick={handleCopyWifi}
@@ -106,14 +106,14 @@ export default function RestaurantInfoSection() {
             >
               {copiedWifi ? <Check size={12} /> : <Copy size={12} />}
               <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
-            </motion.button>
+            </m.button>
           </div>
         )}
 
         {/* Details List */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>
           {contact?.address && (
-            <motion.a
+            <m.a
               whileHover={{ x: 3 }}
               href={contact.googleMapsUrl || '#'}
               target="_blank"
@@ -123,7 +123,7 @@ export default function RestaurantInfoSection() {
               <MapPin size={15} color="var(--color-primary)" style={{ marginTop: '2px', flexShrink: 0 }} />
               <span style={{ flex: 1 }}>{contact.address}</span>
               <ExternalLink size={13} color="var(--color-text-muted)" />
-            </motion.a>
+            </m.a>
           )}
 
           {contact?.openingHours && (
@@ -134,21 +134,21 @@ export default function RestaurantInfoSection() {
           )}
 
           {contact?.phone && (
-            <motion.a
+            <m.a
               whileHover={{ x: 3 }}
               href={`tel:${contact.phone}`}
               style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}
             >
               <Phone size={15} color="var(--color-primary)" flexShrink={0} />
               <span style={{ fontWeight: 600, color: 'var(--color-primary)' }}>{contact.phone}</span>
-            </motion.a>
+            </m.a>
           )}
         </div>
 
         {/* Social & WhatsApp Buttons */}
         <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
           {contact?.whatsapp && (
-            <motion.a
+            <m.a
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
@@ -172,11 +172,11 @@ export default function RestaurantInfoSection() {
             >
               <MessageCircle size={15} />
               <span>WhatsApp</span>
-            </motion.a>
+            </m.a>
           )}
 
           {contact?.instagram && (
-            <motion.a
+            <m.a
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
@@ -200,10 +200,10 @@ export default function RestaurantInfoSection() {
             >
               <InstagramIcon size={15} />
               <span>Instagram</span>
-            </motion.a>
+            </m.a>
           )}
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 }

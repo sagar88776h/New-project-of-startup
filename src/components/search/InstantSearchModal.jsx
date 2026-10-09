@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Search, X, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { modalBackdropVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -13,11 +14,20 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const [query, setQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState(null);
   const inputRef = useRef(null);
+  const modalRef = useModalA11y(isOpen, () => {
+    setQuery('');
+    setSelectedTag(null);
+    onClose();
+  });
 
   useEffect(() => {
     if (isOpen) {
+      document.body.classList.add('modal-open');
       const timer = setTimeout(() => inputRef.current?.focus(), 150);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        document.body.classList.remove('modal-open');
+      };
     }
   }, [isOpen]);
 
@@ -52,8 +62,12 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="instant-search-overlay"
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Instant Dish Search"
           variants={modalBackdropVariants}
           initial="hidden"
           animate="visible"
@@ -63,50 +77,57 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
             inset: 0,
             zIndex: 999,
             background: 'rgba(10, 11, 15, 0.97)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
             display: 'flex',
             flexDirection: 'column',
-            padding: '16px',
+            padding: 'max(14px, env(safe-area-inset-top, 14px)) 16px max(16px, env(safe-area-inset-bottom, 16px))',
             color: '#ffffff',
+            overscrollBehavior: 'contain',
           }}
         >
           {/* Top Search Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-            <motion.div
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px', width: '100%', boxSizing: 'border-box' }}>
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               style={{
                 flex: 1,
+                minWidth: 0,
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '8px',
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: `1.5px solid ${theme.primaryColor || '#c99738'}`,
                 borderRadius: '16px',
-                padding: '10px 16px',
+                padding: '6px 10px',
+                minHeight: '44px',
+                boxSizing: 'border-box',
               }}
             >
-              <Search size={18} color={theme.primaryColor || '#c99738'} />
+              <Search size={18} color={theme.primaryColor || '#c99738'} style={{ flexShrink: 0 }} />
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search dishes, drinks, desserts, ingredients..."
+                placeholder="Search dishes..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 style={{
                   flex: 1,
+                  minWidth: 0,
                   background: 'transparent',
                   border: 'none',
                   outline: 'none',
                   color: '#ffffff',
-                  fontSize: '0.92rem',
+                  fontSize: '16px',
+                  width: '100%',
                 }}
               />
               {query && (
-                <motion.button
+                <m.button
                   whileTap={{ scale: 0.85 }}
                   onClick={() => setQuery('')}
+                  className="touch-target-44"
                   style={{
                     background: 'none',
                     border: 'none',
@@ -114,58 +135,70 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '32px',
+                    height: '32px',
+                    flexShrink: 0,
                   }}
                 >
                   <X size={16} />
-                </motion.button>
+                </m.button>
               )}
-            </motion.div>
+            </m.div>
 
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleClose}
+              aria-label="Close search"
+              className="touch-target-44"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: 'none',
                 color: '#e5e7eb',
                 borderRadius: '14px',
-                padding: '10px 14px',
-                fontSize: '0.85rem',
+                padding: '8px 12px',
+                fontSize: '0.82rem',
                 fontWeight: 600,
                 cursor: 'pointer',
+                minHeight: '44px',
+                flexShrink: 0,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               Cancel
-            </motion.button>
+            </m.button>
           </div>
-
           {/* Quick Search Tag Pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
             {popularKeywords.map(keyword => (
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 key={keyword}
                 onClick={() => setQuery(keyword)}
+                className="touch-target-44"
                 style={{
-                  padding: '5px 13px',
+                  padding: '6px 14px',
                   borderRadius: '999px',
                   background: query.toLowerCase() === keyword.toLowerCase() ? theme.primaryColor || 'var(--color-primary)' : 'rgba(255, 255, 255, 0.08)',
                   color: query.toLowerCase() === keyword.toLowerCase() ? '#ffffff' : '#e5e7eb',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
-                  fontSize: '0.76rem',
+                  fontSize: '0.78rem',
                   fontWeight: 600,
                   cursor: 'pointer',
+                  minHeight: '34px',
                 }}
               >
                 {keyword}
-              </motion.button>
+              </m.button>
             ))}
           </div>
 
           {/* Search Results List */}
-          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', overscrollBehavior: 'contain' }}>
             {filteredItems.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '60px 20px', color: '#9ca3af' }}>
                 <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🔍</div>
@@ -174,7 +207,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
               </div>
             ) : (
               filteredItems.map(dish => (
-                <motion.div
+                <m.div
                   key={dish.id}
                   layout
                   initial={{ opacity: 0, y: 8 }}
@@ -194,16 +227,42 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                     background: 'rgba(255, 255, 255, 0.04)',
                     border: '1px solid rgba(255, 255, 255, 0.08)',
                     cursor: 'pointer',
+                    minWidth: 0,
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, overflow: 'hidden' }}>
                     <img
                       src={dish.image}
                       alt={dish.name}
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }
+                      }}
                       style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                     />
-                    <div style={{ minWidth: 0 }}>
-                      <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '10px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        display: 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {dish.isVeg ? '🌱' : '🍗'}
+                    </div>
+                    <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                      <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', wordBreak: 'break-word' }}>
                         {dish.name}
                       </h4>
                       <div style={{ fontSize: '0.78rem', color: 'var(--color-accent)', fontWeight: 700 }}>
@@ -212,35 +271,37 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                     </div>
                   </div>
 
-                  <motion.button
+                  <m.button
                     whileTap={{ scale: 0.9 }}
                     onClick={(e) => {
                       e.stopPropagation();
                       addToCart(dish, 1);
                       handleClose();
                     }}
+                    className="touch-target-44"
                     style={{
                       background: 'rgba(196, 22, 28, 0.2)',
                       border: '1px solid rgba(196, 22, 28, 0.4)',
                       color: 'var(--color-primary)',
-                      padding: '6px 12px',
+                      padding: '6px 14px',
                       borderRadius: '8px',
-                      fontSize: '0.74rem',
+                      fontSize: '0.76rem',
                       fontWeight: 700,
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
+                      minHeight: '36px',
                     }}
                   >
                     <Plus size={12} />
                     <span>ADD</span>
-                  </motion.button>
-                </motion.div>
+                  </m.button>
+                </m.div>
               ))
             )}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

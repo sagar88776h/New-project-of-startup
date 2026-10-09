@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { m, useScroll, useSpring } from 'framer-motion';
 
 export default function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
@@ -10,7 +10,7 @@ export default function ScrollProgressBar() {
   });
 
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       style={{
         position: 'fixed',

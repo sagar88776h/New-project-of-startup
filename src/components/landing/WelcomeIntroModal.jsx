@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { modalBackdropVariants } from '../../lib/motion';
@@ -11,12 +11,22 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     // Auto dismiss after 2s
     const timer = setTimeout(() => {
       onClose();
     }, 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+    };
   }, [isOpen, onClose]);
 
   const { theme } = activeRestaurant;
@@ -24,7 +34,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="welcome-intro-modal"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -32,6 +42,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
           exit="exit"
           onClick={onClose}
           role="dialog"
+          aria-modal="true"
           aria-label="Welcome Intro"
           style={{
             position: 'fixed',
@@ -59,10 +70,11 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               zIndex: 10,
             }}
           >
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
+              aria-label="Skip welcome intro"
               onClick={e => {
                 e.stopPropagation();
                 onClose();
@@ -79,11 +91,11 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               Skip ✕
-            </motion.button>
+            </m.button>
           </div>
 
           {/* Central Brand Reveal Medallion */}
-          <motion.div
+          <m.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -97,15 +109,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
             }}
           >
             {/* Gold Ring Medallion */}
-            <motion.div
-              animate={{
-                boxShadow: [
-                  '0 0 25px rgba(212, 166, 74, 0.3), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                  '0 0 50px rgba(212, 166, 74, 0.6), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                  '0 0 25px rgba(212, 166, 74, 0.3), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                ],
-              }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+            <div
               style={{
                 position: 'relative',
                 width: 'clamp(140px, 38vw, 175px)',
@@ -118,11 +122,18 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
                 border: '2px solid rgba(212, 166, 74, 0.8)',
                 background: '#141110',
                 padding: '6px',
+                boxShadow: '0 0 35px rgba(212, 166, 74, 0.4), 0 10px 30px rgba(0, 0, 0, 0.8)',
               }}
             >
               <img
-                src="/devi-logo.png"
+                src="/food/devi-logo.webp"
                 alt="Devi - The Real Fast Food Centre"
+                width="76"
+                height="76"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.src = '/devi-logo.png';
+                }}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -131,10 +142,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
                   display: 'block',
                 }}
               />
-            </motion.div>
+            </div>
 
             {/* Brand Name */}
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -149,10 +160,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               DEVI
-            </motion.h1>
+            </m.h1>
 
             {/* Tagline */}
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.5 }}
@@ -166,10 +177,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               The Real Fast Food Centre
-            </motion.h2>
+            </m.h2>
 
             {/* Scan. Order. Enjoy. */}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
@@ -182,11 +193,11 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               Scan • Order • Enjoy
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
 
           {/* Table Seat Confirmation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.5 }}
@@ -199,8 +210,8 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
             }}
           >
             {tableNumber ? `Seated at Table ${tableNumber}` : 'Digital Table Ordering'}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

@@ -1,9 +1,10 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ChefHat, Utensils, PlusCircle, Receipt } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function OrderSuccessModal() {
   const {
@@ -16,6 +17,18 @@ export default function OrderSuccessModal() {
   const { activeRestaurant } = useRestaurant();
   const { currency, theme } = activeRestaurant;
 
+  const modalRef = useModalA11y(
+    isOrderPlacedModalOpen && !!activeOrder,
+    () => setIsOrderPlacedModalOpen(false)
+  );
+
+  useEffect(() => {
+    if (isOrderPlacedModalOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOrderPlacedModalOpen]);
+
   const steps = [
     { title: 'Order Placed', desc: 'Sent to kitchen', icon: <CheckCircle2 size={16} color="#10b981" />, active: true, completed: true },
     { title: 'Preparing', desc: 'Chef cooking with fresh ingredients', icon: <ChefHat size={16} color={theme.primaryColor || '#c99738'} />, active: true, completed: activeOrder?.status?.includes('Preparing') || activeOrder?.status?.includes('Served') },
@@ -25,7 +38,7 @@ export default function OrderSuccessModal() {
   return (
     <AnimatePresence>
       {isOrderPlacedModalOpen && activeOrder && (
-        <motion.div
+        <m.div
           key="order-success-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -34,21 +47,25 @@ export default function OrderSuccessModal() {
           className="modal-overlay active"
           onClick={() => setIsOrderPlacedModalOpen(false)}
         >
-          <motion.div
+          <m.div
             key="order-success-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Order Placed Successfully"
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '24px 20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '24px 20px max(24px, env(safe-area-inset-bottom, 24px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
             {/* Confirmed Icon and Header */}
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <motion.div
+              <m.div
                 initial={{ scale: 0, rotate: -30 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -67,7 +84,7 @@ export default function OrderSuccessModal() {
                 }}
               >
                 <CheckCircle2 size={36} />
-              </motion.div>
+              </m.div>
 
               <h2
                 style={{
@@ -170,33 +187,33 @@ export default function OrderSuccessModal() {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOrderPlacedModalOpen(false)}
-                className="btn-primary"
-                style={{ width: '100%', padding: '14px', borderRadius: '14px' }}
+                className="btn-primary touch-target-44"
+                style={{ width: '100%', padding: '14px', borderRadius: '14px', minHeight: '48px' }}
               >
                 <PlusCircle size={16} />
                 <span>Order More Dishes</span>
-              </motion.button>
+              </m.button>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   callWaiter('Bill Request');
                   setIsOrderPlacedModalOpen(false);
                 }}
-                className="btn-secondary"
-                style={{ width: '100%', padding: '12px', borderRadius: '14px' }}
+                className="btn-secondary touch-target-44"
+                style={{ width: '100%', padding: '12px', borderRadius: '14px', minHeight: '48px' }}
               >
                 <Receipt size={16} />
                 <span>Request Bill to Table {activeOrder.tableNumber}</span>
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

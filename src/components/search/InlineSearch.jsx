@@ -1,11 +1,11 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 
 export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
   return (
-    <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', padding: '12px 14px 6px' }}>
-      <motion.div
+    <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', padding: '10px 12px 6px' }}>
+      <m.div
         whileFocus={{ scale: 1.01 }}
         style={{
           width: '100%',
@@ -16,15 +16,17 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
           background: 'var(--color-card-bg)',
           border: '1.5px solid var(--color-card-border)',
           borderRadius: '999px',
-          padding: '9px 14px',
+          padding: '8px 14px',
           boxShadow: 'var(--shadow-sm)',
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+          minHeight: '44px',
         }}
       >
-        <Search size={16} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+        <Search size={18} color="var(--color-primary)" style={{ flexShrink: 0 }} />
         <input
           type="text"
           placeholder="Search dishes, drinks, desserts..."
+          aria-label="Search menu items"
           value={searchQuery}
           onChange={e => onSearchChange(e.target.value)}
           style={{
@@ -35,19 +37,20 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
             border: 'none',
             outline: 'none',
             color: 'var(--color-text-primary)',
-            fontSize: '0.84rem',
+            fontSize: '16px',
             fontFamily: 'inherit',
           }}
         />
         <AnimatePresence>
           {searchQuery && (
-            <motion.button
+            <m.button
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               whileTap={{ scale: 0.85 }}
               onClick={onClear}
               aria-label="Clear search"
+              className="touch-target-44"
               style={{
                 background: 'none',
                 border: 'none',
@@ -55,15 +58,17 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 flexShrink: 0,
-                padding: '2px',
+                width: '32px',
+                height: '32px',
               }}
             >
               <X size={16} />
-            </motion.button>
+            </m.button>
           )}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
