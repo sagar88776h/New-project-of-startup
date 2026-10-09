@@ -5,6 +5,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   build: {
+    target: 'es2022',
+    cssMinify: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -14,8 +16,14 @@ export default defineConfig({
           if (id.includes('node_modules/lucide-react')) {
             return 'icons';
           }
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'vendor';
+          if (id.includes('node_modules/qrcode')) {
+            return 'qrcode';
+          }
+          if (id.includes('node_modules/react-dom')) {
+            return 'react-dom';
+          }
+          if (id.includes('node_modules/react')) {
+            return 'react';
           }
         },
       },

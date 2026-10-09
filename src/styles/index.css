@@ -1077,6 +1077,12 @@ body.modal-open {
   }
 }
 
+.menu-food-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 /* Print Layout for Table QR Stands */
 @media print {
   body, html, .app-viewport-wrapper, .mobile-device-frame {

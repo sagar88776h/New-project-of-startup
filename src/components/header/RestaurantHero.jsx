@@ -82,8 +82,8 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
       <div className="hero-banner-wrapper" style={{ position: 'relative', zIndex: 2 }}>
         <div className="hero-banner-container" style={{ position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '16 / 7', minHeight: '135px', maxHeight: '250px' }}>
           <m.img
-            initial={{ scale: 1.08, opacity: 0.8 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             src={activeRestaurant.coverImage || '/devi-banner.png'}
             srcSet={`${activeRestaurant.coverImage || '/devi-banner.png'} 1200w, ${activeRestaurant.coverImage2x || activeRestaurant.coverImage || '/devi-banner.png'} 2400w`}

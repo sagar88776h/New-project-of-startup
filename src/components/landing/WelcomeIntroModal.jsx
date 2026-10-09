@@ -97,15 +97,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
             }}
           >
             {/* Gold Ring Medallion */}
-            <m.div
-              animate={{
-                boxShadow: [
-                  '0 0 25px rgba(212, 166, 74, 0.3), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                  '0 0 50px rgba(212, 166, 74, 0.6), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                  '0 0 25px rgba(212, 166, 74, 0.3), 0 10px 30px rgba(0, 0, 0, 0.8)',
-                ],
-              }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+            <div
               style={{
                 position: 'relative',
                 width: 'clamp(140px, 38vw, 175px)',
@@ -118,6 +110,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
                 border: '2px solid rgba(212, 166, 74, 0.8)',
                 background: '#141110',
                 padding: '6px',
+                boxShadow: '0 0 35px rgba(212, 166, 74, 0.4), 0 10px 30px rgba(0, 0, 0, 0.8)',
               }}
             >
               <img
@@ -137,7 +130,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
                   display: 'block',
                 }}
               />
-            </m.div>
+            </div>
 
             {/* Brand Name */}
             <m.h1

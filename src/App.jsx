@@ -12,21 +12,21 @@ import CategoryNav from './components/menu/CategoryNav';
 import FeaturedSection from './components/menu/FeaturedSection';
 import SpecialOffersBanner from './components/menu/SpecialOffersBanner';
 import MenuSection from './components/menu/MenuSection';
-import FoodDetailModal from './components/detail/FoodDetailModal';
-import InstantSearchModal from './components/search/InstantSearchModal';
+const FoodDetailModal = React.lazy(() => import('./components/detail/FoodDetailModal'));
+const InstantSearchModal = React.lazy(() => import('./components/search/InstantSearchModal'));
 import FloatingCartBar from './components/cart/FloatingCartBar';
 import CartDrawer from './components/cart/CartDrawer';
-import OrderSuccessModal from './components/cart/OrderSuccessModal';
-import RestaurantInfoModal from './components/info/RestaurantInfoModal';
+const OrderSuccessModal = React.lazy(() => import('./components/cart/OrderSuccessModal'));
+const RestaurantInfoModal = React.lazy(() => import('./components/info/RestaurantInfoModal'));
 import RestaurantInfoSection from './components/info/RestaurantInfoSection';
-import CallWaiterModal from './components/info/CallWaiterModal';
-import TableSelectorModal from './components/info/TableSelectorModal';
-import AdminDashboard from './components/admin/AdminDashboard';
-import AdminQrGenerator from './components/admin/AdminQrGenerator';
+const CallWaiterModal = React.lazy(() => import('./components/info/CallWaiterModal'));
+const TableSelectorModal = React.lazy(() => import('./components/info/TableSelectorModal'));
+const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
+const AdminQrGenerator = React.lazy(() => import('./components/admin/AdminQrGenerator'));
 import Footer from './components/common/Footer';
 import Toast from './components/common/Toast';
 import DeviceFrameToggle from './components/common/DeviceFrameToggle';
-import WelcomeIntroModal from './components/landing/WelcomeIntroModal';
+const WelcomeIntroModal = React.lazy(() => import('./components/landing/WelcomeIntroModal'));
 import ScrollProgressBar from './components/common/ScrollProgressBar';
 
 function MainApp() {
@@ -257,20 +257,6 @@ function MainApp() {
         />
       </div>
 
-      {/* Dish Detail Bottom Sheet Modal */}
-      <FoodDetailModal
-        item={selectedDetailItem}
-        isOpen={Boolean(selectedDetailItem)}
-        onClose={() => setSelectedDetailItem(null)}
-      />
-
-      {/* Fullscreen Instant Search Overlay Modal */}
-      <InstantSearchModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onOpenDetail={item => setSelectedDetailItem(item)}
-      />
-
       {/* Cart Drawer */}
       <CartDrawer
         onChangeTable={() => {
@@ -278,32 +264,57 @@ function MainApp() {
         }}
       />
 
-      {/* Order Confirmed Modal with Kitchen Simulation */}
-      <OrderSuccessModal />
+      {/* Modals loaded on demand with Suspense */}
+      <React.Suspense fallback={null}>
+        {selectedDetailItem && (
+          <FoodDetailModal
+            item={selectedDetailItem}
+            isOpen={Boolean(selectedDetailItem)}
+            onClose={() => setSelectedDetailItem(null)}
+          />
+        )}
 
-      {/* Restaurant Info Popup Modal */}
-      <RestaurantInfoModal
-        isOpen={isInfoOpen}
-        onClose={() => setIsInfoOpen(false)}
-      />
+        {isSearchOpen && (
+          <InstantSearchModal
+            isOpen={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            onOpenDetail={item => setSelectedDetailItem(item)}
+          />
+        )}
 
-      {/* Call Waiter Service Modal */}
-      <CallWaiterModal
-        isOpen={isServiceOpen}
-        onClose={() => setIsServiceOpen(false)}
-      />
+        <OrderSuccessModal />
 
-      {/* Table Selector Modal */}
-      <TableSelectorModal
-        isOpen={isTableModalOpen}
-        onClose={() => setIsTableModalOpen(false)}
-      />
+        {isInfoOpen && (
+          <RestaurantInfoModal
+            isOpen={isInfoOpen}
+            onClose={() => setIsInfoOpen(false)}
+          />
+        )}
+
+        {isServiceOpen && (
+          <CallWaiterModal
+            isOpen={isServiceOpen}
+            onClose={() => setIsServiceOpen(false)}
+          />
+        )}
+
+        {isTableModalOpen && (
+          <TableSelectorModal
+            isOpen={isTableModalOpen}
+            onClose={() => setIsTableModalOpen(false)}
+          />
+        )}
+      </React.Suspense>
 
       {/* Admin Dashboard */}
-      <AdminDashboard
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-      />
+      {isAdminOpen && (
+        <React.Suspense fallback={null}>
+          <AdminDashboard
+            isOpen={isAdminOpen}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        </React.Suspense>
+      )}
 
       {/* Standalone QR Studio Modal */}
       {isQrStudioOpen && (
@@ -322,23 +333,29 @@ function MainApp() {
                 Close
               </button>
             </div>
-            <AdminQrGenerator />
+            <React.Suspense fallback={<div style={{ textAlign: 'center', padding: '20px' }}>Loading QR Studio...</div>}>
+              <AdminQrGenerator />
+            </React.Suspense>
           </div>
         </div>
       )}
 
       {/* Welcome to Devi Intro Modal */}
-      <WelcomeIntroModal
-        isOpen={isIntroOpen}
-        onClose={() => {
-          try {
-            sessionStorage.setItem('seen_devi_intro', 'true');
-          } catch {
-            // ignore
-          }
-          setIsIntroOpen(false);
-        }}
-      />
+      {isIntroOpen && (
+        <React.Suspense fallback={null}>
+          <WelcomeIntroModal
+            isOpen={isIntroOpen}
+            onClose={() => {
+              try {
+                sessionStorage.setItem('seen_devi_intro', 'true');
+              } catch {
+                // ignore
+              }
+              setIsIntroOpen(false);
+            }}
+          />
+        </React.Suspense>
+      )}
 
       {/* Toast Feedback */}
       <Toast />
