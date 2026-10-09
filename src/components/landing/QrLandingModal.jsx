@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Utensils, ArrowRight, ShieldCheck, QrCode, Clock } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -6,15 +6,13 @@ import { useCart } from '../../context/CartContext';
 export default function QrLandingModal({ onExplore }) {
   const { activeRestaurant } = useRestaurant();
   const { tableNumber } = useCart();
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem(`seen_intro_${activeRestaurant.slug}`);
-    if (hasSeenIntro) {
-      setIsVisible(false);
-      onExplore?.();
+  const [isVisible, setIsVisible] = useState(() => {
+    try {
+      return !sessionStorage.getItem(`seen_intro_${activeRestaurant.slug}`);
+    } catch {
+      return true;
     }
-  }, [activeRestaurant.slug]);
+  });
 
   const handleDismiss = () => {
     sessionStorage.setItem(`seen_intro_${activeRestaurant.slug}`, 'true');

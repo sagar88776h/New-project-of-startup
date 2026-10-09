@@ -1,9 +1,11 @@
 import React from 'react';
-import { Tag, Sparkles, Plus, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { fadeUp } from '../../lib/motion';
 
-export default function SpecialOffersBanner({ onOpenDetail }) {
+export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
   const { addToCart } = useCart();
   const { currency, theme, specialOffers = [] } = activeRestaurant;
@@ -31,9 +33,20 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
   };
 
   return (
-    <section style={{ padding: '10px 14px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+    <motion.section
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      style={{ padding: '10px 14px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-        <Sparkles size={16} color={theme.primaryColor || '#c98a2c'} />
+        <motion.div
+          animate={{ rotate: [0, 15, -15, 0] }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+        >
+          <Sparkles size={16} color={theme.primaryColor || '#c98a2c'} />
+        </motion.div>
         <h3
           style={{
             fontFamily: theme.fontHeading || "'Playfair Display', serif",
@@ -46,9 +59,14 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
       </div>
 
       <div className="offers-grid">
-        {availableOffers.map(offer => (
-          <div
+        {availableOffers.map((offer, idx) => (
+          <motion.div
             key={offer.id}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ delay: idx * 0.08, duration: 0.45 }}
+            whileHover={{ y: -3, scale: 1.01 }}
             className="restaurant-card"
             style={{
               overflow: 'hidden',
@@ -56,10 +74,11 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'stretch',
-              border: `1px solid rgba(201, 138, 44, 0.3)`,
+              border: `1px solid rgba(212, 166, 74, 0.25)`,
               width: '100%',
               maxWidth: '100%',
               boxSizing: 'border-box',
+              boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
             }}
           >
             {/* Offer Real Photography */}
@@ -81,6 +100,7 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                   fontWeight: 800,
                   padding: '2px 6px',
                   borderRadius: '4px',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
                 }}
               >
                 SPECIAL
@@ -142,19 +162,21 @@ export default function SpecialOffersBanner({ onOpenDetail }) {
                   )}
                 </div>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => handleAddOffer(offer)}
                   className="btn-add-stepper"
-                  style={{ padding: '5px 10px', fontSize: '0.72rem' }}
+                  style={{ padding: '5px 11px', fontSize: '0.72rem' }}
                 >
                   <Plus size={12} />
                   <span>CLAIM</span>
-                </button>
+                </motion.button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Sparkles, Flame, Clock, Leaf } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles, Flame } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
@@ -36,7 +37,7 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
           WebkitOverflowScrolling: 'touch',
           display: 'flex',
           alignItems: 'center',
-          gap: '6px',
+          gap: '7px',
           padding: '8px 14px',
           boxSizing: 'border-box',
         }}
@@ -44,10 +45,13 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
         {filters.map(f => {
           const isActive = activeFilter === f.id;
           return (
-            <button
+            <motion.button
               key={f.id}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => onSelectFilter(f.id)}
               style={{
+                position: 'relative',
                 flexShrink: 0,
                 padding: '5px 12px',
                 borderRadius: '999px',
@@ -62,13 +66,13 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                transition: 'all 0.18s ease',
-                boxShadow: isActive ? '0 2px 8px rgba(139, 29, 44, 0.25)' : 'none',
+                transition: 'background 0.2s ease, color 0.2s ease, border-color 0.2s ease',
+                boxShadow: isActive ? '0 2px 10px rgba(196, 22, 28, 0.35)' : 'none',
               }}
             >
               {f.icon}
               <span>{f.label}</span>
-            </button>
+            </motion.button>
           );
         })}
       </div>

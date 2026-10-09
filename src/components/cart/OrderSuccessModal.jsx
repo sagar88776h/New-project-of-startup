@@ -1,7 +1,9 @@
 import React from 'react';
-import { CheckCircle2, ChefHat, Flame, Utensils, Receipt, Sparkles, X, PlusCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2, ChefHat, Utensils, PlusCircle, Receipt } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
+import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
 
 export default function OrderSuccessModal() {
   const {
@@ -14,185 +16,188 @@ export default function OrderSuccessModal() {
   const { activeRestaurant } = useRestaurant();
   const { currency, theme } = activeRestaurant;
 
-  if (!isOrderPlacedModalOpen || !activeOrder) return null;
-
   const steps = [
     { title: 'Order Placed', desc: 'Sent to kitchen', icon: <CheckCircle2 size={16} color="#10b981" />, active: true, completed: true },
-    { title: 'Preparing', desc: 'Chef cooking with fresh ingredients', icon: <ChefHat size={16} color={theme.primaryColor || '#c99738'} />, active: true, completed: activeOrder.status?.includes('Preparing') || activeOrder.status?.includes('Served') },
-    { title: 'Served to Table', desc: 'Delivered hot to Table ' + activeOrder.tableNumber, icon: <Utensils size={16} color="#3b82f6" />, active: activeOrder.status?.includes('Served'), completed: activeOrder.status?.includes('Served') },
+    { title: 'Preparing', desc: 'Chef cooking with fresh ingredients', icon: <ChefHat size={16} color={theme.primaryColor || '#c99738'} />, active: true, completed: activeOrder?.status?.includes('Preparing') || activeOrder?.status?.includes('Served') },
+    { title: 'Served to Table', desc: 'Delivered hot to Table ' + (activeOrder?.tableNumber || '?'), icon: <Utensils size={16} color="#3b82f6" />, active: activeOrder?.status?.includes('Served'), completed: activeOrder?.status?.includes('Served') },
   ];
 
   return (
-    <div className="modal-overlay active" onClick={() => setIsOrderPlacedModalOpen(false)}>
-      <div
-        className="bottom-sheet dark-sheet"
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: '#141720',
-          maxHeight: '90svh',
-          padding: '20px 16px calc(24px + var(--sab))',
-          color: '#ffffff',
-          textAlign: 'center',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div className="sheet-handle" />
-
-        {/* Success Icon */}
-        <div
-          style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '50%',
-            background: 'rgba(16, 185, 129, 0.15)',
-            border: '2px solid #10b981',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '8px auto 14px',
-            boxShadow: '0 0 25px rgba(16, 185, 129, 0.3)',
-          }}
+    <AnimatePresence>
+      {isOrderPlacedModalOpen && activeOrder && (
+        <motion.div
+          key="order-success-backdrop"
+          variants={modalBackdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="modal-overlay active"
+          onClick={() => setIsOrderPlacedModalOpen(false)}
         >
-          <CheckCircle2 size={36} color="#10b981" />
-        </div>
+          <motion.div
+            key="order-success-sheet"
+            variants={bottomSheetVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="bottom-sheet"
+            onClick={e => e.stopPropagation()}
+            style={{ maxHeight: '90svh', padding: '24px 20px', overflowY: 'auto' }}
+          >
+            <div className="sheet-handle" />
 
-        <h2
-          style={{
-            fontFamily: theme.fontHeading || "'Playfair Display', serif",
-            fontSize: '1.45rem',
-            fontWeight: 700,
-            marginBottom: '4px',
-          }}
-        >
-          Order Sent to Kitchen!
-        </h2>
-        <p style={{ fontSize: '0.85rem', color: '#9ca3af', marginBottom: '20px' }}>
-          {activeOrder.orderId} • Table {activeOrder.tableNumber}
-        </p>
+            {/* Confirmed Icon and Header */}
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <motion.div
+                initial={{ scale: 0, rotate: -30 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  background: 'rgba(21, 128, 61, 0.15)',
+                  border: '2px solid #15803d',
+                  color: '#15803d',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 12px',
+                  boxShadow: '0 4px 20px rgba(21, 128, 61, 0.3)',
+                }}
+              >
+                <CheckCircle2 size={36} />
+              </motion.div>
 
-        {/* Live Kitchen Status Card */}
-        <div
-          style={{
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '20px',
-            textAlign: 'left',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: theme.primaryColor || '#c99738', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Live Kitchen Tracker
-            </span>
-            <span
+              <h2
+                style={{
+                  fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                  fontSize: '1.45rem',
+                  fontWeight: 700,
+                  color: 'var(--color-text-primary)',
+                  marginBottom: '4px',
+                }}
+              >
+                Order Sent to Kitchen!
+              </h2>
+
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
+                Table <b>{activeOrder.tableNumber}</b> • Order #{activeOrder.orderId}
+              </p>
+            </div>
+
+            {/* Live Progress Timeline */}
+            <div
               style={{
-                fontSize: '0.72rem',
-                color: '#10b981',
-                background: 'rgba(16, 185, 129, 0.12)',
-                padding: '2px 8px',
-                borderRadius: '999px',
-                fontWeight: 600,
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid var(--color-card-border)',
+                borderRadius: '16px',
+                padding: '16px',
+                marginBottom: '20px',
               }}
             >
-              Live Status
-            </span>
-          </div>
+              <h4 style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '14px' }}>
+                Live Kitchen Status
+              </h4>
 
-          {/* Stepper progress */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {steps.map((s, idx) => (
-              <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                <div
-                  style={{
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: '50%',
-                    background: s.completed ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 255, 255, 0.06)',
-                    border: s.completed ? '1px solid #10b981' : '1px solid rgba(255, 255, 255, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  {s.icon}
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: s.completed ? '#ffffff' : '#9ca3af' }}>
-                    {s.title}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {steps.map((step, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: step.completed ? 'rgba(21, 128, 61, 0.2)' : 'rgba(255, 255, 255, 0.06)',
+                        border: step.completed ? '1.5px solid #15803d' : '1.5px solid rgba(255, 255, 255, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {step.icon}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.86rem', fontWeight: 700, color: step.completed ? 'var(--color-text-primary)' : 'var(--color-text-muted)' }}>
+                        {step.title}
+                      </div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--color-text-secondary)' }}>
+                        {step.desc}
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#6b7280' }}>
-                    {s.desc}
+                ))}
+              </div>
+            </div>
+
+            {/* Ordered Items Summary */}
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid var(--color-card-border)',
+                borderRadius: '16px',
+                padding: '16px',
+                marginBottom: '20px',
+              }}
+            >
+              <h4 style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '12px' }}>
+                Items in This Order
+              </h4>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {activeOrder.items?.map((it, idx) => (
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem' }}>
+                    <span style={{ color: 'var(--color-text-primary)' }}>
+                      {it.quantity}x {it.name}
+                    </span>
+                    <span style={{ fontWeight: 700, color: 'var(--color-accent)' }}>
+                      {currency}{it.totalPrice?.toFixed(2)}
+                    </span>
                   </div>
+                ))}
+
+                <div style={{ height: '1px', background: 'var(--color-card-border)', margin: '4px 0' }} />
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.94rem', fontWeight: 800 }}>
+                  <span style={{ color: 'var(--color-text-primary)' }}>Total</span>
+                  <span style={{ color: theme.primaryColor || '#c98a2c' }}>
+                    {currency}{activeOrder.grandTotal?.toFixed(2)}
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* Ordered Items Summary */}
-        <div
-          style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            borderRadius: '14px',
-            padding: '12px 14px',
-            marginBottom: '20px',
-            textAlign: 'left',
-          }}
-        >
-          <div style={{ fontSize: '0.78rem', color: '#9ca3af', marginBottom: '8px', fontWeight: 600 }}>
-            Items Ordered ({activeOrder.items?.length})
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {activeOrder.items?.map(it => (
-              <div key={it.cartItemId} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#e5e7eb' }}>
-                <span>{it.quantity}x {it.name}</span>
-                <span style={{ fontWeight: 700 }}>{currency}{it.totalPrice}</span>
-              </div>
-            ))}
-          </div>
-          <div
-            style={{
-              marginTop: '10px',
-              paddingTop: '8px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              fontWeight: 800,
-              fontSize: '0.95rem',
-              color: theme.primaryColor || '#c99738',
-            }}
-          >
-            <span>Total Amount</span>
-            <span>{currency}{activeOrder.grandTotal?.toFixed(2)}</span>
-          </div>
-        </div>
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setIsOrderPlacedModalOpen(false)}
+                className="btn-primary"
+                style={{ width: '100%', padding: '14px', borderRadius: '14px' }}
+              >
+                <PlusCircle size={16} />
+                <span>Order More Dishes</span>
+              </motion.button>
 
-        {/* Action Buttons */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <button
-            onClick={() => setIsOrderPlacedModalOpen(false)}
-            className="btn-primary"
-            style={{ width: '100%', padding: '14px', borderRadius: '14px' }}
-          >
-            <PlusCircle size={16} />
-            <span>Order More Dishes</span>
-          </button>
-
-          <button
-            onClick={() => {
-              callWaiter('Bill Request');
-              setIsOrderPlacedModalOpen(false);
-            }}
-            className="btn-secondary"
-            style={{ width: '100%', padding: '12px', borderRadius: '14px' }}
-          >
-            <Receipt size={16} />
-            <span>Request Bill to Table {activeOrder.tableNumber}</span>
-          </button>
-        </div>
-      </div>
-    </div>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  callWaiter('Bill Request');
+                  setIsOrderPlacedModalOpen(false);
+                }}
+                className="btn-secondary"
+                style={{ width: '100%', padding: '12px', borderRadius: '14px' }}
+              >
+                <Receipt size={16} />
+                <span>Request Bill to Table {activeOrder.tableNumber}</span>
+              </motion.button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

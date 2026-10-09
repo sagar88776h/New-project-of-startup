@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Palette, Store, Phone, MapPin, Wifi, DollarSign, Save, Sparkles } from 'lucide-react';
+import { Palette, Store, Wifi, Save } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 

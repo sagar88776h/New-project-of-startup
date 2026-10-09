@@ -4,7 +4,6 @@ import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function DeviceFrameToggle({ onOpenQr, onOpenAdmin }) {
   const { activeRestaurant, switchRestaurant, restaurants } = useRestaurant();
-  const { theme } = activeRestaurant;
 
   return (
     <div

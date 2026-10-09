@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { X, MapPin, Phone, Clock, Wifi, Copy, Check, MessageCircle, Utensils, Star, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, MapPin, Phone, Clock, Wifi, Copy, Check, MessageCircle, Utensils, ExternalLink } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
 
 const InstagramIcon = ({ size = 16, color = "currentColor" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,266 +18,202 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
   const { showToast } = useCart();
   const [copiedWifi, setCopiedWifi] = useState(false);
 
-  if (!isOpen) return null;
-
   const { contact, theme } = activeRestaurant;
 
   const handleCopyWifi = () => {
     if (contact?.wifiPassword) {
       navigator.clipboard?.writeText(contact.wifiPassword);
       setCopiedWifi(true);
-      showToast('WiFi Password copied to clipboard!', 'success');
+      showToast('WiFi password copied to clipboard!', 'success');
       setTimeout(() => setCopiedWifi(false), 2500);
     }
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
-      <div
-        className="bottom-sheet dark-sheet"
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: '#141720',
-          maxHeight: '90svh',
-          padding: '16px 16px calc(24px + var(--sab))',
-          color: '#ffffff',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div className="sheet-handle" />
-
-        {/* Modal Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Utensils size={20} color={theme.primaryColor || '#c99738'} />
-            <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700 }}>
-              Restaurant Information
-            </h3>
-          </div>
-
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        {/* Restaurant Story */}
-        <div
-          style={{
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '16px',
-          }}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="restaurant-info-backdrop"
+          variants={modalBackdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="modal-overlay active"
+          onClick={onClose}
         >
-          <h4 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.1rem', fontWeight: 700, color: theme.primaryColor || '#c99738', marginBottom: '6px' }}>
-            {activeRestaurant.name}
-          </h4>
-          <p style={{ fontSize: '0.85rem', color: '#e5e7eb', lineHeight: 1.5, marginBottom: '8px' }}>
-            {activeRestaurant.description}
-          </p>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#10b981', fontWeight: 600 }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
-            <span>Kitchen Open & Serving Fresh</span>
-          </div>
-        </div>
-
-        {/* Guest WiFi Card */}
-        {contact?.wifiPassword && (
-          <div
-            style={{
-              background: 'linear-gradient(135deg, rgba(201, 151, 56, 0.15) 0%, rgba(201, 151, 56, 0.04) 100%)',
-              border: `1px solid rgba(201, 151, 56, 0.3)`,
-              borderRadius: '16px',
-              padding: '14px 16px',
-              marginBottom: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
+          <motion.div
+            key="restaurant-info-sheet"
+            variants={bottomSheetVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="bottom-sheet"
+            onClick={e => e.stopPropagation()}
+            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div
+            <div className="sheet-handle" />
+
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Utensils size={20} color={theme.primaryColor || '#c98a2c'} />
+                <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+                  About {activeRestaurant.name}
+                </h3>
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={onClose}
+                aria-label="Close modal"
                 style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '10px',
-                  background: 'rgba(201, 151, 56, 0.2)',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: 'none',
+                  color: 'var(--color-text-primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  cursor: 'pointer',
                 }}
               >
-                <Wifi size={18} color={theme.primaryColor || '#c99738'} />
-              </div>
-              <div>
-                <div style={{ fontSize: '0.72rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Guest WiFi</div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff' }}>{contact.wifiSsid}</div>
-              </div>
+                <X size={18} />
+              </motion.button>
             </div>
 
-            <button
-              onClick={handleCopyWifi}
-              style={{
-                background: copiedWifi ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: copiedWifi ? '#0d0e12' : '#ffffff',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {copiedWifi ? <Check size={13} /> : <Copy size={13} />}
-              <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
-            </button>
-          </div>
-        )}
+            {/* Description */}
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.55, marginBottom: '20px' }}>
+              {activeRestaurant.description}
+            </p>
 
-        {/* Contact & Hours Details Grid */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
-          
-          {/* Address */}
-          <a
-            href={contact?.googleMapsUrl || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 14px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              textDecoration: 'none',
-              color: '#ffffff',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <MapPin size={18} color={theme.primaryColor || '#c99738'} />
-              <div>
-                <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Location & Directions</div>
-                <div style={{ fontSize: '0.82rem', fontWeight: 600 }}>{contact?.address}</div>
+            {/* Complimentary Guest WiFi Box */}
+            {contact?.wifiSsid && (
+              <div
+                style={{
+                  background: 'rgba(212, 166, 74, 0.08)',
+                  border: `1.5px solid rgba(212, 166, 74, 0.3)`,
+                  borderRadius: '16px',
+                  padding: '14px 16px',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '10px',
+                      background: 'rgba(212, 166, 74, 0.15)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Wifi size={18} color="var(--color-accent)" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      GUEST HIGH-SPEED WI-FI
+                    </div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+                      {contact.wifiSsid}
+                    </div>
+                  </div>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.94 }}
+                  onClick={handleCopyWifi}
+                  className="btn-primary"
+                  style={{ padding: '6px 12px', fontSize: '0.75rem', gap: '4px' }}
+                >
+                  {copiedWifi ? <Check size={13} /> : <Copy size={13} />}
+                  <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
+                </motion.button>
               </div>
+            )}
+
+            {/* Contact & Hours Info Grid */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+              {contact?.address && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '12px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '12px', border: '1px solid var(--color-card-border)' }}>
+                  <MapPin size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Address</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-text-primary)' }}>{contact.address}</div>
+                  </div>
+                </div>
+              )}
+
+              {contact?.openingHours && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '12px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '12px', border: '1px solid var(--color-card-border)' }}>
+                  <Clock size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Dine-In Hours</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-text-primary)' }}>{contact.openingHours}</div>
+                  </div>
+                </div>
+              )}
+
+              {contact?.phone && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '12px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '12px', border: '1px solid var(--color-card-border)' }}>
+                  <Phone size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Phone & Reservations</div>
+                    <a href={`tel:${contact.phone}`} style={{ fontSize: '0.84rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>
+                      {contact.phone}
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
-            <ExternalLink size={15} color="#9ca3af" />
-          </a>
 
-          {/* Opening Hours */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '12px 14px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-            }}
-          >
-            <Clock size={18} color={theme.primaryColor || '#c99738'} />
-            <div>
-              <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Dining Hours</div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600 }}>{contact?.openingHours}</div>
+            {/* Social Links */}
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+              {contact?.whatsapp && (
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-secondary"
+                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff' }}
+                >
+                  <MessageCircle size={15} color="#22c55e" />
+                  <span>WhatsApp</span>
+                  <ExternalLink size={12} color="#9ca3af" />
+                </motion.a>
+              )}
+
+              {contact?.instagram && (
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-secondary"
+                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff' }}
+                >
+                  <InstagramIcon size={15} color="#ec4899" />
+                  <span>Instagram</span>
+                  <ExternalLink size={12} color="#9ca3af" />
+                </motion.a>
+              )}
             </div>
-          </div>
-
-          {/* Phone Number */}
-          <a
-            href={`tel:${contact?.phone}`}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 14px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              textDecoration: 'none',
-              color: '#ffffff',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Phone size={18} color={theme.primaryColor || '#c99738'} />
-              <div>
-                <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Phone & Reservations</div>
-                <div style={{ fontSize: '0.82rem', fontWeight: 600 }}>{contact?.phone}</div>
-              </div>
-            </div>
-            <span style={{ fontSize: '0.75rem', color: theme.primaryColor || '#c99738', fontWeight: 700 }}>Call Now</span>
-          </a>
-
-          {/* WhatsApp & Instagram */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '4px' }}>
-            <a
-              href={`https://wa.me/${contact?.whatsapp?.replace(/[^0-9]/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '10px',
-                background: 'rgba(37, 211, 102, 0.12)',
-                border: '1px solid rgba(37, 211, 102, 0.25)',
-                borderRadius: '12px',
-                color: '#25d366',
-                fontSize: '0.82rem',
-                fontWeight: 700,
-                textDecoration: 'none',
-              }}
-            >
-              <MessageCircle size={16} />
-              <span>WhatsApp</span>
-            </a>
-
-            <a
-              href={`https://instagram.com/${contact?.instagram?.replace('@', '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '10px',
-                background: 'rgba(225, 48, 108, 0.12)',
-                border: '1px solid rgba(225, 48, 108, 0.25)',
-                borderRadius: '12px',
-                color: '#e1306c',
-                fontSize: '0.82rem',
-                fontWeight: 700,
-                textDecoration: 'none',
-              }}
-            >
-              <InstagramIcon size={16} />
-              <span>Instagram</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

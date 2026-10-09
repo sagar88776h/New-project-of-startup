@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit2, Trash2, Eye, EyeOff, Sparkles, Flame, Check, X, Clock, ChefHat, Search } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, EyeOff, X, Search } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { REAL_FOOD_IMAGES } from '../../data/defaultRestaurants';

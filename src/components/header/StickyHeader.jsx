@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingBag, Info, BellRing, Settings, UtensilsCrossed, Sun, Moon } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { fadeDown } from '../../lib/motion';
 
 export default function StickyHeader({
   onOpenSearch,
@@ -14,10 +16,28 @@ export default function StickyHeader({
   const { activeRestaurant, themeMode, toggleThemeMode } = useRestaurant();
   const { totalItemsCount, setIsCartOpen, tableNumber } = useCart();
   const { theme, settings } = activeRestaurant;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const buttonHoverTap = {
+    whileHover: { scale: 1.08, y: -1 },
+    whileTap: { scale: 0.92 },
+    transition: { type: 'spring', stiffness: 450, damping: 25 },
+  };
 
   return (
-    <header
-      className="glass-nav"
+    <motion.header
+      variants={fadeDown}
+      initial="hidden"
+      animate="visible"
+      className={`glass-nav ${isScrolled ? 'scrolled' : ''}`}
       style={{
         position: 'sticky',
         top: 0,
@@ -26,237 +46,266 @@ export default function StickyHeader({
         maxWidth: '100%',
         boxSizing: 'border-box',
         padding: '8px 14px',
-        transition: 'all 0.2s ease',
+        transition: 'background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease',
+        boxShadow: isScrolled
+          ? '0 4px 20px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(212, 166, 74, 0.1)'
+          : 'none',
       }}
     >
       <div className="header-inner-container">
         {/* Left: Brand Monogram & Name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
-        <div
-          onClick={onOpenIntro}
-          title="Click to replay Welcome Intro"
-          style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: `2px solid ${theme.primaryColor || 'var(--color-primary)'}`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            cursor: 'pointer',
-            background: '#ffffff',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
-          }}
-        >
-          {activeRestaurant.logo ? (
-            <img
-              src={activeRestaurant.logo}
-              alt={activeRestaurant.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          ) : (
-            <UtensilsCrossed size={16} color="var(--color-primary)" />
-          )}
-        </div>
-
-        <div style={{ minWidth: 0, flex: 1 }}>
-          <h2
+          <motion.div
+            whileHover={{ scale: 1.08, rotate: 5 }}
+            whileTap={{ scale: 0.94 }}
             onClick={onOpenIntro}
+            title="Click to replay Welcome Intro"
             style={{
-              fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: '0.94rem',
-              fontWeight: 700,
-              color: 'var(--color-text-primary)',
-              whiteSpace: 'nowrap',
+              width: '34px',
+              height: '34px',
+              borderRadius: '50%',
               overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              lineHeight: 1.15,
-              cursor: 'pointer',
-            }}
-            title="Click to replay Welcome to Devi intro"
-          >
-            {activeRestaurant.name}
-          </h2>
-          <div
-            onClick={onChangeTable}
-            style={{
-              display: 'inline-flex',
+              border: `2px solid ${theme.primaryColor || 'var(--color-primary)'}`,
+              display: 'flex',
               alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.66rem',
-              color: 'var(--color-primary)',
+              justifyContent: 'center',
+              flexShrink: 0,
               cursor: 'pointer',
-              fontWeight: 600,
+              background: '#ffffff',
+              boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
             }}
-            title="Click to select/change table"
           >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: tableNumber ? '#15803d' : '#f59e0b' }} />
-            <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
+            {activeRestaurant.logo ? (
+              <img
+                src={activeRestaurant.logo}
+                alt={activeRestaurant.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <UtensilsCrossed size={16} color="var(--color-primary)" />
+            )}
+          </motion.div>
+
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <h2
+              onClick={onOpenIntro}
+              style={{
+                fontFamily: theme.fontHeading || "'Playfair Display', serif",
+                fontSize: '0.96rem',
+                fontWeight: 700,
+                color: 'var(--color-text-primary)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                lineHeight: 1.15,
+                cursor: 'pointer',
+              }}
+              title="Click to replay Welcome to Devi intro"
+            >
+              {activeRestaurant.name}
+            </h2>
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={onChangeTable}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                fontSize: '0.68rem',
+                color: 'var(--color-primary)',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+              title="Click to select/change table"
+            >
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: tableNumber ? '#15803d' : '#f59e0b',
+                  boxShadow: tableNumber ? '0 0 8px #15803d' : '0 0 8px #f59e0b',
+                  display: 'inline-block',
+                }}
+              />
+              <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
+            </motion.div>
           </div>
         </div>
-      </div>
 
-      {/* Right Action Icons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
-        {/* Search Button */}
-        <button
-          onClick={onOpenSearch}
-          aria-label="Search Dishes"
-          style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            background: 'rgba(0, 0, 0, 0.04)',
-            border: '1px solid rgba(0, 0, 0, 0.08)',
-            color: 'var(--color-text-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          <Search size={15} />
-        </button>
-
-        {/* Call Waiter / Service Button */}
-        <button
-          onClick={onOpenService}
-          aria-label="Call Waiter"
-          title="Call Waiter / Table Service"
-          style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            background: 'rgba(139, 29, 44, 0.08)',
-            border: '1px solid rgba(139, 29, 44, 0.2)',
-            color: 'var(--color-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          <BellRing size={15} />
-        </button>
-
-        {/* Dark / Light Theme Toggle */}
-        <button
-          onClick={toggleThemeMode}
-          aria-label={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-          title={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-          style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            background: themeMode === 'dark' ? 'rgba(212, 166, 74, 0.1)' : 'rgba(0, 0, 0, 0.04)',
-            border: themeMode === 'dark' ? '1px solid rgba(212, 166, 74, 0.25)' : '1px solid rgba(0, 0, 0, 0.1)',
-            color: themeMode === 'dark' ? '#D4A64A' : 'var(--color-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-            transition: 'all 0.2s ease',
-          }}
-        >
-          {themeMode === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-        </button>
-
-        {/* Restaurant Info Button */}
-        <button
-          onClick={onOpenInfo}
-          aria-label="Restaurant Info"
-          title="About Restaurant & WiFi"
-          style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            background: 'rgba(0, 0, 0, 0.04)',
-            border: '1px solid rgba(0, 0, 0, 0.08)',
-            color: 'var(--color-text-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          <Info size={15} />
-        </button>
-
-        {/* Cart Trigger (If Ordering Enabled) */}
-        {settings?.orderingEnabled && (
-          <button
-            onClick={() => setIsCartOpen(true)}
-            aria-label="Shopping Cart"
+        {/* Right Action Icons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
+          {/* Search Button */}
+          <motion.button
+            {...buttonHoverTap}
+            onClick={onOpenSearch}
+            aria-label="Search Dishes"
             style={{
-              position: 'relative',
               width: '32px',
               height: '32px',
               borderRadius: '50%',
-              background: totalItemsCount > 0 ? 'var(--color-primary)' : 'rgba(0, 0, 0, 0.04)',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
-              color: totalItemsCount > 0 ? '#ffffff' : 'var(--color-text-primary)',
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(212, 166, 74, 0.18)',
+              color: 'var(--color-text-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               flexShrink: 0,
             }}
           >
-            <ShoppingBag size={15} />
-            {totalItemsCount > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-3px',
-                  right: '-3px',
-                  background: '#15803d',
-                  color: '#ffffff',
-                  fontSize: '0.6rem',
-                  fontWeight: 800,
-                  width: '15px',
-                  height: '15px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {totalItemsCount}
-              </span>
-            )}
-          </button>
-        )}
+            <Search size={15} />
+          </motion.button>
 
-        {/* Admin Portal */}
-        <button
-          onClick={onOpenAdmin}
-          aria-label="Admin Dashboard"
-          title="Restaurant Admin Portal"
-          style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: '6px',
-            background: 'rgba(0, 0, 0, 0.03)',
-            border: '1px dashed rgba(0, 0, 0, 0.15)',
-            color: 'var(--color-text-muted)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          <Settings size={13} />
-        </button>
+          {/* Call Waiter / Service Button */}
+          <motion.button
+            {...buttonHoverTap}
+            onClick={onOpenService}
+            aria-label="Call Waiter"
+            title="Call Waiter / Table Service"
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              background: 'rgba(196, 22, 28, 0.12)',
+              border: '1px solid rgba(196, 22, 28, 0.3)',
+              color: 'var(--color-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            <BellRing size={15} />
+          </motion.button>
+
+          {/* Dark / Light Theme Toggle */}
+          <motion.button
+            {...buttonHoverTap}
+            onClick={toggleThemeMode}
+            aria-label={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            title={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              background: themeMode === 'dark' ? 'rgba(212, 166, 74, 0.12)' : 'rgba(0, 0, 0, 0.04)',
+              border: themeMode === 'dark' ? '1px solid rgba(212, 166, 74, 0.3)' : '1px solid rgba(0, 0, 0, 0.1)',
+              color: themeMode === 'dark' ? '#D4A64A' : 'var(--color-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            {themeMode === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+          </motion.button>
+
+          {/* Restaurant Info Button */}
+          <motion.button
+            {...buttonHoverTap}
+            onClick={onOpenInfo}
+            aria-label="Restaurant Info"
+            title="About Restaurant & WiFi"
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(212, 166, 74, 0.18)',
+              color: 'var(--color-text-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            <Info size={15} />
+          </motion.button>
+
+          {/* Cart Trigger (If Ordering Enabled) */}
+          {settings?.orderingEnabled && (
+            <motion.button
+              {...buttonHoverTap}
+              onClick={() => setIsCartOpen(true)}
+              aria-label="Shopping Cart"
+              style={{
+                position: 'relative',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: totalItemsCount > 0 ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.06)',
+                border: totalItemsCount > 0 ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(212, 166, 74, 0.18)',
+                color: totalItemsCount > 0 ? '#ffffff' : 'var(--color-text-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                flexShrink: 0,
+                boxShadow: totalItemsCount > 0 ? '0 2px 10px rgba(196, 22, 28, 0.4)' : 'none',
+              }}
+            >
+              <ShoppingBag size={15} />
+              <AnimatePresence>
+                {totalItemsCount > 0 && (
+                  <motion.span
+                    key={totalItemsCount}
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                    style={{
+                      position: 'absolute',
+                      top: '-3px',
+                      right: '-3px',
+                      background: '#15803d',
+                      color: '#ffffff',
+                      fontSize: '0.62rem',
+                      fontWeight: 800,
+                      width: '16px',
+                      height: '16px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    {totalItemsCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          )}
+
+          {/* Admin Portal */}
+          <motion.button
+            {...buttonHoverTap}
+            onClick={onOpenAdmin}
+            aria-label="Admin Dashboard"
+            title="Restaurant Admin Portal"
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '6px',
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px dashed rgba(212, 166, 74, 0.3)',
+              color: 'var(--color-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            <Settings size={13} />
+          </motion.button>
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </motion.header>
+  );
 }

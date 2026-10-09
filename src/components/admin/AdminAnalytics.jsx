@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, Eye, ShoppingBag, DollarSign, Users, Award, Flame } from 'lucide-react';
+import { TrendingUp, Eye, ShoppingBag, DollarSign, Users, Award } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 

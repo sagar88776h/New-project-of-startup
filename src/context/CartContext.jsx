@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useRestaurant } from './RestaurantContext';
 
@@ -50,14 +50,7 @@ export function CartProvider({ children }) {
     }
   };
 
-  // Update table number if URL query changes
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const tableParam = params.get('table');
-    if (tableParam && tableParam !== tableNumber) {
-      setTableNumber(tableParam);
-    }
-  }, []);
+
 
   // Show Toast
   const showToast = (message, type = 'info') => {

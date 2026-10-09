@@ -1,7 +1,9 @@
 import React from 'react';
-import { Star, Flame } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 import FoodCard from './FoodCard';
 import { useRestaurant } from '../../context/RestaurantContext';
+import { fadeUp } from '../../lib/motion';
 
 export default function FeaturedSection({ onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -13,16 +15,23 @@ export default function FeaturedSection({ onOpenDetail }) {
   if (favorites.length === 0) return null;
 
   return (
-    <section style={{ padding: '16px 14px 10px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+    <motion.section
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      style={{ padding: '16px 14px 10px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
+    >
       {/* Section Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div
+          <motion.div
+            whileHover={{ rotate: 15, scale: 1.1 }}
             style={{
               width: '28px',
               height: '28px',
               borderRadius: '8px',
-              background: 'rgba(201, 138, 44, 0.12)',
+              background: 'rgba(212, 166, 74, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -30,7 +39,7 @@ export default function FeaturedSection({ onOpenDetail }) {
             }}
           >
             <Star size={15} color={theme.primaryColor || '#c98a2c'} fill={theme.primaryColor || '#c98a2c'} />
-          </div>
+          </motion.div>
           <div>
             <h2
               style={{
@@ -55,7 +64,7 @@ export default function FeaturedSection({ onOpenDetail }) {
             color: 'var(--color-accent)',
             fontWeight: 700,
             background: 'rgba(212, 166, 74, 0.12)',
-            padding: '2px 8px',
+            padding: '3px 9px',
             borderRadius: '999px',
             border: '1px solid rgba(212, 166, 74, 0.25)',
             whiteSpace: 'nowrap',
@@ -72,6 +81,6 @@ export default function FeaturedSection({ onOpenDetail }) {
           <FoodCard key={item.id} item={item} onOpenDetail={onOpenDetail} index={idx} />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

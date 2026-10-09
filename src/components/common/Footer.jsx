@@ -1,5 +1,5 @@
 import React from 'react';
-import { Utensils, MapPin, Phone, Clock, MessageCircle, Heart, ShieldCheck, Settings } from 'lucide-react';
+import { Utensils, MessageCircle, Heart, Settings } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 const InstagramIcon = ({ size = 16, color = "currentColor" }) => (

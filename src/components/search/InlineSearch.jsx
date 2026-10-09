@@ -1,10 +1,12 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 
 export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
   return (
     <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', padding: '12px 14px 6px' }}>
-      <div
+      <motion.div
+        whileFocus={{ scale: 1.01 }}
         style={{
           width: '100%',
           boxSizing: 'border-box',
@@ -16,7 +18,7 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
           borderRadius: '999px',
           padding: '9px 14px',
           boxShadow: 'var(--shadow-sm)',
-          transition: 'border-color 0.2s ease',
+          transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
         }}
       >
         <Search size={16} color="var(--color-primary)" style={{ flexShrink: 0 }} />
@@ -37,23 +39,31 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
             fontFamily: 'inherit',
           }}
         />
-        {searchQuery && (
-          <button
-            onClick={onClear}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--color-text-muted)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <X size={16} />
-          </button>
-        )}
-      </div>
+        <AnimatePresence>
+          {searchQuery && (
+            <motion.button
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              whileTap={{ scale: 0.85 }}
+              onClick={onClear}
+              aria-label="Clear search"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--color-text-muted)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0,
+                padding: '2px',
+              }}
+            >
+              <X size={16} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

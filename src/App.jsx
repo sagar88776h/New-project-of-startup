@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RestaurantProvider, useRestaurant } from './context/RestaurantContext';
 import { CartProvider, useCart } from './context/CartContext';
 import './styles/index.css';
@@ -27,6 +27,7 @@ import Footer from './components/common/Footer';
 import Toast from './components/common/Toast';
 import DeviceFrameToggle from './components/common/DeviceFrameToggle';
 import WelcomeIntroModal from './components/landing/WelcomeIntroModal';
+import ScrollProgressBar from './components/common/ScrollProgressBar';
 
 function MainApp() {
   const { activeRestaurant } = useRestaurant();
@@ -132,6 +133,8 @@ function MainApp() {
 
   return (
     <div className="app-viewport-wrapper">
+      {/* Scroll Progress Bar */}
+      <ScrollProgressBar />
       
       {/* Admin Test & Controls Toolbar (Only shown when ?admin=1 is in URL) */}
       {isAdminParam && (
@@ -330,7 +333,9 @@ function MainApp() {
         onClose={() => {
           try {
             sessionStorage.setItem('seen_devi_intro', 'true');
-          } catch (e) {}
+          } catch {
+            // ignore
+          }
           setIsIntroOpen(false);
         }}
       />

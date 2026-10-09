@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, Edit2, ArrowUp, ArrowDown, Eye, EyeOff, Check, X } from 'lucide-react';
+import { Plus, Trash2, Edit2, ArrowUp, ArrowDown, Check, X } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 
@@ -12,7 +12,7 @@ export default function AdminCategoryManager() {
     reorderCategories,
   } = useRestaurant();
   const { showToast } = useCart();
-  const { categories = [], theme } = activeRestaurant;
+  const { categories = [] } = activeRestaurant;
 
   const [newCatName, setNewCatName] = useState('');
   const [newCatIcon, setNewCatIcon] = useState('🍽️');

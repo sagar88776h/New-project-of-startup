@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
@@ -57,14 +58,19 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
           paddingBottom: '2px',
         }}
       >
-        {categories.map(cat => {
+        {categories.map((cat, idx) => {
           const isActive = activeCategoryId === cat.id;
           return (
-            <button
+            <motion.button
               key={cat.id}
               ref={isActive ? activeTabRef : null}
               onClick={() => onSelectCategory(cat.id)}
               className={`category-circle-chip ${isActive ? 'active' : ''}`}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.03, duration: 0.3 }}
+              whileHover={{ y: -2, scale: 1.03 }}
+              whileTap={{ scale: 0.95 }}
             >
               {/* Circular Food Thumbnail */}
               <div className="category-circle-thumb">
@@ -92,7 +98,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
               <span className="category-circle-name">
                 {cat.name}
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </nav>

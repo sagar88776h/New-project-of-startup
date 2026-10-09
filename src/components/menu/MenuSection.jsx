@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import FoodCard from './FoodCard';
 import { useRestaurant } from '../../context/RestaurantContext';
+import { fadeUp } from '../../lib/motion';
 
 export default function MenuSection({ category, items, onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -20,7 +22,13 @@ export default function MenuSection({ category, items, onOpenDetail }) {
       }}
     >
       {/* Category Header with Divider */}
-      <div className="section-header-animate" style={{ marginBottom: '12px' }}>
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        style={{ marginBottom: '12px' }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
             <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>{category.icon || '🍽️'}</span>
@@ -56,15 +64,20 @@ export default function MenuSection({ category, items, onOpenDetail }) {
           </span>
         </div>
 
-        {/* Clean Divider */}
-        <div
+        {/* Clean Gradient Divider */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{
             width: '100%',
             height: '1.5px',
+            transformOrigin: 'left',
             background: `linear-gradient(90deg, var(--color-primary) 0%, rgba(196, 22, 28, 0.15) 60%, transparent 100%)`,
           }}
         />
-      </div>
+      </motion.div>
 
       {/* Grid of Compact Dishes */}
       <div className="menu-food-grid">

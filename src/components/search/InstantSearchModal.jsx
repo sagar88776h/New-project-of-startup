@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Flame, Sparkles, Plus, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, X, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { modalBackdropVariants } from '../../lib/motion';
 
 export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -14,14 +16,16 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 150);
-    } else {
-      setQuery('');
-      setSelectedTag(null);
+      const timer = setTimeout(() => inputRef.current?.focus(), 150);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  const handleClose = () => {
+    setQuery('');
+    setSelectedTag(null);
+    onClose();
+  };
 
   // Filter Items
   const filteredItems = items.filter(item => {
@@ -46,204 +50,198 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const popularKeywords = ['Biryani', 'Truffle', 'Kebab', 'Pasta', 'Pizza', 'Dessert', 'Lassi', 'Ramen'];
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 999,
-        background: 'rgba(10, 11, 15, 0.96)',
-        backdropFilter: 'blur(16px)',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '16px',
-        color: '#ffffff',
-      }}
-    >
-      {/* Top Search Bar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-        <div
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="instant-search-overlay"
+          variants={modalBackdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
           style={{
-            flex: 1,
+            position: 'fixed',
+            inset: 0,
+            zIndex: 999,
+            background: 'rgba(10, 11, 15, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: `1.5px solid ${theme.primaryColor || '#c99738'}`,
-            borderRadius: '16px',
-            padding: '10px 16px',
+            flexDirection: 'column',
+            padding: '16px',
+            color: '#ffffff',
           }}
         >
-          <Search size={18} color={theme.primaryColor || '#c99738'} />
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Search dishes, drinks, desserts, ingredients..."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            style={{
-              flex: 1,
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: '#ffffff',
-              fontSize: '0.92rem',
-            }}
-          />
-          {query && (
-            <button
-              onClick={() => setQuery('')}
+          {/* Top Search Bar */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
               style={{
-                background: 'none',
-                border: 'none',
-                color: '#9ca3af',
-                cursor: 'pointer',
+                flex: 1,
                 display: 'flex',
                 alignItems: 'center',
+                gap: '10px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: `1.5px solid ${theme.primaryColor || '#c99738'}`,
+                borderRadius: '16px',
+                padding: '10px 16px',
               }}
             >
-              <X size={16} />
-            </button>
-          )}
-        </div>
-
-        <button
-          onClick={onClose}
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: 'none',
-            color: '#e5e7eb',
-            borderRadius: '14px',
-            padding: '10px 14px',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-          }}
-        >
-          Cancel
-        </button>
-      </div>
-
-      {/* Quick Search Tag Pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-        {popularKeywords.map(keyword => (
-          <button
-            key={keyword}
-            onClick={() => setQuery(keyword)}
-            style={{
-              padding: '4px 12px',
-              borderRadius: '999px',
-              background: query.toLowerCase() === keyword.toLowerCase() ? theme.primaryColor : 'rgba(255, 255, 255, 0.06)',
-              color: query.toLowerCase() === keyword.toLowerCase() ? '#0d0e12' : '#d1d5db',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {keyword}
-          </button>
-        ))}
-      </div>
-
-      {/* Results Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-        <span style={{ fontSize: '0.78rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-          {filteredItems.length} {filteredItems.length === 1 ? 'Match Found' : 'Matches Found'}
-        </span>
-        {query && (
-          <button
-            onClick={() => {
-              setQuery('');
-              setSelectedTag(null);
-            }}
-            style={{ background: 'none', border: 'none', color: theme.primaryColor || '#c99738', fontSize: '0.75rem', cursor: 'pointer' }}
-          >
-            Clear Search
-          </button>
-        )}
-      </div>
-
-      {/* Results List */}
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {filteredItems.length > 0 ? (
-          filteredItems.map(dish => {
-            const categoryObj = categories.find(c => c.id === dish.categoryId);
-            return (
-              <div
-                key={dish.id}
-                onClick={() => {
-                  onClose();
-                  onOpenDetail(dish);
-                }}
-                className="glass-panel"
+              <Search size={18} color={theme.primaryColor || '#c99738'} />
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search dishes, drinks, desserts, ingredients..."
+                value={query}
+                onChange={e => setQuery(e.target.value)}
                 style={{
-                  padding: '10px 12px',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '12px',
+                  flex: 1,
+                  background: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  color: '#ffffff',
+                  fontSize: '0.92rem',
+                }}
+              />
+              {query && (
+                <motion.button
+                  whileTap={{ scale: 0.85 }}
+                  onClick={() => setQuery('')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#9ca3af',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <X size={16} />
+                </motion.button>
+              )}
+            </motion.div>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleClose}
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: 'none',
+                color: '#e5e7eb',
+                borderRadius: '14px',
+                padding: '10px 14px',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Cancel
+            </motion.button>
+          </div>
+
+          {/* Quick Search Tag Pills */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
+            {popularKeywords.map(keyword => (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                key={keyword}
+                onClick={() => setQuery(keyword)}
+                style={{
+                  padding: '5px 13px',
+                  borderRadius: '999px',
+                  background: query.toLowerCase() === keyword.toLowerCase() ? theme.primaryColor || 'var(--color-primary)' : 'rgba(255, 255, 255, 0.08)',
+                  color: query.toLowerCase() === keyword.toLowerCase() ? '#ffffff' : '#e5e7eb',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  fontSize: '0.76rem',
+                  fontWeight: 600,
                   cursor: 'pointer',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
-                {/* Image & Indicators */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
-                  <div style={{ width: '64px', height: '64px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
-                    <img src={dish.image} alt={dish.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '4px', left: '4px' }}>
-                      {dish.isVeg ? (
-                        <span className="veg-indicator" style={{ width: '12px', height: '12px' }}><span className="veg-indicator-dot" style={{ width: '5px', height: '5px' }} /></span>
-                      ) : (
-                        <span className="non-veg-indicator" style={{ width: '12px', height: '12px' }}><span className="non-veg-indicator-triangle" style={{ borderLeftWidth: '3px', borderRightWidth: '3px', borderBottomWidth: '5px' }} /></span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-                      <span style={{ fontSize: '0.68rem', color: theme.primaryColor || '#c99738', fontWeight: 600 }}>
-                        {categoryObj?.name || 'Gourmet Special'}
-                      </span>
-                      {dish.isBestseller && (
-                        <span className="badge-gold" style={{ fontSize: '0.58rem', padding: '1px 5px' }}>
-                          Bestseller
-                        </span>
-                      )}
-                    </div>
-                    <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {dish.name}
-                    </h4>
-                    <span style={{ fontSize: '0.88rem', fontWeight: 800, color: theme.primaryColor || '#c99738' }}>
-                      {currency}{dish.price}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Quick Add / View Action */}
-                <button
-                  onClick={e => {
-                    e.stopPropagation();
-                    addToCart(dish, 1);
-                  }}
-                  className="btn-add-stepper"
-                  style={{ padding: '6px 12px', fontSize: '0.75rem', flexShrink: 0 }}
-                >
-                  <Plus size={13} />
-                  <span>ADD</span>
-                </button>
-              </div>
-            );
-          })
-        ) : (
-          <div style={{ textAlign: 'center', padding: '40px 20px', color: '#9ca3af' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🍽️</div>
-            <h3 style={{ fontSize: '1.1rem', color: '#ffffff', marginBottom: '6px' }}>No dishes found</h3>
-            <p style={{ fontSize: '0.82rem' }}>Try searching for biryani, pasta, pizza, drinks, or desserts.</p>
+                {keyword}
+              </motion.button>
+            ))}
           </div>
-        )}
-      </div>
-    </div>
+
+          {/* Search Results List */}
+          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {filteredItems.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#9ca3af' }}>
+                <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🔍</div>
+                <h4 style={{ fontSize: '1.05rem', color: '#f3f4f6', marginBottom: '6px' }}>No matches found</h4>
+                <p style={{ fontSize: '0.82rem' }}>Try typing "biryani", "paneer", "chicken", or "dessert".</p>
+              </div>
+            ) : (
+              filteredItems.map(dish => (
+                <motion.div
+                  key={dish.id}
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.01, background: 'rgba(255, 255, 255, 0.08)' }}
+                  onClick={() => {
+                    handleClose();
+                    onOpenDetail(dish);
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                    padding: '10px 12px',
+                    borderRadius: '14px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
+                    />
+                    <div style={{ minWidth: 0 }}>
+                      <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {dish.name}
+                      </h4>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-accent)', fontWeight: 700 }}>
+                        {currency}{dish.price}
+                      </div>
+                    </div>
+                  </div>
+
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(dish, 1);
+                      handleClose();
+                    }}
+                    style={{
+                      background: 'rgba(196, 22, 28, 0.2)',
+                      border: '1px solid rgba(196, 22, 28, 0.4)',
+                      color: 'var(--color-primary)',
+                      padding: '6px 12px',
+                      borderRadius: '8px',
+                      fontSize: '0.74rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    <Plus size={12} />
+                    <span>ADD</span>
+                  </motion.button>
+                </motion.div>
+              ))
+            )}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

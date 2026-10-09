@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { MapPin, Phone, Clock, Wifi, Copy, Check, ExternalLink, MessageCircle, Utensils } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
+import { fadeUp } from '../../lib/motion';
 
 const InstagramIcon = ({ size = 16, color = "currentColor" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -28,7 +30,13 @@ export default function RestaurantInfoSection() {
   };
 
   return (
-    <section style={{ padding: '20px 16px 30px' }}>
+    <motion.section
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      style={{ padding: '20px 16px 30px' }}
+    >
       <div
         className="restaurant-card"
         style={{
@@ -36,6 +44,7 @@ export default function RestaurantInfoSection() {
           display: 'flex',
           flexDirection: 'column',
           gap: '14px',
+          boxShadow: '0 8px 28px rgba(0, 0, 0, 0.4)',
         }}
       >
         {/* Header */}
@@ -63,7 +72,7 @@ export default function RestaurantInfoSection() {
           <div
             style={{
               background: 'rgba(196, 22, 28, 0.08)',
-              border: '1px solid rgba(212, 166, 74, 0.2)',
+              border: '1px solid rgba(212, 166, 74, 0.25)',
               borderRadius: '12px',
               padding: '10px 14px',
               display: 'flex',
@@ -77,14 +86,16 @@ export default function RestaurantInfoSection() {
                 WiFi: <b>{contact.wifiSsid}</b>
               </div>
             </div>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.94 }}
               onClick={handleCopyWifi}
               style={{
                 background: copiedWifi ? '#15803d' : 'var(--color-primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
-                padding: '4px 10px',
+                padding: '5px 11px',
                 fontSize: '0.72rem',
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -95,14 +106,15 @@ export default function RestaurantInfoSection() {
             >
               {copiedWifi ? <Check size={12} /> : <Copy size={12} />}
               <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
-            </button>
+            </motion.button>
           </div>
         )}
 
         {/* Details List */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>
           {contact?.address && (
-            <a
+            <motion.a
+              whileHover={{ x: 3 }}
               href={contact.googleMapsUrl || '#'}
               target="_blank"
               rel="noopener noreferrer"
@@ -111,7 +123,7 @@ export default function RestaurantInfoSection() {
               <MapPin size={15} color="var(--color-primary)" style={{ marginTop: '2px', flexShrink: 0 }} />
               <span style={{ flex: 1 }}>{contact.address}</span>
               <ExternalLink size={13} color="var(--color-text-muted)" />
-            </a>
+            </motion.a>
           )}
 
           {contact?.openingHours && (
@@ -122,20 +134,23 @@ export default function RestaurantInfoSection() {
           )}
 
           {contact?.phone && (
-            <a
+            <motion.a
+              whileHover={{ x: 3 }}
               href={`tel:${contact.phone}`}
               style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}
             >
               <Phone size={15} color="var(--color-primary)" flexShrink={0} />
               <span style={{ fontWeight: 600, color: 'var(--color-primary)' }}>{contact.phone}</span>
-            </a>
+            </motion.a>
           )}
         </div>
 
         {/* Social & WhatsApp Buttons */}
         <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
           {contact?.whatsapp && (
-            <a
+            <motion.a
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -145,11 +160,11 @@ export default function RestaurantInfoSection() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '6px',
-                padding: '8px',
-                background: 'rgba(37, 211, 102, 0.1)',
-                border: '1px solid rgba(37, 211, 102, 0.25)',
+                padding: '9px',
+                background: 'rgba(37, 211, 102, 0.12)',
+                border: '1px solid rgba(37, 211, 102, 0.3)',
                 borderRadius: '10px',
-                color: '#16a34a',
+                color: '#22c55e',
                 fontSize: '0.8rem',
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -157,25 +172,27 @@ export default function RestaurantInfoSection() {
             >
               <MessageCircle size={15} />
               <span>WhatsApp</span>
-            </a>
+            </motion.a>
           )}
 
           {contact?.instagram && (
-            <a
+            <motion.a
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
               style={{
                 flex: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '6px',
-                padding: '8px',
-                background: 'rgba(225, 48, 108, 0.1)',
-                border: '1px solid rgba(225, 48, 108, 0.25)',
+                padding: '9px',
+                background: 'rgba(225, 48, 108, 0.12)',
+                border: '1px solid rgba(225, 48, 108, 0.3)',
                 borderRadius: '10px',
-                color: '#db2777',
+                color: '#f43f5e',
                 fontSize: '0.8rem',
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -183,10 +200,10 @@ export default function RestaurantInfoSection() {
             >
               <InstagramIcon size={15} />
               <span>Instagram</span>
-            </a>
+            </motion.a>
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

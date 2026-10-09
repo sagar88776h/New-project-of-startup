@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Store, Plus, Check, RotateCcw, ArrowRight } from 'lucide-react';
+import { Plus, Check, RotateCcw } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 

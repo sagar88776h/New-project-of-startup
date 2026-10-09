@@ -974,6 +974,47 @@ p, span, div, a, button {
   .desktop-test-bar { display: none !important; }
 }
 
+/* Accessibility: Keyboard focus states */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+}
+
+/* Hardware-accelerated smooth rendering */
+.restaurant-card,
+.glass-nav,
+.floating-cart-bar,
+.bottom-sheet {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Tablet & Desktop Responsive Polish (768px - 1280px) */
+@media (min-width: 768px) {
+  .site-main-container {
+    max-width: 680px;
+    margin: 0 auto;
+    border-left: 1px solid var(--color-card-border);
+    border-right: 1px solid var(--color-card-border);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  }
+
+  .menu-food-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-main-container {
+    max-width: 760px;
+  }
+}
+
 /* Print Layout for Table QR Stands */
 @media print {
   body, html, .app-viewport-wrapper, .mobile-device-frame {

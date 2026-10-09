@@ -1,14 +1,14 @@
 import React from 'react';
-import { X, Bell, Droplets, Utensils, Receipt, Sparkles, AlertCircle, FileText } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Bell, Droplets, Utensils, Receipt, FileText } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
+import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
 
 export default function CallWaiterModal({ isOpen, onClose }) {
   const { tableNumber, callWaiter } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme } = activeRestaurant;
-
-  if (!isOpen) return null;
 
   const handleAction = (serviceName) => {
     callWaiter(serviceName);
@@ -24,97 +24,118 @@ export default function CallWaiterModal({ isOpen, onClose }) {
   ];
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
-      <div
-        className="bottom-sheet dark-sheet"
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: '#141720',
-          maxHeight: '90svh',
-          padding: '16px 16px calc(24px + var(--sab))',
-          color: '#ffffff',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div className="sheet-handle" />
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-          <div>
-            <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700 }}>
-              Table Assistant
-            </h3>
-            <span style={{ fontSize: '0.74rem', color: '#10b981', fontWeight: 600 }}>
-              Assisting Table {tableNumber}
-            </span>
-          </div>
-
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="call-waiter-backdrop"
+          variants={modalBackdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="modal-overlay active"
+          onClick={onClose}
+        >
+          <motion.div
+            key="call-waiter-sheet"
+            variants={bottomSheetVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="bottom-sheet"
+            onClick={e => e.stopPropagation()}
+            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
           >
-            <X size={18} />
-          </button>
-        </div>
+            <div className="sheet-handle" />
 
-        <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '16px' }}>
-          Select what you need and our table service captain will arrive at Table {tableNumber} immediately.
-        </p>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Bell size={20} color="var(--color-primary)" />
+                <div>
+                  <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+                    Table Service & Assistance
+                  </h3>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--color-primary)', fontWeight: 600 }}>
+                    Table {tableNumber || '?'}
+                  </div>
+                </div>
+              </div>
 
-        {/* Services List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {services.map((srv, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleAction(srv.action)}
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                padding: '14px 16px',
-                borderRadius: '16px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                color: '#ffffff',
-                cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              <div
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={onClose}
+                aria-label="Close modal"
                 style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '12px',
-                  background: 'rgba(255, 255, 255, 0.06)',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: 'none',
+                  color: 'var(--color-text-primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0,
+                  cursor: 'pointer',
                 }}
               >
-                {srv.icon}
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '0.92rem', fontWeight: 700 }}>{srv.title}</div>
-                <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{srv.desc}</div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
+                <X size={18} />
+              </motion.button>
+            </div>
+
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>
+              Select a service request below and our floor staff will attend to your table immediately.
+            </p>
+
+            {/* Service Options List */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {services.map((svc, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAction(svc.action)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 14px',
+                    borderRadius: '14px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid var(--color-card-border)',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s ease, background 0.2s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      background: 'rgba(255, 255, 255, 0.06)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {svc.icon}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '2px' }}>
+                      {svc.title}
+                    </h4>
+                    <p style={{ fontSize: '0.74rem', color: 'var(--color-text-secondary)', margin: 0 }}>
+                      {svc.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
