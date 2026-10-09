@@ -38,7 +38,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.15 }}
-      style={{ padding: '10px 14px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
+      style={{ padding: '10px 12px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
         <motion.div
@@ -79,10 +79,11 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
               maxWidth: '100%',
               boxSizing: 'border-box',
               boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
+              minWidth: 0,
             }}
           >
             {/* Offer Real Photography */}
-            <div style={{ width: 'clamp(96px, 28vw, 115px)', minHeight: '110px', position: 'relative', flexShrink: 0, backgroundColor: '#1A1514' }}>
+            <div style={{ width: 'clamp(84px, 24vw, 110px)', minHeight: '105px', position: 'relative', flexShrink: 0, backgroundColor: '#1A1514' }}>
               <img
                 src={offer.image}
                 alt={offer.title}
@@ -108,7 +109,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
             </div>
 
             {/* Offer Details */}
-            <div style={{ padding: '10px 12px', flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ padding: '10px 12px', flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
               <div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--color-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '2px' }}>
                   {offer.badge || 'Chef Selection'}
@@ -123,6 +124,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
+                    wordBreak: 'break-word',
                   }}
                 >
                   {offer.title}
@@ -137,6 +139,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                     overflowWrap: 'anywhere',
+                    wordBreak: 'break-word',
                   }}
                 >
                   {offer.description}
@@ -166,8 +169,8 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => handleAddOffer(offer)}
-                  className="btn-add-stepper"
-                  style={{ padding: '5px 11px', fontSize: '0.72rem' }}
+                  className="btn-add-stepper touch-target-44"
+                  style={{ padding: '5px 12px', fontSize: '0.74rem', minHeight: '36px', minWidth: '60px' }}
                 >
                   <Plus size={12} />
                   <span>CLAIM</span>

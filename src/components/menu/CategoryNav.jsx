@@ -28,7 +28,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
     <div
       style={{
         position: 'sticky',
-        top: '48px',
+        top: 'calc(48px + var(--sat))',
         zIndex: 80,
         width: '100%',
         maxWidth: '100%',
@@ -42,7 +42,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
       }}
     >
       <nav
-        className="no-scrollbar"
+        className="horizontal-scroll-row no-scrollbar"
         ref={navRef}
         style={{
           width: '100%',
@@ -54,7 +54,6 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
           overflowX: 'auto',
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
-          WebkitOverflowScrolling: 'touch',
           paddingBottom: '2px',
         }}
       >
@@ -71,6 +70,10 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
               transition={{ delay: idx * 0.03, duration: 0.3 }}
               whileHover={{ y: -2, scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
+              style={{
+                minWidth: '56px',
+                minHeight: '64px',
+              }}
             >
               {/* Circular Food Thumbnail */}
               <div className="category-circle-thumb">

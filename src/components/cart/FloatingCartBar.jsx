@@ -29,6 +29,9 @@ export default function FloatingCartBar() {
           exit={{ y: 80, opacity: 0, scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 350, damping: 25 }}
           className="floating-cart-bar visible"
+          style={{
+            bottom: 'max(16px, calc(16px + env(safe-area-inset-bottom, 0px)))',
+          }}
         >
           {/* Left Item Count & Subtotal */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -86,13 +89,14 @@ export default function FloatingCartBar() {
             whileHover={{ scale: 1.05, x: 2 }}
             whileTap={{ scale: 0.94 }}
             onClick={() => setIsCartOpen(true)}
-            className="btn-primary"
+            className="btn-primary touch-target-44"
             style={{
               padding: '10px 18px',
               borderRadius: '999px',
               fontSize: '0.85rem',
               fontWeight: 800,
               gap: '6px',
+              minHeight: '44px',
             }}
           >
             <span>View Order</span>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, QrCode } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
@@ -9,6 +9,13 @@ export default function TableSelectorModal({ isOpen, onClose }) {
   const { tableNumber, setTableNumber, showToast } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme, settings } = activeRestaurant;
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOpen]);
 
   const totalTables = settings?.tablesCount || 24;
   const tables = Array.from({ length: totalTables }, (_, i) => String(i + 1).padStart(2, '0'));
@@ -44,7 +51,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '20px 18px max(20px, env(safe-area-inset-bottom, 20px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
@@ -62,9 +69,10 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
                 aria-label="Close modal"
+                className="touch-target-44"
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: 'none',
@@ -88,7 +96,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '10px',
+                gap: '8px',
                 marginBottom: '20px',
               }}
             >
@@ -100,8 +108,11 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleSelect(num)}
+                    className="touch-target-44"
                     style={{
                       aspectRatio: '1',
+                      minHeight: '48px',
+                      minWidth: '48px',
                       borderRadius: '14px',
                       border: isSelected
                         ? `2px solid var(--color-primary)`

@@ -54,7 +54,7 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.45, delay: Math.min(index * 0.05, 0.3), ease: [0.22, 1, 0.36, 1] }}
-      style={{ width: '100%' }}
+      style={{ width: '100%', minWidth: 0 }}
     >
       <CardWrapper
         onClick={() => onOpenDetail(item)}
@@ -70,14 +70,15 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
           width: '100%',
           maxWidth: '100%',
           boxSizing: 'border-box',
+          minWidth: 0,
         }}
       >
         {/* Left: Food Image Thumbnail */}
         <div
           style={{
             position: 'relative',
-            width: 'clamp(88px, 24vw, 106px)',
-            height: 'clamp(88px, 24vw, 106px)',
+            width: 'clamp(76px, 22vw, 98px)',
+            height: 'clamp(76px, 22vw, 98px)',
             borderRadius: '12px',
             overflow: 'hidden',
             flexShrink: 0,
@@ -149,7 +150,7 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
         </div>
 
         {/* Right: Dish Information */}
-        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
           
           {/* Top Badges Row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px', flexWrap: 'wrap' }}>
@@ -176,14 +177,17 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
           <h3
             style={{
               fontFamily: theme.fontHeading || "'Playfair Display', serif",
-              fontSize: 'clamp(0.92rem, 3.2vw, 1rem)',
+              fontSize: 'clamp(0.9rem, 3.2vw, 1rem)',
               fontWeight: 700,
               color: 'var(--color-text-primary)',
               lineHeight: 1.25,
               marginBottom: '2px',
+              overflowWrap: 'anywhere',
+              wordBreak: 'break-word',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
             }}
           >
             {item.name}
@@ -214,6 +218,7 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
               overflowWrap: 'anywhere',
+              wordBreak: 'break-word',
             }}
           >
             {item.description}
@@ -233,11 +238,11 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                   <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
                     <motion.button
                       whileTap={{ scale: 0.85 }}
-                      className="qty-stepper-btn"
+                      className="qty-stepper-btn touch-target-44"
                       onClick={handleDecrement}
                       aria-label="Decrease quantity"
                     >
-                      <Minus size={10} />
+                      <Minus size={11} />
                     </motion.button>
                     <AnimatePresence mode="wait">
                       <motion.span
@@ -252,11 +257,11 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                     </AnimatePresence>
                     <motion.button
                       whileTap={{ scale: 0.85 }}
-                      className="qty-stepper-btn"
+                      className="qty-stepper-btn touch-target-44"
                       onClick={handleIncrement}
                       aria-label="Increase quantity"
                     >
-                      <Plus size={10} />
+                      <Plus size={11} />
                     </motion.button>
                   </div>
                 ) : (
@@ -265,8 +270,12 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                     whileTap={{ scale: 0.94 }}
                     type="button"
                     onClick={handleQuickAdd}
-                    className="btn-add-stepper"
+                    className="btn-add-stepper touch-target-44"
                     aria-label={`Add ${item.name}`}
+                    style={{
+                      minHeight: '36px',
+                      minWidth: '60px',
+                    }}
                   >
                     <Plus size={12} />
                     <span>ADD</span>
@@ -276,13 +285,15 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                 <button
                   type="button"
                   disabled
-                  className="btn-add-stepper"
+                  className="btn-add-stepper touch-target-44"
                   style={{
                     background: 'rgba(255, 255, 255, 0.05)',
                     borderColor: 'rgba(255, 255, 255, 0.1)',
                     color: '#9ca3af',
                     cursor: 'not-allowed',
                     opacity: 0.7,
+                    minHeight: '36px',
+                    minWidth: '60px',
                   }}
                   aria-label={`${item.name} is sold out`}
                 >

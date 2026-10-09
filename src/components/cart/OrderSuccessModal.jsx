@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ChefHat, Utensils, PlusCircle, Receipt } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
@@ -15,6 +15,13 @@ export default function OrderSuccessModal() {
 
   const { activeRestaurant } = useRestaurant();
   const { currency, theme } = activeRestaurant;
+
+  useEffect(() => {
+    if (isOrderPlacedModalOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOrderPlacedModalOpen]);
 
   const steps = [
     { title: 'Order Placed', desc: 'Sent to kitchen', icon: <CheckCircle2 size={16} color="#10b981" />, active: true, completed: true },
@@ -42,7 +49,7 @@ export default function OrderSuccessModal() {
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '24px 20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '24px 20px max(24px, env(safe-area-inset-bottom, 24px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
@@ -174,8 +181,8 @@ export default function OrderSuccessModal() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOrderPlacedModalOpen(false)}
-                className="btn-primary"
-                style={{ width: '100%', padding: '14px', borderRadius: '14px' }}
+                className="btn-primary touch-target-44"
+                style={{ width: '100%', padding: '14px', borderRadius: '14px', minHeight: '48px' }}
               >
                 <PlusCircle size={16} />
                 <span>Order More Dishes</span>
@@ -188,8 +195,8 @@ export default function OrderSuccessModal() {
                   callWaiter('Bill Request');
                   setIsOrderPlacedModalOpen(false);
                 }}
-                className="btn-secondary"
-                style={{ width: '100%', padding: '12px', borderRadius: '14px' }}
+                className="btn-secondary touch-target-44"
+                style={{ width: '100%', padding: '12px', borderRadius: '14px', minHeight: '48px' }}
               >
                 <Receipt size={16} />
                 <span>Request Bill to Table {activeOrder.tableNumber}</span>

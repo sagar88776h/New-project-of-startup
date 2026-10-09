@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Bell, Droplets, Utensils, Receipt, FileText } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
@@ -9,6 +9,13 @@ export default function CallWaiterModal({ isOpen, onClose }) {
   const { tableNumber, callWaiter } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme } = activeRestaurant;
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOpen]);
 
   const handleAction = (serviceName) => {
     callWaiter(serviceName);
@@ -43,7 +50,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '20px 18px max(20px, env(safe-area-inset-bottom, 20px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
@@ -66,9 +73,10 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
                 aria-label="Close modal"
+                className="touch-target-44"
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: 'none',
@@ -95,6 +103,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                   whileHover={{ y: -2, scale: 1.01 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => handleAction(svc.action)}
+                  className="touch-target-44"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -105,6 +114,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                     border: '1px solid var(--color-card-border)',
                     cursor: 'pointer',
                     transition: 'border-color 0.2s ease, background 0.2s ease',
+                    minHeight: '44px',
                   }}
                 >
                   <div

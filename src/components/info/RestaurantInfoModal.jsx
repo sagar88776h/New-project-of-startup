@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Phone, Clock, Wifi, Copy, Check, MessageCircle, Utensils, ExternalLink } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -17,6 +17,13 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
   const { activeRestaurant } = useRestaurant();
   const { showToast } = useCart();
   const [copiedWifi, setCopiedWifi] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+      return () => document.body.classList.remove('modal-open');
+    }
+  }, [isOpen]);
 
   const { contact, theme } = activeRestaurant;
 
@@ -49,7 +56,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
             exit="exit"
             className="bottom-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ maxHeight: '90svh', padding: '20px', overflowY: 'auto' }}
+            style={{ maxHeight: '90dvh', height: 'auto', padding: '20px 18px max(20px, env(safe-area-inset-bottom, 20px))', overflowY: 'auto', overscrollBehavior: 'contain' }}
           >
             <div className="sheet-handle" />
 
@@ -67,9 +74,10 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
                 aria-label="Close modal"
+                className="touch-target-44"
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: 'none',
@@ -102,9 +110,10 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                  minWidth: 0,
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
                   <div
                     style={{
                       width: '36px',
@@ -119,11 +128,11 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   >
                     <Wifi size={18} color="var(--color-accent)" />
                   </div>
-                  <div>
+                  <div style={{ minWidth: 0 }}>
                     <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      GUEST HIGH-SPEED WI-FI
+                      GUEST WI-FI
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {contact.wifiSsid}
                     </div>
                   </div>
@@ -133,8 +142,8 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={handleCopyWifi}
-                  className="btn-primary"
-                  style={{ padding: '6px 12px', fontSize: '0.75rem', gap: '4px' }}
+                  className="btn-primary touch-target-44"
+                  style={{ padding: '8px 14px', fontSize: '0.78rem', gap: '5px', minHeight: '38px' }}
                 >
                   {copiedWifi ? <Check size={13} /> : <Copy size={13} />}
                   <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
@@ -186,8 +195,8 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-secondary"
-                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff' }}
+                  className="btn-secondary touch-target-44"
+                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff', minHeight: '44px' }}
                 >
                   <MessageCircle size={15} color="#22c55e" />
                   <span>WhatsApp</span>
@@ -202,8 +211,8 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-secondary"
-                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff' }}
+                  className="btn-secondary touch-target-44"
+                  style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center', textDecoration: 'none', color: '#ffffff', minHeight: '44px' }}
                 >
                   <InstagramIcon size={15} color="#ec4899" />
                   <span>Instagram</span>
