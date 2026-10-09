@@ -4,6 +4,7 @@ import { Sparkles, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { fadeUp } from '../../lib/motion';
+import FoodMedia from '../common/FoodMedia';
 
 export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -84,36 +85,16 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
           >
             {/* Offer Real Photography */}
             <div style={{ width: 'clamp(84px, 24vw, 110px)', minHeight: '105px', position: 'relative', flexShrink: 0, backgroundColor: '#1A1514' }}>
-              <img
+              <FoodMedia
                 src={offer.image}
+                videoSrc={offer.video}
                 alt={offer.title}
-                width="200"
-                height="180"
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fb = e.currentTarget.parentElement?.querySelector('.offer-fallback-placeholder');
-                  if (fb) fb.style.display = 'flex';
-                }}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                isVeg={false}
+                aspectRatio="1 / 1"
+                width={200}
+                height={180}
+                style={{ width: '100%', height: '100%' }}
               />
-              <div
-                className="offer-fallback-placeholder"
-                style={{
-                  display: 'none',
-                  position: 'absolute',
-                  inset: 0,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'radial-gradient(circle, rgba(212, 166, 74, 0.2) 0%, #1A1514 100%)',
-                  flexDirection: 'column',
-                  gap: '4px',
-                }}
-              >
-                <Sparkles size={16} color="var(--color-accent)" />
-                <span style={{ fontSize: '0.6rem', color: 'var(--color-accent)', fontWeight: 800 }}>CHEF SPECIAL</span>
-              </div>
               <div
                 style={{
                   position: 'absolute',

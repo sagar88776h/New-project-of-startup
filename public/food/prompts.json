@@ -1,0 +1,137 @@
+{
+  "version": "1.0.0",
+  "loop_specs": {
+    "duration_seconds": 3.5,
+    "framerate": 30,
+    "camera": "Fixed tripod, macro food photography, 50mm f/2.8 lens, shallow depth of field, warm cinematic lighting",
+    "motion_style": "Subtle seamless ambient loop only. Wisps of gentle steam rising, soft hot ghee/oil shimmer, light moisture condensation, or gentle garnish glisten. Absolutely static dish, no moving utensils, no human hands, no text overlays."
+  },
+  "prompts": {
+    "chickenBiryani": {
+      "dish_name": "Chicken Biryani",
+      "prompt": "Cinematic close-up food shot of hot Shahi chicken biryani in an earthenware handi. Fixed tripod camera at 45-degree angle. Delicate translucent wisps of hot aromatic steam rising continuously from the long grains of saffron basmati rice and fried golden onions. Golden ghee shimmer on the surface. Food remains completely stationary, seamless 3-second ambient loop, no people, no cutlery, no text.",
+      "motion_elements": "Subtle rising steam, ghee shimmer",
+      "aspect_ratio": "4:3"
+    },
+    "muttonDumBiryani": {
+      "dish_name": "Nizami Mutton Dum Biryani",
+      "prompt": "Macro food cinematography of Nizami mutton dum biryani garnished with browned shallots and fresh mint leaves. Fixed camera, shallow depth of field. Subtle, gentle thermal steam ascending steadily in a tranquil loop. Faint light glisten across the tender spiced meat and fragrant saffron grains. No movement in the dish itself, seamless loop, no people, no text.",
+      "motion_elements": "Gentle thermal steam, saffron glisten",
+      "aspect_ratio": "4:3"
+    },
+    "butterChicken": {
+      "dish_name": "Butter Chicken (Murgh Makhani)",
+      "prompt": "Close-up shot of velvety orange-red butter chicken in a traditional copper bowl, swirled with fresh white cream. Fixed camera angle. Very subtle slow wisps of steam floating upward from the rich satin gravy. Soft golden light reflection shimmering on the buttery surface. Completely static food presentation, seamless 3-second infinite loop, no hands, no text.",
+      "motion_elements": "Faint steam wisps, surface butter glisten",
+      "aspect_ratio": "4:3"
+    },
+    "paneerButterMasala": {
+      "dish_name": "Paneer Butter Masala",
+      "prompt": "Culinary still-life of rich paneer butter masala topped with crushed kasuri methi and cream swirl. Fixed tripod shot with soft warm lighting. Gentle, ethereal heat steam rising smoothly from the simmering tomato-cashew curry. Food position completely fixed, subtle ambient motion only, seamless loop, no people, no text.",
+      "motion_elements": "Ethereal heat steam, cream glisten",
+      "aspect_ratio": "4:3"
+    },
+    "chickenTandooriTikka": {
+      "dish_name": "Chicken Tikka (Murgh Malai)",
+      "prompt": "Close-up macro of skewered charred chicken tikka cubes resting on a sizzling platter with lemon wedges. Fixed camera. Very subtle wisps of fine barbecue smoke and faint heat shimmer lifting gently off the charred edges. Food and garnish remain perfectly still, seamless 3-second ambient loop, no people, no text.",
+      "motion_elements": "Fine charcoal smoke wisps, heat haze shimmer",
+      "aspect_ratio": "4:3"
+    },
+    "paneerTikkaAngara": {
+      "dish_name": "Tandoori Paneer Tikka Angara",
+      "prompt": "Macro food photography of chargrilled paneer tikka with tricolor bell peppers. Fixed camera. Delicate thin smoke ribbons drifting lazily upward from the crisp tandoori edges. Gentle warm ambient light gleam on the mustard-oil spice crust. Perfectly static food, seamless looping motion, no hands, no text.",
+      "motion_elements": "Thin smoke ribbons, spice crust gleam",
+      "aspect_ratio": "4:3"
+    },
+    "grilledSalmon": {
+      "dish_name": "Coastal Pan-Fried Fish",
+      "prompt": "Eye-level close-up of a pan-seared fish fillet with golden turmeric crust and curry leaf garnish. Fixed tripod. Tiny faint vapors of fragrant steam rising slowly into the air, subtle warm glisten of coconut oil on the crispy exterior. No movement in the fillet, seamless 3-second loop, no people, no text.",
+      "motion_elements": "Fragrant vapor wisps, oil shimmer",
+      "aspect_ratio": "4:3"
+    },
+    "dalMakhani": {
+      "dish_name": "Dal Makhani (24-Hour Simmered)",
+      "prompt": "Top-down 45-degree close-up of dark creamy dal makhani with a melting pat of white butter in the center. Fixed camera position. Soft, gentle rising steam trails drifting continuously upwards. Subtle warm light shimmer on the creamy black lentils. Dish remains motionless, seamless infinite loop, no utensils, no text.",
+      "motion_elements": "Rising steam trails, melting butter glisten",
+      "aspect_ratio": "4:3"
+    },
+    "garlicButterNaan": {
+      "dish_name": "Garlic Butter Naan",
+      "prompt": "Close-up macro shot of golden blistered garlic butter naan fresh out of the tandoor, brushed with herb butter. Fixed camera. Subtle faint heat haze and gentle rising steam directly from the hot charred bread bubbles. Food is entirely static, seamless 3-second loop, no people, no text.",
+      "motion_elements": "Heat haze, gentle bread steam",
+      "aspect_ratio": "4:3"
+    },
+    "kesarMangoLassi": {
+      "dish_name": "Shahi Kesar Mango Lassi",
+      "prompt": "Side profile close-up of a chilled frosted glass of vibrant mango lassi topped with saffron threads and crushed pistachios. Fixed camera. Tiny micro-droplets of cold moisture condensation slowly forming on the exterior glass surface with gentle light refraction. Stationary glass, seamless subtle loop, no hands, no text.",
+      "motion_elements": "Cold condensation glisten, light refraction",
+      "aspect_ratio": "4:3"
+    },
+    "shahiGulabJamun": {
+      "dish_name": "Gulab Jamun with Saffron Rabdi",
+      "prompt": "Macro shot of two warm golden brown gulab jamuns resting in aromatic sugar syrup beside thick saffron rabdi. Fixed tripod. Very faint micro-steam rising gracefully from the warm dumplings. Warm golden syrup glisten under soft ambient illumination. Static food placement, seamless loop, no cutlery, no text.",
+      "motion_elements": "Micro-steam, syrup glaze glisten",
+      "aspect_ratio": "4:3"
+    },
+    "margheritaPizza": {
+      "dish_name": "Pizza Margherita DOP",
+      "prompt": "Close-up shot of a woodfired Neapolitan Margherita pizza with blistered crust, melted fior di latte and fresh basil. Fixed camera. Delicate thin wisps of hot oven steam rising off the melted cheese. Crust and toppings motionless, seamless 3-second loop, no people, no text.",
+      "motion_elements": "Oven steam wisps, melted cheese sheen",
+      "aspect_ratio": "4:3"
+    },
+    "wildMushroomPasta": {
+      "dish_name": "Handmade Tagliatelle ai Funghi Porcini",
+      "prompt": "Close-up of fresh handmade tagliatelle pasta with sauteed porcini mushrooms and shaved parmigiano. Fixed camera. Gentle continuous rising steam drifting upward from the hot pasta strands. No movement of pasta or fork, seamless loop, no people, no text.",
+      "motion_elements": "Gentle pasta steam, parmesan glisten",
+      "aspect_ratio": "4:3"
+    },
+    "burrataHeirloomSalad": {
+      "dish_name": "Burrata Pugliese con Pomodori",
+      "prompt": "Top-down 45-degree angle of fresh Pugliese burrata cheese drizzled with extra virgin olive oil and cracked black pepper. Fixed camera. Subtle soft light shimmer across the olive oil droplets and glistening heirloom tomato skins. Static presentation, seamless 3-second loop, no people, no text.",
+      "motion_elements": "Olive oil droplet shimmer, light reflection",
+      "aspect_ratio": "4:3"
+    },
+    "classicTiramisu": {
+      "dish_name": "Tiramisu Tradizionale",
+      "prompt": "Macro side view of a slice of Italian tiramisu showing distinct mascarpone and espresso sponge layers dusted with dark cocoa. Fixed camera. Soft velvety light shimmer across the cocoa dust texture. Completely stationary dessert, seamless loop, no people, no text.",
+      "motion_elements": "Subtle cocoa dust texture shimmer",
+      "aspect_ratio": "4:3"
+    },
+    "freshLimeMintSoda": {
+      "dish_name": "Sparkling Limonata & Fresh Mint",
+      "prompt": "Close-up of a tall highball glass filled with sparkling soda, ice cubes, lime slice and fresh mint leaves. Fixed tripod. Tiny effervescent soda bubbles rising continuously through the ice cubes with cold condensation on the glass. Static glass, seamless loop, no people, no text.",
+      "motion_elements": "Tiny effervescent bubbles, cold condensation",
+      "aspect_ratio": "4:3"
+    },
+    "chickenKebab": {
+      "dish_name": "Reshmi Seekh Kebab",
+      "prompt": "Close-up of grilled minced chicken seekh kebabs on a hot platter with onion rings and mint sprig. Fixed camera. Delicate wisps of barbecue smoke drifting upwards from the hot spiced surface. Stationary food, seamless loop, no people, no text.",
+      "motion_elements": "Delicate barbecue smoke, spiced oil sheen",
+      "aspect_ratio": "4:3"
+    },
+    "crispyPrawnsTandoori": {
+      "dish_name": "Tandoori Jumbo Prawns",
+      "prompt": "Macro food shot of grilled spiced jumbo prawns with charred tails and lemon wedge. Fixed camera. Light heat steam and gentle spice glaze shimmer under warm restaurant lighting. Food completely stationary, seamless 3-second loop, no hands, no text.",
+      "motion_elements": "Light heat steam, spice glaze sheen",
+      "aspect_ratio": "4:3"
+    },
+    "muttonRoganJosh": {
+      "dish_name": "Kashmiri Mutton Rogan Josh",
+      "prompt": "Close-up of slow-braised mutton rogan josh in an authentic copper karahi with deep red rogan oil float. Fixed camera. Fine wisps of aromatic steam rising continuously from the rich gravy. Motionless meat and gravy, seamless loop, no people, no text.",
+      "motion_elements": "Aromatic gravy steam, rogan oil shimmer",
+      "aspect_ratio": "4:3"
+    },
+    "lacchaParatha": {
+      "dish_name": "Crisp Laccha Paratha",
+      "prompt": "Close-up of multi-layered spiral laccha paratha freshly toasted with golden ghee brush. Fixed camera. Very subtle heat vapor rising off the flaky layers. Bread remains completely still, seamless 3-second loop, no people, no text.",
+      "motion_elements": "Heat vapor wisps, desi ghee glisten",
+      "aspect_ratio": "4:3"
+    },
+    "royalVegBiryani": {
+      "dish_name": "Royal Subz Dum Biryani",
+      "prompt": "Close-up shot of vegetable dum biryani with carrots, beans, paneer and fried cashews in clay pot. Fixed camera. Fine gentle steam drifting up from the saffron basmati rice. Dish remains still, seamless 3-second ambient loop, no people, no text.",
+      "motion_elements": "Fine saffron steam, cashew glisten",
+      "aspect_ratio": "4:3"
+    }
+  }
+}

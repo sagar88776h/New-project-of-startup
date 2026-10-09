@@ -4,6 +4,7 @@ import { X, Clock, Users, Flame, Sparkles, Check, AlertCircle } from 'lucide-rea
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import FoodMedia from '../common/FoodMedia';
 
 function FoodDetailContent({ item, onClose }) {
   const { addToCart, showToast } = useCart();
@@ -117,51 +118,17 @@ function FoodDetailContent({ item, onClose }) {
             backgroundColor: '#141110',
           }}
         >
-          <img
+          <FoodMedia
             src={item.image}
+            videoSrc={item.video || item.clip}
             alt={item.name}
-            width="600"
-            height="340"
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              const fb = e.currentTarget.parentElement?.querySelector('.modal-fallback-placeholder');
-              if (fb) fb.style.display = 'flex';
-            }}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-            }}
+            isVeg={item.isVeg}
+            aspectRatio="16 / 9"
+            width={600}
+            height={340}
+            priority={true}
+            style={{ width: '100%', height: '100%' }}
           />
-
-          {/* Graceful Styled Fallback Placeholder for missing/failed images */}
-          <div
-            className="modal-fallback-placeholder"
-            style={{
-              display: 'none',
-              position: 'absolute',
-              inset: 0,
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'radial-gradient(circle, rgba(212, 166, 74, 0.18) 0%, rgba(20, 15, 14, 0.98) 100%)',
-              border: '1.5px dashed rgba(212, 166, 74, 0.35)',
-              borderRadius: '16px',
-              flexDirection: 'column',
-              gap: '8px',
-            }}
-          >
-            {item.isVeg ? (
-              <span className="veg-indicator" style={{ transform: 'scale(1.4)' }}><span className="veg-indicator-dot" /></span>
-            ) : (
-              <span className="non-veg-indicator" style={{ transform: 'scale(1.4)' }}><span className="non-veg-indicator-triangle" /></span>
-            )}
-            <span style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: 800, letterSpacing: '0.05em' }}>
-              {item.isVeg ? 'PURE VEGETARIAN DELICACY' : 'AUTHENTIC NON-VEGETARIAN'}
-            </span>
-          </div>
 
           {/* Badges on Image */}
           <div style={{ position: 'absolute', top: '8px', left: '8px', display: 'flex', gap: '5px' }}>
