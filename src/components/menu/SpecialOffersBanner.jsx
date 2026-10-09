@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Sparkles, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -33,7 +33,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
   };
 
   return (
-    <motion.section
+    <m.section
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -41,12 +41,12 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
       style={{ padding: '10px 14px 16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-        <motion.div
+        <m.div
           animate={{ rotate: [0, 15, -15, 0] }}
           transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
         >
           <Sparkles size={16} color={theme.primaryColor || '#c98a2c'} />
-        </motion.div>
+        </m.div>
         <h3
           style={{
             fontFamily: theme.fontHeading || "'Playfair Display', serif",
@@ -60,14 +60,14 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
 
       <div className="offers-grid">
         {availableOffers.map((offer, idx) => (
-          <motion.div
+          <m.div
             key={offer.id}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: idx * 0.08, duration: 0.45 }}
             whileHover={{ y: -3, scale: 1.01 }}
-            className="restaurant-card"
+            className="restaurant-card motion-card"
             style={{
               overflow: 'hidden',
               position: 'relative',
@@ -162,7 +162,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                   )}
                 </div>
 
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => handleAddOffer(offer)}
@@ -171,12 +171,12 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                 >
                   <Plus size={12} />
                   <span>CLAIM</span>
-                </motion.button>
+                </m.button>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }

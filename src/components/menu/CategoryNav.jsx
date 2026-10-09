@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useRestaurant } from '../../context/RestaurantContext';
 
 export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
@@ -61,7 +61,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
         {categories.map((cat, idx) => {
           const isActive = activeCategoryId === cat.id;
           return (
-            <motion.button
+            <m.button
               key={cat.id}
               ref={isActive ? activeTabRef : null}
               onClick={() => onSelectCategory(cat.id)}
@@ -98,7 +98,7 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
               <span className="category-circle-name">
                 {cat.name}
               </span>
-            </motion.button>
+            </m.button>
           );
         })}
       </nav>

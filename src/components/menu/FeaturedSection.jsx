@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Star } from 'lucide-react';
 import FoodCard from './FoodCard';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -15,7 +15,7 @@ export default function FeaturedSection({ onOpenDetail }) {
   if (favorites.length === 0) return null;
 
   return (
-    <motion.section
+    <m.section
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -25,7 +25,7 @@ export default function FeaturedSection({ onOpenDetail }) {
       {/* Section Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <motion.div
+          <m.div
             whileHover={{ rotate: 15, scale: 1.1 }}
             style={{
               width: '28px',
@@ -39,7 +39,7 @@ export default function FeaturedSection({ onOpenDetail }) {
             }}
           >
             <Star size={15} color={theme.primaryColor || '#c98a2c'} fill={theme.primaryColor || '#c98a2c'} />
-          </motion.div>
+          </m.div>
           <div>
             <h2
               style={{
@@ -81,6 +81,6 @@ export default function FeaturedSection({ onOpenDetail }) {
           <FoodCard key={item.id} item={item} onOpenDetail={onOpenDetail} index={idx} />
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }

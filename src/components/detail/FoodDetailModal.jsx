@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Clock, Users, Flame, Sparkles, Check, AlertCircle } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -43,7 +43,7 @@ function FoodDetailContent({ item, onClose }) {
     : item.prepTime || '15–20 min';
 
   return (
-    <motion.div
+    <m.div
       variants={bottomSheetVariants}
       initial="hidden"
       animate="visible"
@@ -80,7 +80,7 @@ function FoodDetailContent({ item, onClose }) {
             </span>
           </div>
 
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
@@ -99,7 +99,7 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             <X size={18} />
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Large Real Food Photograph */}
@@ -266,7 +266,7 @@ function FoodDetailContent({ item, onClose }) {
               {item.customizations.map(cust => {
                 const isChecked = selectedCustomizations.some(c => c.id === cust.id);
                 return (
-                  <motion.div
+                  <m.div
                     whileTap={{ scale: 0.98 }}
                     key={cust.id}
                     onClick={() => toggleCustomization(cust)}
@@ -308,7 +308,7 @@ function FoodDetailContent({ item, onClose }) {
                         +{currency}{cust.price}
                       </span>
                     )}
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
@@ -370,7 +370,7 @@ function FoodDetailContent({ item, onClose }) {
             flexShrink: 0,
           }}
         >
-          <motion.button
+          <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
             style={{
@@ -387,11 +387,11 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             -
-          </motion.button>
+          </m.button>
           <span style={{ minWidth: '22px', textAlign: 'center', fontWeight: 800, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
             {quantity}
           </span>
-          <motion.button
+          <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(quantity + 1)}
             style={{
@@ -408,11 +408,11 @@ function FoodDetailContent({ item, onClose }) {
             }}
           >
             +
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Add CTA */}
-        <motion.button
+        <m.button
           whileHover={{ scale: item.isAvailable ? 1.02 : 1 }}
           whileTap={{ scale: item.isAvailable ? 0.97 : 1 }}
           onClick={handleAddToCart}
@@ -432,9 +432,9 @@ function FoodDetailContent({ item, onClose }) {
           }}
         >
           {item.isAvailable ? `ADD • ${currency}${totalPrice}` : 'SOLD OUT'}
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -442,7 +442,7 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && item && (
-        <motion.div
+        <m.div
           key="food-detail-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -452,7 +452,7 @@ export default function FoodDetailModal({ item, isOpen, onClose }) {
           onClick={onClose}
         >
           <FoodDetailContent key={item.id} item={item} onClose={onClose} />
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Utensils, ArrowDown, MapPin, Sparkles } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -23,7 +23,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
       }}
     >
       {/* Subtle Floating Ambient Background Glows */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         animate={{
           x: [0, 15, -10, 0],
@@ -50,7 +50,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
         }}
       />
 
-      <motion.div
+      <m.div
         aria-hidden="true"
         animate={{
           x: [0, -20, 15, 0],
@@ -81,7 +81,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
       {/* Centered Cover Banner Wrapper */}
       <div className="hero-banner-wrapper" style={{ position: 'relative', zIndex: 2 }}>
         <div className="hero-banner-container" style={{ position: 'relative', overflow: 'hidden' }}>
-          <motion.img
+          <m.img
             initial={{ scale: 1.08, opacity: 0.8 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -114,7 +114,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
           {/* Top Badges (Intro Replay + Table Number) */}
           <div style={{ position: 'absolute', top: '10px', right: '12px', display: 'flex', alignItems: 'center', gap: '6px', zIndex: 5 }}>
             {onOpenIntro && (
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.94 }}
                 onClick={onOpenIntro}
@@ -136,10 +136,10 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
               >
                 <Sparkles size={11} color="var(--color-accent)" />
                 <span>Intro</span>
-              </motion.button>
+              </m.button>
             )}
 
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 400, damping: 25 }}
@@ -157,13 +157,13 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
               }}
             >
               {tableNumber ? `TABLE ${tableNumber}` : 'TABLE ?'}
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>
 
       {/* Restaurant Identity Content with Staggered Entrance */}
-      <motion.div
+      <m.div
         variants={staggerContainer(0.08, 0.1)}
         initial="hidden"
         animate="visible"
@@ -173,7 +173,7 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
             
             {/* Logo Monogram */}
-            <motion.div
+            <m.div
               variants={scaleIn}
               whileHover={{ scale: 1.06, rotate: 3 }}
               whileTap={{ scale: 0.94 }}
@@ -203,10 +203,10 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
               ) : (
                 <Utensils size={24} color="var(--color-accent)" />
               )}
-            </motion.div>
+            </m.div>
 
             {/* Quick CTA */}
-            <motion.button
+            <m.button
               variants={fadeUp}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -228,17 +228,17 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
               }}
             >
               <span>Explore Menu</span>
-              <motion.div
+              <m.div
                 animate={{ y: [0, 3, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
               >
                 <ArrowDown size={13} />
-              </motion.div>
-            </motion.button>
+              </m.div>
+            </m.button>
           </div>
 
           {/* Restaurant Name & Tagline */}
-          <motion.h1
+          <m.h1
             variants={fadeUp}
             style={{
               fontFamily: theme.fontHeading || "'Fraunces', serif",
@@ -252,17 +252,17 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
             }}
           >
             {activeRestaurant.name}
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.4, marginBottom: '8px', overflowWrap: 'anywhere' }}
           >
             {activeRestaurant.tagline}
-          </motion.p>
+          </m.p>
 
           {/* Snippet Row */}
-          <motion.div
+          <m.div
             variants={fadeUp}
             style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.74rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}
           >
@@ -285,9 +285,9 @@ export default function RestaurantHero({ onExploreClick, onOpenIntro }) {
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.address.split(',')[0]}</span>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

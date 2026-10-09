@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, QrCode } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -27,7 +27,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="table-selector-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -36,7 +36,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
           className="modal-overlay active"
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             key="table-selector-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -57,7 +57,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                 </h3>
               </div>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
@@ -76,7 +76,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                 }}
               >
                 <X size={18} />
-              </motion.button>
+              </m.button>
             </div>
 
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginBottom: '18px' }}>
@@ -95,7 +95,7 @@ export default function TableSelectorModal({ isOpen, onClose }) {
               {tables.map(num => {
                 const isSelected = tableNumber === num;
                 return (
-                  <motion.button
+                  <m.button
                     key={num}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -120,12 +120,12 @@ export default function TableSelectorModal({ isOpen, onClose }) {
                   >
                     <span style={{ fontSize: '0.62rem', opacity: 0.75, fontWeight: 700 }}>TBL</span>
                     <span>{num}</span>
-                  </motion.button>
+                  </m.button>
                 );
               })}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

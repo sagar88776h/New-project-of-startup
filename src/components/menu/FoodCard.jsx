@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Clock, Flame, Sparkles, Plus, Minus } from 'lucide-react';
 import CardWrapper from '../common/CardWrapper';
 import { useCart } from '../../context/CartContext';
@@ -49,7 +49,7 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
     : item.prepTime || '15–20 min';
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -231,16 +231,16 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
               item.isAvailable ? (
                 totalQtyInCart > 0 ? (
                   <div className="qty-stepper-container" onClick={e => e.stopPropagation()}>
-                    <motion.button
+                    <m.button
                       whileTap={{ scale: 0.85 }}
                       className="qty-stepper-btn"
                       onClick={handleDecrement}
                       aria-label="Decrease quantity"
                     >
                       <Minus size={10} />
-                    </motion.button>
+                    </m.button>
                     <AnimatePresence mode="wait">
-                      <motion.span
+                      <m.span
                         key={totalQtyInCart}
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -248,19 +248,19 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                         className="qty-stepper-val"
                       >
                         {totalQtyInCart}
-                      </motion.span>
+                      </m.span>
                     </AnimatePresence>
-                    <motion.button
+                    <m.button
                       whileTap={{ scale: 0.85 }}
                       className="qty-stepper-btn"
                       onClick={handleIncrement}
                       aria-label="Increase quantity"
                     >
                       <Plus size={10} />
-                    </motion.button>
+                    </m.button>
                   </div>
                 ) : (
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.94 }}
                     type="button"
@@ -270,7 +270,7 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
                   >
                     <Plus size={12} />
                     <span>ADD</span>
-                  </motion.button>
+                  </m.button>
                 )
               ) : (
                 <button
@@ -293,6 +293,6 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
           </div>
         </div>
       </CardWrapper>
-    </motion.div>
+    </m.div>
   );
 }

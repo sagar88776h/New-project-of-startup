@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Bell, Droplets, Utensils, Receipt, FileText } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -26,7 +26,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="call-waiter-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -35,7 +35,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
           className="modal-overlay active"
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             key="call-waiter-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -61,7 +61,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
@@ -80,7 +80,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                 }}
               >
                 <X size={18} />
-              </motion.button>
+              </m.button>
             </div>
 
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>
@@ -90,7 +90,7 @@ export default function CallWaiterModal({ isOpen, onClose }) {
             {/* Service Options List */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {services.map((svc, idx) => (
-                <motion.div
+                <m.div
                   key={idx}
                   whileHover={{ y: -2, scale: 1.01 }}
                   whileTap={{ scale: 0.97 }}
@@ -130,11 +130,11 @@ export default function CallWaiterModal({ isOpen, onClose }) {
                       {svc.desc}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

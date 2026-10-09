@@ -1044,3 +1044,12 @@ textarea:focus-visible {
     color: #000000 !important;
   }
 }
+
+/* Framer Motion Card Integration - prevent CSS hover transforms from fighting Motion */
+.restaurant-card.motion-card {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.restaurant-card.motion-card:hover {
+  transform: none !important;
+}
