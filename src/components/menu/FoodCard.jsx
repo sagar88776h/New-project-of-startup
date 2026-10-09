@@ -88,7 +88,15 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
           <img
             src={item.image}
             alt={item.name}
+            width="100"
+            height="100"
             loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              const fb = e.currentTarget.parentElement?.querySelector('.dish-fallback-placeholder');
+              if (fb) fb.style.display = 'flex';
+            }}
             style={{
               width: '100%',
               height: '100%',
@@ -97,6 +105,32 @@ export default function FoodCard({ item, onOpenDetail, index = 0 }) {
               transition: 'transform 0.4s ease',
             }}
           />
+
+          {/* Graceful Styled Fallback Placeholder for missing/failed images */}
+          <div
+            className="dish-fallback-placeholder"
+            style={{
+              display: 'none',
+              position: 'absolute',
+              inset: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'radial-gradient(circle, rgba(212, 166, 74, 0.15) 0%, rgba(26, 21, 20, 0.95) 100%)',
+              border: '1px dashed rgba(212, 166, 74, 0.3)',
+              borderRadius: '12px',
+              flexDirection: 'column',
+              gap: '4px',
+            }}
+          >
+            {item.isVeg ? (
+              <span className="veg-indicator"><span className="veg-indicator-dot" /></span>
+            ) : (
+              <span className="non-veg-indicator"><span className="non-veg-indicator-triangle" /></span>
+            )}
+            <span style={{ fontSize: '0.58rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '0.04em' }}>
+              {item.isVeg ? 'VEG' : 'NON-VEG'}
+            </span>
+          </div>
 
           {/* Dietary Indicator (Veg/Non-Veg) in top-left of image */}
           <div

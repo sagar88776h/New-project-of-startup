@@ -79,6 +79,10 @@ export default function StickyHeader({
               <img
                 src={activeRestaurant.logo}
                 alt={activeRestaurant.name}
+                width="32"
+                height="32"
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             ) : (

@@ -78,23 +78,35 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
               {/* Circular Food Thumbnail */}
               <div className="category-circle-thumb">
                 {cat.image ? (
-                  <img src={cat.image} alt={cat.name} loading="lazy" />
-                ) : (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      background: 'rgba(139, 29, 44, 0.08)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.4rem',
-                      borderRadius: '50%',
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    width="54"
+                    height="54"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.nextElementSibling) {
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }
                     }}
-                  >
-                    {cat.icon || '🍽️'}
-                  </div>
-                )}
+                  />
+                ) : null}
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    background: 'rgba(139, 29, 44, 0.08)',
+                    display: cat.image ? 'none' : 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.4rem',
+                    borderRadius: '50%',
+                  }}
+                >
+                  {cat.icon || '🍽️'}
+                </div>
               </div>
 
               {/* Category Name */}

@@ -87,9 +87,33 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
               <img
                 src={offer.image}
                 alt={offer.title}
+                width="200"
+                height="180"
                 loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fb = e.currentTarget.parentElement?.querySelector('.offer-fallback-placeholder');
+                  if (fb) fb.style.display = 'flex';
+                }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
+              <div
+                className="offer-fallback-placeholder"
+                style={{
+                  display: 'none',
+                  position: 'absolute',
+                  inset: 0,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'radial-gradient(circle, rgba(212, 166, 74, 0.2) 0%, #1A1514 100%)',
+                  flexDirection: 'column',
+                  gap: '4px',
+                }}
+              >
+                <Sparkles size={16} color="var(--color-accent)" />
+                <span style={{ fontSize: '0.6rem', color: 'var(--color-accent)', fontWeight: 800 }}>CHEF SPECIAL</span>
+              </div>
               <div
                 style={{
                   position: 'absolute',

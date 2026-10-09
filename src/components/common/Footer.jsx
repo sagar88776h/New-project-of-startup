@@ -50,6 +50,10 @@ export default function Footer({ onOpenAdmin, onSwitchRestaurantClick }) {
             <img
               src={activeRestaurant.logo}
               alt={activeRestaurant.name}
+              width="64"
+              height="64"
+              loading="lazy"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (

@@ -224,8 +224,33 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                     <img
                       src={dish.image}
                       alt={dish.name}
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }
+                      }}
                       style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                     />
+                    <div
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '10px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        display: 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {dish.isVeg ? '🌱' : '🍗'}
+                    </div>
                     <div style={{ minWidth: 0, overflow: 'hidden' }}>
                       <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', wordBreak: 'break-word' }}>
                         {dish.name}

@@ -121,8 +121,14 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               <img
-                src="/devi-logo.png"
+                src="/food/devi-logo.webp"
                 alt="Devi - The Real Fast Food Centre"
+                width="76"
+                height="76"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.src = '/devi-logo.png';
+                }}
                 style={{
                   width: '100%',
                   height: '100%',

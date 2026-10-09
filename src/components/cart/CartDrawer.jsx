@@ -220,9 +220,33 @@ export default function CartDrawer({ onChangeTable }) {
                           <img
                             src={item.image}
                             alt={item.name}
+                            width="52"
+                            height="52"
                             loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              if (e.currentTarget.nextElementSibling) {
+                                e.currentTarget.nextElementSibling.style.display = 'flex';
+                              }
+                            }}
                             style={{ width: '52px', height: '52px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
                           />
+                          <div
+                            style={{
+                              width: '52px',
+                              height: '52px',
+                              borderRadius: '10px',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              display: 'none',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              fontSize: '1.2rem',
+                            }}
+                          >
+                            {item.isVeg ? '🌱' : '🍗'}
+                          </div>
                           <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                               {item.isVeg ? (
