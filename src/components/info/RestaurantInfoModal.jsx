@@ -4,6 +4,7 @@ import { X, MapPin, Phone, Clock, Wifi, Copy, Check, MessageCircle, Utensils, Ex
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 const InstagramIcon = ({ size = 16, color = "currentColor" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -17,6 +18,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
   const { activeRestaurant } = useRestaurant();
   const { showToast } = useCart();
   const [copiedWifi, setCopiedWifi] = useState(false);
+  const modalRef = useModalA11y(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen) {
@@ -50,6 +52,10 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
         >
           <m.div
             key="restaurant-info-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`About ${activeRestaurant.name}`}
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"

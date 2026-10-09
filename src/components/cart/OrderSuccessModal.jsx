@@ -4,6 +4,7 @@ import { CheckCircle2, ChefHat, Utensils, PlusCircle, Receipt } from 'lucide-rea
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function OrderSuccessModal() {
   const {
@@ -15,6 +16,11 @@ export default function OrderSuccessModal() {
 
   const { activeRestaurant } = useRestaurant();
   const { currency, theme } = activeRestaurant;
+
+  const modalRef = useModalA11y(
+    isOrderPlacedModalOpen && !!activeOrder,
+    () => setIsOrderPlacedModalOpen(false)
+  );
 
   useEffect(() => {
     if (isOrderPlacedModalOpen) {
@@ -43,6 +49,10 @@ export default function OrderSuccessModal() {
         >
           <m.div
             key="order-success-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Order Placed Successfully"
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"

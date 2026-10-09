@@ -4,11 +4,13 @@ import { X, Bell, Droplets, Utensils, Receipt, FileText } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function CallWaiterModal({ isOpen, onClose }) {
   const { tableNumber, callWaiter } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme } = activeRestaurant;
+  const modalRef = useModalA11y(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen) {
@@ -44,6 +46,10 @@ export default function CallWaiterModal({ isOpen, onClose }) {
         >
           <m.div
             key="call-waiter-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Call Waiter and Table Assistance"
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"

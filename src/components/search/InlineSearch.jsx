@@ -26,6 +26,7 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
         <input
           type="text"
           placeholder="Search dishes, drinks, desserts..."
+          aria-label="Search menu items"
           value={searchQuery}
           onChange={e => onSearchChange(e.target.value)}
           style={{

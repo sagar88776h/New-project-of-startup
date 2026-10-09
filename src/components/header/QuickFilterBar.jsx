@@ -49,6 +49,8 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => onSelectFilter(f.id)}
+              aria-label={`Filter by ${f.label}`}
+              aria-pressed={isActive}
               className="touch-target-44"
               style={{
                 position: 'relative',

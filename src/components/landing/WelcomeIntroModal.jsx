@@ -11,12 +11,22 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     // Auto dismiss after 2s
     const timer = setTimeout(() => {
       onClose();
     }, 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+    };
   }, [isOpen, onClose]);
 
   const { theme } = activeRestaurant;
@@ -32,6 +42,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
           exit="exit"
           onClick={onClose}
           role="dialog"
+          aria-modal="true"
           aria-label="Welcome Intro"
           style={{
             position: 'fixed',
@@ -63,6 +74,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
+              aria-label="Skip welcome intro"
               onClick={e => {
                 e.stopPropagation();
                 onClose();

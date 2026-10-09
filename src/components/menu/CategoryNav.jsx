@@ -65,6 +65,8 @@ export default function CategoryNav({ activeCategoryId, onSelectCategory }) {
               ref={isActive ? activeTabRef : null}
               onClick={() => onSelectCategory(cat.id)}
               className={`category-circle-chip ${isActive ? 'active' : ''}`}
+              aria-label={`View category ${cat.name}`}
+              aria-pressed={isActive}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.03, duration: 0.3 }}

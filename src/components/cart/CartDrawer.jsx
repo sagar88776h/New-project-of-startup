@@ -4,6 +4,7 @@ import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3, MessageSquare 
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function CartDrawer({ onChangeTable }) {
   const {
@@ -41,6 +42,8 @@ export default function CartDrawer({ onChangeTable }) {
     return Math.max(max, itemMax);
   }, 15);
 
+  const modalRef = useModalA11y(isCartOpen, () => setIsCartOpen(false));
+
   return (
     <AnimatePresence>
       {isCartOpen && (
@@ -54,6 +57,10 @@ export default function CartDrawer({ onChangeTable }) {
           onClick={() => setIsCartOpen(false)}
         >
           <m.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Your Table Order Cart"
             key="cart-drawer-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -368,6 +375,7 @@ export default function CartDrawer({ onChangeTable }) {
                               whileTap={{ scale: 0.85 }}
                               className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}
+                              aria-label={`Decrease ${item.name} quantity`}
                               style={{ width: '32px', height: '32px' }}
                             >
                               <Minus size={11} />
@@ -377,6 +385,7 @@ export default function CartDrawer({ onChangeTable }) {
                               whileTap={{ scale: 0.85 }}
                               className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}
+                              aria-label={`Increase ${item.name} quantity`}
                               style={{ width: '32px', height: '32px' }}
                             >
                               <Plus size={11} />
@@ -398,6 +407,7 @@ export default function CartDrawer({ onChangeTable }) {
                     </label>
                     <textarea
                       rows={2}
+                      aria-label="Cooking instructions for kitchen"
                       placeholder="e.g. Please make curries mild spicy, bring extra small plates..."
                       value={orderNotes}
                       onChange={e => setOrderNotes(e.target.value)}

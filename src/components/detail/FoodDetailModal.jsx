@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
 import FoodMedia from '../common/FoodMedia';
+import useModalA11y from '../../hooks/useModalA11y';
 
 function FoodDetailContent({ item, onClose }) {
   const { addToCart, showToast } = useCart();
@@ -43,8 +44,14 @@ function FoodDetailContent({ item, onClose }) {
     ? `${item.minPrepTime}–${item.maxPrepTime} min`
     : item.prepTime || '15–20 min';
 
+  const modalRef = useModalA11y(true, onClose);
+
   return (
     <m.div
+      ref={modalRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${item.name} details`}
       variants={bottomSheetVariants}
       initial="hidden"
       animate="visible"
@@ -382,6 +389,7 @@ function FoodDetailContent({ item, onClose }) {
           <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            aria-label="Decrease quantity"
             className="touch-target-44"
             style={{
               width: '36px',
@@ -404,6 +412,7 @@ function FoodDetailContent({ item, onClose }) {
           <m.button
             whileTap={{ scale: 0.85 }}
             onClick={() => setQuantity(quantity + 1)}
+            aria-label="Increase quantity"
             className="touch-target-44"
             style={{
               width: '36px',

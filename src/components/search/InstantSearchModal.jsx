@@ -4,6 +4,7 @@ import { Search, X, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { modalBackdropVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const { activeRestaurant } = useRestaurant();
@@ -13,6 +14,11 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   const [query, setQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState(null);
   const inputRef = useRef(null);
+  const modalRef = useModalA11y(isOpen, () => {
+    setQuery('');
+    setSelectedTag(null);
+    onClose();
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -58,6 +64,10 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
       {isOpen && (
         <m.div
           key="instant-search-overlay"
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Instant Dish Search"
           variants={modalBackdropVariants}
           initial="hidden"
           animate="visible"

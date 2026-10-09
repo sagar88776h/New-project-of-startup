@@ -89,6 +89,7 @@ export default function FloatingCartBar() {
             whileHover={{ scale: 1.05, x: 2 }}
             whileTap={{ scale: 0.94 }}
             onClick={() => setIsCartOpen(true)}
+            aria-label="View Order Cart"
             className="btn-primary touch-target-44"
             style={{
               padding: '10px 18px',

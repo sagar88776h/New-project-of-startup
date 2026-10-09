@@ -4,11 +4,13 @@ import { X, QrCode } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { modalBackdropVariants, bottomSheetVariants } from '../../lib/motion';
+import useModalA11y from '../../hooks/useModalA11y';
 
 export default function TableSelectorModal({ isOpen, onClose }) {
   const { tableNumber, setTableNumber, showToast } = useCart();
   const { activeRestaurant } = useRestaurant();
   const { theme, settings } = activeRestaurant;
+  const modalRef = useModalA11y(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen) {
@@ -45,6 +47,10 @@ export default function TableSelectorModal({ isOpen, onClose }) {
         >
           <m.div
             key="table-selector-sheet"
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Select Dining Table"
             variants={bottomSheetVariants}
             initial="hidden"
             animate="visible"

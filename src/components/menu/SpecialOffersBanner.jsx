@@ -174,6 +174,7 @@ export default function SpecialOffersBanner({ onOpenDetail: _onOpenDetail }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => handleAddOffer(offer)}
+                  aria-label={`Claim offer ${offer.title}`}
                   className="btn-add-stepper touch-target-44"
                   style={{ padding: '5px 12px', fontSize: '0.74rem', minHeight: '36px', minWidth: '60px' }}
                 >
