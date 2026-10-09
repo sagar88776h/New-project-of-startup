@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test:smoke": "node tests/smoke.spec.mjs"
+    "test:smoke": "node tests/smoke.spec.mjs",
+    "test:e2e": "node tests/e2e.spec.mjs",
+    "check": "oxlint && vite build && node tests/e2e.spec.mjs"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
