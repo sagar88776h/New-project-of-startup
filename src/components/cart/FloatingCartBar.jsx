@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ArrowRight, Clock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -22,7 +22,7 @@ export default function FloatingCartBar() {
   return (
     <AnimatePresence>
       {totalItemsCount > 0 && (
-        <motion.div
+        <m.div
           key="floating-cart"
           initial={{ y: 80, opacity: 0, scale: 0.95 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -35,7 +35,7 @@ export default function FloatingCartBar() {
         >
           {/* Left Item Count & Subtotal */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <motion.div
+            <m.div
               key={totalItemsCount}
               initial={{ scale: 0.8, rotate: -15 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -54,7 +54,7 @@ export default function FloatingCartBar() {
               }}
             >
               <ShoppingBag size={18} />
-            </motion.div>
+            </m.div>
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -85,7 +85,7 @@ export default function FloatingCartBar() {
           </div>
 
           {/* Right View Order CTA */}
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.05, x: 2 }}
             whileTap={{ scale: 0.94 }}
             onClick={() => setIsCartOpen(true)}
@@ -101,8 +101,8 @@ export default function FloatingCartBar() {
           >
             <span>View Order</span>
             <ArrowRight size={16} />
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       )}
     </AnimatePresence>
   );

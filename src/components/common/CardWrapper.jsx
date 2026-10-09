@@ -1,9 +1,9 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function CardWrapper({ children, className = '', onClick, style = {} }) {
   return (
-    <motion.div
+    <m.div
       className={`restaurant-card ${className}`}
       onClick={onClick}
       whileHover={{
@@ -18,6 +18,6 @@ export default function CardWrapper({ children, className = '', onClick, style =
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

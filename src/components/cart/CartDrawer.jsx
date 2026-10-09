@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Trash2, ShoppingBag, Send, Plus, Minus, Clock, Edit3, MessageSquare } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -44,7 +44,7 @@ export default function CartDrawer({ onChangeTable }) {
   return (
     <AnimatePresence>
       {isCartOpen && (
-        <motion.div
+        <m.div
           key="cart-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -53,7 +53,7 @@ export default function CartDrawer({ onChangeTable }) {
           className="modal-overlay cart-overlay active"
           onClick={() => setIsCartOpen(false)}
         >
-          <motion.div
+          <m.div
             key="cart-drawer-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -90,7 +90,7 @@ export default function CartDrawer({ onChangeTable }) {
                   <h3 style={{ fontFamily: theme.fontHeading || "'Playfair Display', serif", fontSize: '1.2rem', fontWeight: 700 }}>
                     Your Table Order
                   </h3>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                     onClick={onChangeTable}
@@ -99,13 +99,13 @@ export default function CartDrawer({ onChangeTable }) {
                   >
                     <span>{tableNumber ? `Table ${tableNumber}` : 'Select Table'}</span>
                     <Edit3 size={11} />
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 {cartItems.length > 0 && (
-                  <motion.button
+                  <m.button
                     whileTap={{ scale: 0.9 }}
                     onClick={clearCart}
                     className="touch-target-44"
@@ -124,10 +124,10 @@ export default function CartDrawer({ onChangeTable }) {
                   >
                     <Trash2 size={14} />
                     <span>Clear</span>
-                  </motion.button>
+                  </m.button>
                 )}
 
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsCartOpen(false)}
@@ -147,7 +147,7 @@ export default function CartDrawer({ onChangeTable }) {
                   }}
                 >
                   <X size={18} />
-                </motion.button>
+                </m.button>
               </div>
             </div>
 
@@ -160,7 +160,7 @@ export default function CartDrawer({ onChangeTable }) {
                   <p style={{ fontSize: '0.82rem', marginBottom: '20px' }}>
                     Discover our freshly prepared chef specialties and add dishes to your order.
                   </p>
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsCartOpen(false)}
@@ -168,7 +168,7 @@ export default function CartDrawer({ onChangeTable }) {
                     style={{ padding: '10px 20px', fontSize: '0.85rem', minHeight: '44px' }}
                   >
                     Explore Menu
-                  </motion.button>
+                  </m.button>
                 </div>
               ) : (
                 <>
@@ -196,7 +196,7 @@ export default function CartDrawer({ onChangeTable }) {
                   {/* Items List */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
                     {cartItems.map(item => (
-                      <motion.div
+                      <m.div
                         layout
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -340,30 +340,30 @@ export default function CartDrawer({ onChangeTable }) {
                         {/* Stepper Controls & Price */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
                           <div className="qty-stepper-container" style={{ minHeight: '36px' }}>
-                            <motion.button
+                            <m.button
                               whileTap={{ scale: 0.85 }}
                               className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}
                               style={{ width: '32px', height: '32px' }}
                             >
                               <Minus size={11} />
-                            </motion.button>
+                            </m.button>
                             <span className="qty-stepper-val" style={{ minWidth: '22px' }}>{item.quantity}</span>
-                            <motion.button
+                            <m.button
                               whileTap={{ scale: 0.85 }}
                               className="qty-stepper-btn touch-target-44"
                               onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}
                               style={{ width: '32px', height: '32px' }}
                             >
                               <Plus size={11} />
-                            </motion.button>
+                            </m.button>
                           </div>
 
                           <span style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                             {currency}{item.totalPrice.toFixed(2)}
                           </span>
                         </div>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
 
@@ -460,7 +460,7 @@ export default function CartDrawer({ onChangeTable }) {
                   zIndex: 20,
                 }}
               >
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={placeOrder}
@@ -481,11 +481,11 @@ export default function CartDrawer({ onChangeTable }) {
                 >
                   <Send size={16} />
                   <span>PROCEED TO ORDER • {currency}{grandTotal.toFixed(2)}</span>
-                </motion.button>
+                </m.button>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

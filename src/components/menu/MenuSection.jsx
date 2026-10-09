@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import FoodCard from './FoodCard';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { fadeUp } from '../../lib/motion';
@@ -22,7 +22,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
       }}
     >
       {/* Category Header with Divider */}
-      <motion.div
+      <m.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
@@ -65,7 +65,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
         </div>
 
         {/* Clean Gradient Divider */}
-        <motion.div
+        <m.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
@@ -77,7 +77,7 @@ export default function MenuSection({ category, items, onOpenDetail }) {
             background: `linear-gradient(90deg, var(--color-primary) 0%, rgba(196, 22, 28, 0.15) 60%, transparent 100%)`,
           }}
         />
-      </motion.div>
+      </m.div>
 
       {/* Grid of Compact Dishes */}
       <div className="menu-food-grid">

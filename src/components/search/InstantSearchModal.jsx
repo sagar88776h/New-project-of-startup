@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Search, X, Plus } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -56,7 +56,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="instant-search-overlay"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -78,7 +78,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
         >
           {/* Top Search Bar */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px', width: '100%', boxSizing: 'border-box' }}>
-            <motion.div
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               style={{
@@ -114,7 +114,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                 }}
               />
               {query && (
-                <motion.button
+                <m.button
                   whileTap={{ scale: 0.85 }}
                   onClick={() => setQuery('')}
                   className="touch-target-44"
@@ -132,11 +132,11 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                   }}
                 >
                   <X size={16} />
-                </motion.button>
+                </m.button>
               )}
-            </motion.div>
+            </m.div>
 
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleClose}
@@ -159,12 +159,12 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
               }}
             >
               Cancel
-            </motion.button>
+            </m.button>
           </div>
           {/* Quick Search Tag Pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
             {popularKeywords.map(keyword => (
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 key={keyword}
@@ -183,7 +183,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                 }}
               >
                 {keyword}
-              </motion.button>
+              </m.button>
             ))}
           </div>
 
@@ -197,7 +197,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
               </div>
             ) : (
               filteredItems.map(dish => (
-                <motion.div
+                <m.div
                   key={dish.id}
                   layout
                   initial={{ opacity: 0, y: 8 }}
@@ -236,7 +236,7 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                     </div>
                   </div>
 
-                  <motion.button
+                  <m.button
                     whileTap={{ scale: 0.9 }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -261,12 +261,12 @@ export default function InstantSearchModal({ isOpen, onClose, onOpenDetail }) {
                   >
                     <Plus size={12} />
                     <span>ADD</span>
-                  </motion.button>
-                </motion.div>
+                  </m.button>
+                </m.div>
               ))
             )}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

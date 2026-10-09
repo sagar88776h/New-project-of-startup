@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Phone, Clock, Wifi, Copy, Check, MessageCircle, Utensils, ExternalLink } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -39,7 +39,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="restaurant-info-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -48,7 +48,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
           className="modal-overlay active"
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             key="restaurant-info-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -69,7 +69,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                 </h3>
               </div>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
@@ -89,7 +89,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                 }}
               >
                 <X size={18} />
-              </motion.button>
+              </m.button>
             </div>
 
             {/* Description */}
@@ -138,7 +138,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   </div>
                 </div>
 
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={handleCopyWifi}
@@ -147,7 +147,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                 >
                   {copiedWifi ? <Check size={13} /> : <Copy size={13} />}
                   <span>{copiedWifi ? 'Copied' : 'Copy Key'}</span>
-                </motion.button>
+                </m.button>
               </div>
             )}
 
@@ -189,7 +189,7 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
             {/* Social Links */}
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
               {contact?.whatsapp && (
-                <motion.a
+                <m.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
@@ -201,11 +201,11 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   <MessageCircle size={15} color="#22c55e" />
                   <span>WhatsApp</span>
                   <ExternalLink size={12} color="#9ca3af" />
-                </motion.a>
+                </m.a>
               )}
 
               {contact?.instagram && (
-                <motion.a
+                <m.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
@@ -217,11 +217,11 @@ export default function RestaurantInfoModal({ isOpen, onClose }) {
                   <InstagramIcon size={15} color="#ec4899" />
                   <span>Instagram</span>
                   <ExternalLink size={12} color="#9ca3af" />
-                </motion.a>
+                </m.a>
               )}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

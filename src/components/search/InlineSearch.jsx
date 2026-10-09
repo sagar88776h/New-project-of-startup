@@ -1,11 +1,11 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 
 export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
   return (
     <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', padding: '10px 12px 6px' }}>
-      <motion.div
+      <m.div
         whileFocus={{ scale: 1.01 }}
         style={{
           width: '100%',
@@ -42,7 +42,7 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
         />
         <AnimatePresence>
           {searchQuery && (
-            <motion.button
+            <m.button
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
@@ -64,10 +64,10 @@ export default function InlineSearch({ searchQuery, onSearchChange, onClear }) {
               }}
             >
               <X size={16} />
-            </motion.button>
+            </m.button>
           )}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

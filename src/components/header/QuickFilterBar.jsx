@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Sparkles, Flame } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 
@@ -44,7 +44,7 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
         {filters.map(f => {
           const isActive = activeFilter === f.id;
           return (
-            <motion.button
+            <m.button
               key={f.id}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
@@ -73,7 +73,7 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter }) {
             >
               {f.icon}
               <span>{f.label}</span>
-            </motion.button>
+            </m.button>
           );
         })}
       </div>

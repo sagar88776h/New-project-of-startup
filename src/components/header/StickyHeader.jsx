@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingBag, Info, BellRing, Settings, UtensilsCrossed, Sun, Moon } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
@@ -33,7 +33,7 @@ export default function StickyHeader({
   };
 
   return (
-    <motion.header
+    <m.header
       variants={fadeDown}
       initial="hidden"
       animate="visible"
@@ -55,7 +55,7 @@ export default function StickyHeader({
       <div className="header-inner-container" style={{ gap: '4px' }}>
         {/* Left: Brand Monogram & Name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0, flex: 1 }}>
-          <motion.div
+          <m.div
             whileHover={{ scale: 1.08, rotate: 5 }}
             whileTap={{ scale: 0.94 }}
             onClick={onOpenIntro}
@@ -84,7 +84,7 @@ export default function StickyHeader({
             ) : (
               <UtensilsCrossed size={15} color="var(--color-primary)" />
             )}
-          </motion.div>
+          </m.div>
 
           <div style={{ minWidth: 0, flex: 1 }}>
             <h2
@@ -104,7 +104,7 @@ export default function StickyHeader({
             >
               {activeRestaurant.name}
             </h2>
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={onChangeTable}
@@ -143,14 +143,14 @@ export default function StickyHeader({
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {tableNumber ? `Table ${tableNumber}` : 'Select Table'}
               </span>
-            </motion.button>
+            </m.button>
           </div>
         </div>
 
         {/* Right Action Icons with Accessible Hit Areas */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(2px, 1vw, 4px)', flexShrink: 0 }}>
           {/* Search Button */}
-          <motion.button
+          <m.button
             {...buttonHoverTap}
             onClick={onOpenSearch}
             aria-label="Search Dishes"
@@ -170,10 +170,10 @@ export default function StickyHeader({
             }}
           >
             <Search size={14} />
-          </motion.button>
+          </m.button>
 
           {/* Call Waiter / Service Button */}
-          <motion.button
+          <m.button
             {...buttonHoverTap}
             onClick={onOpenService}
             aria-label="Call Waiter"
@@ -194,10 +194,10 @@ export default function StickyHeader({
             }}
           >
             <BellRing size={14} />
-          </motion.button>
+          </m.button>
 
           {/* Dark / Light Theme Toggle */}
-          <motion.button
+          <m.button
             {...buttonHoverTap}
             onClick={toggleThemeMode}
             aria-label={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
@@ -218,10 +218,10 @@ export default function StickyHeader({
             }}
           >
             {themeMode === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-          </motion.button>
+          </m.button>
 
           {/* Restaurant Info Button */}
-          <motion.button
+          <m.button
             {...buttonHoverTap}
             onClick={onOpenInfo}
             aria-label="Restaurant Info"
@@ -242,11 +242,11 @@ export default function StickyHeader({
             }}
           >
             <Info size={14} />
-          </motion.button>
+          </m.button>
 
           {/* Cart Trigger (If Ordering Enabled) */}
           {settings?.orderingEnabled && (
-            <motion.button
+            <m.button
               {...buttonHoverTap}
               onClick={() => setIsCartOpen(true)}
               aria-label="Shopping Cart"
@@ -270,7 +270,7 @@ export default function StickyHeader({
               <ShoppingBag size={14} />
               <AnimatePresence>
                 {totalItemsCount > 0 && (
-                  <motion.span
+                  <m.span
                     key={totalItemsCount}
                     initial={{ scale: 0, rotate: -20 }}
                     animate={{ scale: 1, rotate: 0 }}
@@ -294,14 +294,14 @@ export default function StickyHeader({
                     }}
                   >
                     {totalItemsCount}
-                  </motion.span>
+                  </m.span>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </m.button>
           )}
 
           {/* Admin Portal */}
-          <motion.button
+          <m.button
             {...buttonHoverTap}
             onClick={onOpenAdmin}
             aria-label="Admin Dashboard"
@@ -322,9 +322,9 @@ export default function StickyHeader({
             }}
           >
             <Settings size={12} />
-          </motion.button>
+          </m.button>
         </div>
       </div>
-    </motion.header>
+    </m.header>
   );
 }

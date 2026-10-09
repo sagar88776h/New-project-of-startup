@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ChefHat, Utensils, PlusCircle, Receipt } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useRestaurant } from '../../context/RestaurantContext';
@@ -32,7 +32,7 @@ export default function OrderSuccessModal() {
   return (
     <AnimatePresence>
       {isOrderPlacedModalOpen && activeOrder && (
-        <motion.div
+        <m.div
           key="order-success-backdrop"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -41,7 +41,7 @@ export default function OrderSuccessModal() {
           className="modal-overlay active"
           onClick={() => setIsOrderPlacedModalOpen(false)}
         >
-          <motion.div
+          <m.div
             key="order-success-sheet"
             variants={bottomSheetVariants}
             initial="hidden"
@@ -55,7 +55,7 @@ export default function OrderSuccessModal() {
 
             {/* Confirmed Icon and Header */}
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <motion.div
+              <m.div
                 initial={{ scale: 0, rotate: -30 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -74,7 +74,7 @@ export default function OrderSuccessModal() {
                 }}
               >
                 <CheckCircle2 size={36} />
-              </motion.div>
+              </m.div>
 
               <h2
                 style={{
@@ -177,7 +177,7 @@ export default function OrderSuccessModal() {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOrderPlacedModalOpen(false)}
@@ -186,9 +186,9 @@ export default function OrderSuccessModal() {
               >
                 <PlusCircle size={16} />
                 <span>Order More Dishes</span>
-              </motion.button>
+              </m.button>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => {
@@ -200,10 +200,10 @@ export default function OrderSuccessModal() {
               >
                 <Receipt size={16} />
                 <span>Request Bill to Table {activeOrder.tableNumber}</span>
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useRestaurant } from '../../context/RestaurantContext';
 import { useCart } from '../../context/CartContext';
 import { modalBackdropVariants } from '../../lib/motion';
@@ -24,7 +24,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           key="welcome-intro-modal"
           variants={modalBackdropVariants}
           initial="hidden"
@@ -59,7 +59,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               zIndex: 10,
             }}
           >
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
@@ -79,11 +79,11 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               Skip ✕
-            </motion.button>
+            </m.button>
           </div>
 
           {/* Central Brand Reveal Medallion */}
-          <motion.div
+          <m.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -97,7 +97,7 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
             }}
           >
             {/* Gold Ring Medallion */}
-            <motion.div
+            <m.div
               animate={{
                 boxShadow: [
                   '0 0 25px rgba(212, 166, 74, 0.3), 0 10px 30px rgba(0, 0, 0, 0.8)',
@@ -131,10 +131,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
                   display: 'block',
                 }}
               />
-            </motion.div>
+            </m.div>
 
             {/* Brand Name */}
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -149,10 +149,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               DEVI
-            </motion.h1>
+            </m.h1>
 
             {/* Tagline */}
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.5 }}
@@ -166,10 +166,10 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               The Real Fast Food Centre
-            </motion.h2>
+            </m.h2>
 
             {/* Scan. Order. Enjoy. */}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
@@ -182,11 +182,11 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
               }}
             >
               Scan • Order • Enjoy
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
 
           {/* Table Seat Confirmation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.5 }}
@@ -199,8 +199,8 @@ export default function WelcomeIntroModal({ isOpen, onClose }) {
             }}
           >
             {tableNumber ? `Seated at Table ${tableNumber}` : 'Digital Table Ordering'}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
